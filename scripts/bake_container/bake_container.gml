@@ -56,7 +56,7 @@ baseContainer = {
 			},
 			"script": {
 				"index": lerp,		//you could use a custom function
-				"easing": 0.1	//the amount of easing (gets multiplied by delta time)
+				"easing": 0.1		//the amount of easing (gets multiplied by delta time)
 				"tpye": continuous	//check lines 12, 13, 14
 			}
 		}

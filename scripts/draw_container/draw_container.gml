@@ -388,6 +388,12 @@ function play_animation(){
 		switch (animation.type){
 		case linear:
 			animation.dir = 0;
+			
+			animation = animation.animation;
+			if (animation != -1){
+				animation.dir = 1;
+				animation.played = 0;
+			}
 			break;
 		case boomerang:
 			animation.dir *= -1 * (animation.played < 1);
@@ -441,6 +447,10 @@ function bake_animation(animation){
 	}
 	if (animation[$ "type"] == undefined){
 		animation.type = linear;
+	}
+
+	if (animation[$ "animation"] == undefined){
+		animation.animation = -1;
 	}
 
 	animation.played = 0;

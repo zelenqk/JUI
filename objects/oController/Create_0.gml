@@ -11,22 +11,22 @@ test = {
 	"halign": fa_center,
 	"valign": fa_center,
 	"background": [c_red, c_blue],
-	"textOffsetx": -80,
+	"textOffsetx": -320,
+	"outline": c_white,
 	"color": c_white,
-	"step": function(){
-		text = animation.dir;	
-	}
+	"allowSelect": true,
+	"overflow": fa_hidden,
 }
 
 var animation = {
 	"color": c_white,
-	"textOffsetx": 80,
-	"background": [c_blue, c_red],
-	"type": continuous,
-	"easing": 0.01,
+	"textOffsetx": 320,
+	"type": linear,
+	"easing": 0.005,
 	"script": function(from, to, ease){
 		return clamp(from + ease, from, to);
 	}
 }
 
+animation.animation = animation;
 test.animation = animation;

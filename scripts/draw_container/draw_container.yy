@@ -6,7 +6,7 @@
   "name":"draw_container",
   "parent":{
     "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "path":"folders/JUI/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"bake_container",
+  "%Name":"string_wrap",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"bake_container",
+  "name":"string_wrap",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/JUI/Scripts.yy",
+    "name":"util",
+    "path":"folders/JUI/util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

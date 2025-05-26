@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"bake_container",
+  "%Name":"button",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"bake_container",
+  "name":"button",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/JUI/Scripts.yy",
+    "name":"presets",
+    "path":"folders/JUI/presets.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

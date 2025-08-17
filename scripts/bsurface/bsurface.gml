@@ -31,22 +31,12 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	target = function(stack = true){
 		if (!resurface()) return;
 		
-		if (stack){
-			upper = TARGET;
-			if (TARGET != -1) surface_reset_target();
-		}
-		
 		surface_set_target(surface);
-		TARGET = self;
 	}
 	
 	reset = function(){
-		if (upper != -1) upper.target(false);
-		else if (TARGET == self){
-			surface_reset_target();
-		}
+		surface_reset_target();
 		
-		upper = -1;
 	}
 	
 	free = function(){

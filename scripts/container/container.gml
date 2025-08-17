@@ -230,17 +230,9 @@ function container(style) constructor{
 		cache.background.target();
 		draw_clear_alpha(background, 1);
 		
-		shader_set(shBorderRadius);
-		
-		shader_set_uniform_f(uRadius, target.radius.bottomRight, target.radius.topRight, target.radius.bottomLeft, target.radius.topLeft);
-		shader_set_uniform_f(uSnap, efficient.width, efficient.height);
-		shader_set_uniform_f(uSubimg, 1, 1);
-		
 		if (target.spriteXscale == -1) target.spriteXscale = efficient.width / sprite_get_width(sprite);
 		if (target.spriteYscale == -1) target.spriteYscale = efficient.height / sprite_get_height(sprite);
 		draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, background, 1);
-		
-		shader_reset();
 		
 		cache.background.reset();
 	}
@@ -263,6 +255,9 @@ function container(style) constructor{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		}
 	}
+	
+	
+	calculate();
 }
 
 function draw_content(content, mx = 0, my = 0){

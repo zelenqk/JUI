@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"get_unit",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"get_unit",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

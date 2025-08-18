@@ -14,8 +14,8 @@ function container(style) constructor{
 	direction = get_default("direction");
 	overflow = get_default("overflow");
 	aspect = get_default("aspect", auto);
-	primary = get_default("primary", auto);
-	secondary = "height";
+	primary = get_default("primary", "height");
+	secondary = "width";
 	
 	axis = {	//the axises in pixels
 		main: 0,	
@@ -169,6 +169,7 @@ function container(style) constructor{
 		case "width":
 			axis.main = target.width;
 			axis.secondary = target.height;
+			secondary = "height";
 			break;
 		case "height":
 			axis.main = target.height;
@@ -179,6 +180,7 @@ function container(style) constructor{
 			axis.main = target.width;
 			axis.secondary = target.height;
 			primary = "width";
+			secondary = "height";
 			
 			if (direction == column or direction == reverseColumn){
 				axis.main = target.height;
@@ -190,9 +192,7 @@ function container(style) constructor{
 		}
 		
 		//calculate aspect ratio
-		if (aspect != auto){
-			target[$ secondary] = target[$ primary] * aspect;
-		}
+		if (aspect != auto) target[$ secondary] = target[$ primary] * aspect;
 		
 		// target min/max
 		target.width = max(target.width, target.minimum.width);
@@ -252,11 +252,22 @@ function container(style) constructor{
 	
 	render = function(){
 		cache.background.target();
-		draw_clear_alpha(background, 1);
+		draw_clear_alpha(c_black, 0);
+		
+		shader_set(shBorderRadius);
+		
+		shader_set_uniform_f(uRadius, target.radius.topLeft, target.radius.topRight, target.radius.bottomRight, target.radius.bottomLeft);
+		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		
 		if (target.spriteXscale == -1) target.spriteXscale = efficient.width / sprite_get_width(sprite);
 		if (target.spriteYscale == -1) target.spriteYscale = efficient.height / sprite_get_height(sprite);
+		draw_sprite_stretched_ext(sPixel, 0, 0, 0, efficient.width, efficient.height, background, 1);
+		
+		shader_reset();
+		
+		gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
 		draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, background, 1);
+		gpu_set_blendmode(bm_normal);
 		
 		cache.background.reset();
 	}

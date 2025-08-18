@@ -74,9 +74,7 @@ BASE_CONTAINER = {
 
 ///SHADER UNIFORMS
 //border radius
-globalvar uRadius, uSnap, uSubimg;
+globalvar uRadius, uSize;
 
 uRadius = shader_get_uniform(shBorderRadius, "radius");
-
-uSnap = shader_get_uniform(shBorderRadius, "snap_dimensions");
-uSubimg = shader_get_uniform(shBorderRadius, "subimg_dimensions");
+uSize = shader_get_uniform(shBorderRadius, "size");

@@ -155,7 +155,9 @@ function calculate_position(efficient){
 }
 
 
-/*
+/* junk to look at when something doesnt work
+
+
 function calculate_position(element, efficient, index = 0, full = true){
 	var xoffset = element.target.margin.left;
 	var yoffset = element.target.margin.top;

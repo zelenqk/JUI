@@ -43,7 +43,7 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	}
 	
 	reset = function(){
-		if (TARGET == self) surface_reset_target();
+		if (TARGET == self)surface_reset_target();
 
 		if (upper != -1) upper.target(false);
 		else TARGET = -1;
@@ -59,7 +59,7 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		width = w;
 		height = h;
 		
-		if (resurface()) surface_resize(surface, width, height);
+		if (resurface()) surface_resize(surface, ceil(width), ceil(height));
 	}
 	
 	draw = function(tx = 0, ty = 0, w = width, h = height){

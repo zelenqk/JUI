@@ -5,18 +5,18 @@ main = new container({
 	"direction": row,
 	"overflow": fa_hidden_wrap,
 	"padding": 24,
-	"radius": 32,
-	"aspect": 1,
+	"radius": "50%",
 	"gap": auto_first,
+	"aspect": 1,
 });
 
 var child = {
-	"width": "12%",
-	"height": "12%",
+	"height": "24%",
+	"aspect": 1,
 	"image": 1,
 }
 
-repeat(12){
+repeat(16){
 	var element = new container(child);
 	main.add(element);
 }

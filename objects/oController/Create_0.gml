@@ -3,16 +3,16 @@ main = new container({
 	"height": "50%",
 	"background": c_red,
 	"direction": row,
-	"overflow": fa_hidden_wrap,
-	"padding": 24,
-	"radius": "50%",
+	"padding": 64,
+	"radius": "10%",
 	"gap": auto_first,
-	"aspect": 1,
+	"display": flex,
 });
 
 var child = {
 	"height": "24%",
 	"aspect": 1,
+	"radius": "100%",
 	"image": 1,
 }
 

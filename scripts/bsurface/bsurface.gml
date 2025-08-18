@@ -56,8 +56,8 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	}
 	
 	resize = function(w, h){
-		width = w;
-		height = h;
+		width = w + 1;
+		height = h + 1;
 		
 		if (resurface()) surface_resize(surface, ceil(width), ceil(height));
 	}

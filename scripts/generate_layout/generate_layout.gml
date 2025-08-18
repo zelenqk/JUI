@@ -1,7 +1,7 @@
 function generate_layout(){
 	
 	//positioning
-	var efficient = {
+	var eff = {
 		"width": 0,
 		"height": 0,
 		"x": 0,
@@ -16,18 +16,30 @@ function generate_layout(){
 	}
 	
 	//create the first line
-	efficient.lines[efficient.line] = new line_properties(efficient.lWidth, efficient.lHeight);
+	eff.lines[eff.line] = new line_properties(eff.lWidth, eff.lHeight);
 	
 	if (direction == reverseColumn or direction == reverseRow) recurse_array_reverse(content, calculate_lines, efficient);
-	else recurse_array(content, calculate_lines, efficient);
-	
-	calculate_position(efficient);
+	else recurse_array(content, calculate_lines, eff);
 	
 	//flexing B)
 	if (display == flex){
-		self.efficient.width = efficient.width;
-		self.efficient.height = efficient.height;
+		self.efficient.width = eff.twidth + target.padding.left + target.padding.right;
+		self.efficient.height = eff.theight + target.padding.top + target.padding.bottom;
+		
+		// efficient min/max
+		self.efficient.width = max(self.efficient.width, target.minimum.width);
+		self.efficient.height = max(self.efficient.height, target.minimum.height);
+		
+		self.efficient.width = min(self.efficient.width, target.maximum.width);
+		self.efficient.height = min(self.efficient.height, target.maximum.height);
+		
+		cache.background.resize(self.efficient.width, self.efficient.height);
+		cache.overflow.resize(self.efficient.width, self.efficient.height);
+		
+		render();
 	}
+	
+	calculate_position(eff);
 }
 
 function line_properties(w = 0, h = 0) constructor{
@@ -104,6 +116,7 @@ function calculate_position(efficient){
 	var twidth = 0;
 	var theight = 0;
 	var linesN = array_length(efficient.lines);
+	var wrap = (overflow == fa_wrap or overflow == fa_hidden_wrap);
 	
 	for(var i = 0; i < linesN; i++){
 		var line = efficient.lines[i];
@@ -111,7 +124,7 @@ function calculate_position(efficient){
 		
 		var col = (direction == column or direction == reverseColumn);
 		
-		var isAuto = (gap.left.value == auto or gap.top.value == auto) or ((gap.top.value == auto_first or gap.left.value == auto_first) and i == 0);
+		var isAuto = wrap and ((gap.left.value == auto or gap.top.value == auto) or ((gap.top.value == auto_first or gap.left.value == auto_first) and i == 0));
 		
 		if (isAuto){
 			if (!col) target.gap.left = (line.free.width / (elms - 1));

@@ -14,7 +14,7 @@ function container(style) constructor{
 	direction = get_default("direction");
 	overflow = get_default("overflow");
 	aspect = get_default("aspect", auto);
-	primary = get_default("primary", "width");
+	primary = get_default("primary", auto);
 	secondary = "height";
 	
 	axis = {	//the axises in pixels
@@ -59,7 +59,7 @@ function container(style) constructor{
 		assign_parent(element)
 		array_insert(content, index * array_length(content), element);
 		
-		calculate();
+		dirty = true;
 	}
 	
 	
@@ -178,6 +178,7 @@ function container(style) constructor{
 		default:
 			axis.main = target.width;
 			axis.secondary = target.height;
+			primary = "width";
 			
 			if (direction == column or direction == reverseColumn){
 				axis.main = target.height;
@@ -202,19 +203,19 @@ function container(style) constructor{
 		
 		//styling dimensions
 		target.margin.left = calculate_value(margin.left, target.width);
-		target.margin.right = calculate_value(margin.left, target.width);
-		target.margin.top = calculate_value(margin.left, target.height);
-		target.margin.bottom = calculate_value(margin.left, target.height);
+		target.margin.right = calculate_value(margin.right, target.width);
+		target.margin.top = calculate_value(margin.top, target.height);
+		target.margin.bottom = calculate_value(margin.bottom, target.height);
 		
 		target.padding.left = calculate_value(padding.left, target.width);
-		target.padding.right = calculate_value(padding.left, target.width);
-		target.padding.top = calculate_value(padding.left, target.height);
-		target.padding.bottom = calculate_value(padding.left, target.height);
+		target.padding.right = calculate_value(padding.right, target.width);
+		target.padding.top = calculate_value(padding.top, target.height);
+		target.padding.bottom = calculate_value(padding.bottom, target.height);
 		
 		target.gap.left = calculate_value(gap.left, target.width);
-		target.gap.right = calculate_value(gap.left, target.width);
-		target.gap.top = calculate_value(gap.left, target.height);
-		target.gap.bottom = calculate_value(gap.left, target.height);	
+		target.gap.right = calculate_value(gap.right, target.width);
+		target.gap.top = calculate_value(gap.top, target.height);
+		target.gap.bottom = calculate_value(gap.bottom, target.height);	
 		
 		//calculate radius
 		target.radius.topLeft = calculate_radius(radius.topLeft, axis.main);
@@ -262,7 +263,6 @@ function container(style) constructor{
 	
 	draw = function(tx = 0, ty = 0){
 		if (dirty) calculate();
-		
 		cache.background.draw(x + tx, y + ty, opacity);
 		
 		if (overflow == fa_hidden or overflow == fa_hidden_wrap){

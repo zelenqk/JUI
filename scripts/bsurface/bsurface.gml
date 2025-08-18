@@ -29,14 +29,26 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	}
 	
 	target = function(stack = true){
-		if (!resurface()) return;
+		if (stack){
+			if (TARGET != -1){
+				upper = TARGET;
+				surface_reset_target();
+			}
+		}
 		
-		surface_set_target(surface);
+		if (resurface()){
+			surface_set_target(surface);
+			TARGET = self;
+		}
 	}
 	
 	reset = function(){
-		surface_reset_target();
+		if (TARGET == self) surface_reset_target();
+
+		if (upper != -1) upper.target(false);
+		else TARGET = -1;
 		
+		upper = -1;
 	}
 	
 	free = function(){

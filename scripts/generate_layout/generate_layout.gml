@@ -5,10 +5,19 @@ function generate_layout(){
 		"height": 0,
 		"x": 0,
 		"y": 0,
+		"twidth": 0,	//total width
+		"theight": 0,	//total height
+		"peraxis": 0,
 	}
 	
-	if (direction == reverseColumn or direction == reverseRow) calculate_content(content, e);
-	else calculate_content_reverse(content, e);
+	calculate_content(content, e);
+	
+	if (gap == auto){
+		calculate_content_position(content, e);	
+	}
+	
+	if (direction == reverseColumn or direction == reverseRow) calculate_content_position_reverse(content, e);
+	else calculate_content_position(content, e);
 	
 	//flexing B)
 	if (display == flex){
@@ -27,12 +36,24 @@ function calculate_content(content, efficient, index = 0){
 		if (is_array(element)) calculate_content(element, efficient, index + i);
 		else{
 			element.calculate();
+		}
+	}
+}
+
+function calculate_content_position(content, efficient, index = 0){
+	var contentLength = array_length(content)
+	
+	for(var i = 0; i < contentLength; i++){
+		var element = content[i];
+		
+		if (is_array(element)) calculate_content(element, efficient, index + i);
+		else{
 			calculate_position(element, efficient, index + i);
 		}
 	}
 }
 
-function calculate_content_reverse(content, efficient, index = 0){
+function calculate_content_position_reverse(content, efficient, index = 0){
 	var contentLength = array_length(content)
 	
 	for(var i = contentLength - 1; i >= 0 ; i--){
@@ -40,7 +61,6 @@ function calculate_content_reverse(content, efficient, index = 0){
 		
 		if (is_array(element)) calculate_content(element, efficient, index + ( contentLength - 1 - i));
 		else{
-			element.calculate();
 			calculate_position(element, efficient, index + ( contentLength - 1 - i));
 		}
 	}
@@ -93,7 +113,6 @@ function calculate_position(element, efficient, index = 0){
 			if (efficient.x + twidth > self.target.width){
 				efficient.x = 0;
 				efficient.y += efficient.height + target.gap.top;
-				efficient.height = 0;
 				
 				element.x = efficient.x + xoffset;
 				element.y = efficient.y + yoffset;
@@ -112,4 +131,7 @@ function calculate_position(element, efficient, index = 0){
 		}
 		break;
 	}
+	
+	efficient.twidth = max(efficient.twidth, element.x + element.efficient.width);
+	efficient.theight = max(efficient.theight, element.y + element.efficient.height);
 }

@@ -5,6 +5,7 @@
 #macro fixed 0
 #macro flex 1
 #macro auto -1
+#macro auto_first -2
 
 //position
 //fixed

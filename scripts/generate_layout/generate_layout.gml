@@ -1,99 +1,159 @@
-function line_properties() constructor{
-	width = 0;
-	height = 0;
-	
-	elements = 0;
-	
-	gap = {
-		left: 0,
-		top: 0,
-	}	
-}
-
 function generate_layout(){
+	
 	//positioning
-	var e = {	//original efficient width/height
+	var efficient = {
 		"width": 0,
 		"height": 0,
 		"x": 0,
 		"y": 0,
-		"lines": [new line_properties()],
+		"lines": [],
 		"line": 0,
+		"lWidth": (direction == column or direction == reverseColumn) ? infinity : target.width,
+		"lHeight": !(direction == column or direction == reverseColumn) ? infinity : target.width,
+	
+		"twidth": 0,	//total width
+		"theight": 0,	//total height
 	}
 	
-	if (target.gap.left == auto or target.gap.top == auto){
-		if (direction == reverseColumn or direction == reverseRow) recurse_array_reverse(content, calculate_lines, e);
-		else recurse_array(content, calculate_lines, e);
-	}
+	//create the first line
+	efficient.lines[efficient.line] = new line_properties(efficient.lWidth, efficient.lHeight);
 	
-	if (direction == reverseColumn or direction == reverseRow) calculate_content_position_reverse(content, e);
-	else calculate_content_position(content, e);
+	if (direction == reverseColumn or direction == reverseRow) recurse_array_reverse(content, calculate_lines, efficient);
+	else recurse_array(content, calculate_lines, efficient);
+	
+	calculate_position(efficient);
 	
 	//flexing B)
 	if (display == flex){
-		efficient.width = e.width;
-		efficient.height = e.height;
+		self.efficient.width = efficient.width;
+		self.efficient.height = efficient.height;
 	}
 }
 
-
-
-function calculate_position(element, efficient, index = 0, wrapOnly){
-	var xoffset = element.target.margin.left;
-	var yoffset = element.target.margin.top;
+function line_properties(w = 0, h = 0) constructor{
+	x = 0;
+	y = 0;
 	
-	element.x = efficient.x + xoffset;
-	element.y = efficient.y + yoffset;
-
-	var line = efficient.lines[efficient.line % array_length(efficient.lines)];
-	var wrap = (overflow == fa_wrap or overflow == fa_hidden_wrap);
-
-	var twidth = element.efficient.width + element.target.margin.left + element.target.margin.right;
-	var theight = element.efficient.height + element.target.margin.top + element.target.margin.bottom;
+	width = 0;
+	height = 0;
 	
-	if (wrapOnly) line.elements++;
+	target = {
+		width: w,
+		height: h,
+	}
+	
+	free = {
+		width: 0,
+		height: 0,
+	}
+	
+	elements = [];
+	
+	add = function(element, force = false){
+		var twidth = element.efficient.width + element.target.margin.left + element.target.margin.right;
+		var theight = element.efficient.height + element.target.margin.top + element.target.margin.bottom;
+		
+		if (!force and (width + twidth > target.width or height + theight > target.height)) return false
+		
+		array_push(elements, element);
+		
+		if (target.width != infinity){
+			width += twidth;
+			free.width = target.width - width;
+			
+			height = max(height, element.efficient.height);
+		}else{
+			height += theight;
+			free.height = target.height - height;
+			
+			width = max(width, element.efficient.width);
+		}
+		
+		return true;
+		
+	}
+}
+
+function calculate_lines(element, efficient){
+	var line = efficient.lines[efficient.line];
+	var added = line.add(element, !(overflow == fa_wrap or overflow == fa_hidden_wrap));
+	
+	if (!added){
+		efficient.line++
+		efficient.lines[efficient.line] = new line_properties(efficient.lWidth, efficient.lHeight);
+		
+		line = efficient.lines[efficient.line];
+		line.add(element, true);
+	}
 	
 	switch (direction){
 	case column:
-		if (wrap){
-			if (target.gap.top == auto) target.gap.top = line.gap.top; 
+	case reverseColumn:
+		efficient.theight = max(efficient.theight, line.height);
+		efficient.twidth += line.width;
+		break;
+	case row:
+	case reverseRow:
+		efficient.twidth = max(efficient.twidth, line.width);
+		efficient.theight += line.height;
+		break;
+	}
+}
+
+function calculate_position(efficient){
+	var twidth = 0;
+	var theight = 0;
+	var linesN = array_length(efficient.lines);
+	
+	for(var i = 0; i < linesN; i++){
+		var line = efficient.lines[i];
+		var elms = array_length(line.elements);
+		
+		var col = (direction == column or direction == reverseColumn);
+		
+		var isAuto = (gap.left.value == auto or gap.top.value == auto) or ((gap.top.value == auto_first or gap.left.value == auto_first) and i == 0);
+		
+		if (isAuto){
+			if (!col) target.gap.left = (line.free.width / (elms - 1));
+			if (col) target.gap.top = (line.free.height / (elms));
+		}
+
+		if (isAuto){
+			if (col) target.gap.left = target.gap.top ;
+			if (!col) target.gap.top = target.gap.left;
+		}
+		
+		for(var u = 0; u < elms; u++){
+			var element = line.elements[u];
 			
-			if (element.y + element.efficient.height > target.height){
-				efficient.x += line.width + target.gap.left;
-				efficient.y = 0;
+			switch (direction){
+			case column:
+			case reverseColumn:
+				element.x = twidth;
+				element.y = theight + element.target.margin.top;
 				
-				if (wrapOnly) line.elements--;
+				theight += element.efficient.height + target.gap.top;
+				break;
+			case row:
+			case reverseRow:
+				element.x = twidth + element.target.margin.left;
+				element.y = theight;
 				
-				efficient.line++;
-				
-				if (wrapOnly) array_push(efficient.lines, new line_properties());
-				line = efficient.lines[efficient.line % array_length(efficient.lines)];
-				
-				element.x = efficient.x + xoffset;
-				element.y = efficient.y + yoffset;
+				twidth += element.efficient.width + target.gap.left;
+				break;
 			}
 		}
 		
-		efficient.y += theight + target.gap.top;
-		
-		line.width = max(line.width, twidth);
-		line.height = efficient.y;
-		
-		if (wrap and efficient.y >= self.target.height){
-			line.height -= theight + target.gap.top;
-			efficient.line++;
-			
-			if (wrapOnly) efficient.lines[efficient.line] = new line_properties();
-			
-			efficient.y = 0;
-			efficient.x += line.width + target.gap.left;
+		if (direction == column or direction == reverseColumn){
+			twidth += line.width + target.gap.left;
+			theight = 0;
+		}else{
+			theight += line.height + target.gap.top;
+			twidth = 0;
 		}
-		break;
 	}
-	
-	
-	
 }
+
 
 /*
 function calculate_position(element, efficient, index = 0, full = true){

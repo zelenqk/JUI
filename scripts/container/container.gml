@@ -13,6 +13,9 @@ function container(style) constructor{
 	display = get_default("display");
 	direction = get_default("direction");
 	overflow = get_default("overflow");
+	aspect = get_default("aspect", auto);
+	primary = get_default("primary", "width");
+	secondary = "height";
 	
 	axis = {	//the axises in pixels
 		main: 0,	
@@ -161,6 +164,35 @@ function container(style) constructor{
 		target.width = calculate_value(width, parent.target.width);
 		target.height = calculate_value(height, parent.target.height);
 		
+		//find main axis
+		switch (primary){
+		case "width":
+			axis.main = target.width;
+			axis.secondary = target.height;
+			break;
+		case "height":
+			axis.main = target.height;
+			axis.secondary = target.width;
+			secondary = "width";
+			break;
+		default:
+			axis.main = target.width;
+			axis.secondary = target.height;
+			
+			if (direction == column or direction == reverseColumn){
+				axis.main = target.height;
+				axis.secondary = target.width;
+				primary = "height";
+				secondary = "width";
+			}
+			break;
+		}
+		
+		//calculate aspect ratio
+		if (aspect != auto){
+			target[$ secondary] = target[$ primary] * aspect;
+		}
+		
 		// target min/max
 		target.width = max(target.width, target.minimum.width);
 		target.height = max(target.height, target.minimum.height);
@@ -211,15 +243,6 @@ function container(style) constructor{
 		//update cache
 		cache.background.resize(efficient.width, efficient.height);
 		cache.overflow.resize(efficient.width, efficient.height);
-		
-		//find main axis
-		axis.main = efficient.width;
-		axis.secondary = efficient.height;
-		
-		if (direction == column or direction == reverseColumn){
-			axis.main = efficient.height;
-			axis.secondary = efficient.width;
-		}
 		
 		generate_layout();
 		

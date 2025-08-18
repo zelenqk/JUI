@@ -4,9 +4,10 @@ main = new container({
 	"background": c_red,
 	"direction": row,
 	"overflow": fa_hidden_wrap,
-	"gap": "12.5sw",
+	"gap": "12.5tw",
 	"padding": 24,
 	"radius": 32,
+	"aspect": 1,
 });
 
 var child = {

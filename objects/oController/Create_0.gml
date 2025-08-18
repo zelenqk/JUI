@@ -2,7 +2,6 @@ main = new container({
 	"width": 300,
 	"height": "50%",
 	"background": c_red,
-	"direction": row,
 	"overflow": fa_hidden_wrap,
 	"padding": 24,
 	"radius": 32,
@@ -14,6 +13,7 @@ var child = {
 	"width": "25%",
 	"height": "25%",
 	"image": 1,
+	"margin": 1,
 }
 
 repeat(9){

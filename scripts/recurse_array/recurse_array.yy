@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"recurse_array",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"recurse_array",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -6,8 +6,18 @@ main = new container({
 	"overflow": fa_wrap,
 	"radius": "10%",
 	"padding": 12,
+	"gap": 3,
 	"display": flex,
 });
+
+var bg = new container({
+	"width": "100%",
+	"height": "100%",
+	"background": c_blue,
+	"position": fixed,
+});
+
+main.add(bg);
 
 var child = {
 	"height": "24%",

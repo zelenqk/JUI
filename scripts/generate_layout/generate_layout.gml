@@ -1,8 +1,8 @@
 function generate_layout(){
 	var wrap = (overflow == fa_wrap or overflow == fa_hidden_wrap);
-	var layout = new layout_container(direction, target.width, target.height, wrap);
+	var layout = new layout_container(direction, target.width, target.height, wrap, self);
 	
-	calculate_content(content);
+	calculate_content(content, 0, relative);
 	
 	if (direction == reverseColumn or direction == reverseRow) recurse_array_reverse(content, layout.calculate, 0)
 	else recurse_array(content, layout.calculate, 0);
@@ -23,15 +23,19 @@ function generate_layout(){
 	}
 	
 	if (display == flex){
-		efficient.width = layout.width + target.padding.left + target.padding.right;
-		efficient.height = layout.height + target.padding.top + target.padding.bottom;
+		target.width = layout.width - target.gap.left;
+		target.height = layout.height - target.gap.top;
 	}
+	
+	calculate_content(content, 0, fixed);
 }
 
-function layout_container(dir, mwidth, mheight, wrap) constructor{
+function layout_container(dir, mwidth, mheight, wrap, parent) constructor{
 	direction = dir;
 	width = 0;
 	height = 0;
+	
+	self.parent = parent;
 	
 	x = 0;
 	y = 0;
@@ -40,7 +44,7 @@ function layout_container(dir, mwidth, mheight, wrap) constructor{
 	self.mwidth = mwidth;
 	self.mheight = mheight;
 	
-	lines = [new line_container(direction, x, y, mwidth, mheight, wrap)];
+	lines = [new line_container(direction, x, y, mwidth, mheight, wrap, parent)];
 	line = lines[0];
 
 	calculate = function(element){
@@ -66,7 +70,7 @@ function layout_container(dir, mwidth, mheight, wrap) constructor{
 				break;
 			}
 			
-			line = new line_container(direction, x, y, mwidth, mheight, wrap)
+			line = new line_container(direction, x, y, mwidth, mheight, wrap, parent)
 			array_push(lines, line);
 			
 			line.add(element, true);
@@ -74,11 +78,13 @@ function layout_container(dir, mwidth, mheight, wrap) constructor{
 	}
 }
 
-function line_container(dir, tx, ty, mwidth, mheight, wrap) constructor{
+function line_container(dir, tx, ty, mwidth, mheight, wrap, parent) constructor{
 	x = tx;
 	y = ty;
 	width = 0;
 	height = 0;
+	
+	self.parent = parent;
 	
 	maximum = {
 		width: mwidth,
@@ -90,8 +96,8 @@ function line_container(dir, tx, ty, mwidth, mheight, wrap) constructor{
 	direction = dir;
 	
 	add = function(element){
-		var twidth = element.efficient.width;
-		var theight = element.efficient.height;
+		var twidth = element.efficient.width + parent.target.gap.left;
+		var theight = element.efficient.height + parent.target.gap.top;
 		
 		switch (direction){
 		case row:
@@ -107,7 +113,7 @@ function line_container(dir, tx, ty, mwidth, mheight, wrap) constructor{
 		case reverseColumn:
 			if (wrap and (height + theight > maximum.height)) return false;
 			element.x = x;
-			element.y = height;
+			element.y = height
 
 			height += theight;
 			width = max(width, twidth);

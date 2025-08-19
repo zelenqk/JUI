@@ -148,7 +148,7 @@ function container(style) constructor{
 		"overflow": new bsurface(),
 	}
 	
-	calculate = function(parent = self.parent){
+	calculate = function(layout = true){
 		target.width = GUIW;
 		target.height = GUIH;
 		
@@ -222,12 +222,13 @@ function container(style) constructor{
 		target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
 		
+		if (layout) generate_layout();
+		
 		//calculate efficient width
 		efficient.width = target.width + target.padding.left + target.padding.right;
 		efficient.height = target.height + target.padding.top + target.padding.bottom;
 		
-		if (instance != -1) instance.width = efficient.width;
-		if (instance != -1) instance.height = efficient.height;
+
 		
 		// efficient min/max
 		efficient.width = max(efficient.width, target.minimum.width);
@@ -236,11 +237,12 @@ function container(style) constructor{
 		efficient.width = min(efficient.width, target.maximum.width);
 		efficient.height = min(efficient.height, target.maximum.height);
 		
+		if (instance != -1) instance.width = efficient.width;
+		if (instance != -1) instance.height = efficient.height;
+		
 		//calculate sprite scale
 		target.spriteXscale = (spriteXscale.unit == UNIT.PERCENT) ? calculate_value(spriteXscale, efficient.width / sprite_get_width(sprite)) :  calculate_value(spriteXscale, 0);
 		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
-		
-		generate_layout();
 		
 		//update cache
 		cache.background.resize(efficient.width, efficient.height);

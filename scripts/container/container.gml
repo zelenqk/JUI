@@ -244,7 +244,7 @@ function container(style) constructor{
 		
 		//update cache
 		cache.background.resize(efficient.width, efficient.height);
-		cache.overflow.resize(efficient.width, efficient.height);
+		if (overflow == fa_hidden_wrap or overflow == fa_hidden) cache.overflow.resize(efficient.width, efficient.height);
 		
 		render();
 	}

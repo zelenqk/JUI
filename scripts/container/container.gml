@@ -32,8 +32,8 @@ function container(style) constructor{
 	}
 	
 	maximum = {}
-	maximum.width = get_unit(get_default("maxWidth", infinity));
-	maximum.height = get_unit(get_default("maxHeight", infinity));
+	maximum.width = get_unit(get_default("maxWidth", GUIW));
+	maximum.height = get_unit(get_default("maxHeight", GUIH));
 	
 	//background
 	background = get_default("background");
@@ -56,9 +56,8 @@ function container(style) constructor{
 	add = function(element, index = 1){
 		if (!is_array(content)) content = [content];
 		
-		assign_parent(element)
+		assign_parent(element, self);
 		array_insert(content, index * array_length(content), element);
-		
 		dirty = true;
 	}
 	
@@ -149,7 +148,7 @@ function container(style) constructor{
 		"overflow": new bsurface(),
 	}
 	
-	calculate = function(){
+	calculate = function(parent = self.parent){
 		target.width = GUIW;
 		target.height = GUIH;
 		
@@ -241,11 +240,11 @@ function container(style) constructor{
 		target.spriteXscale = (spriteXscale.unit == UNIT.PERCENT) ? calculate_value(spriteXscale, efficient.width / sprite_get_width(sprite)) :  calculate_value(spriteXscale, 0);
 		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
 		
+		generate_layout();
+		
 		//update cache
 		cache.background.resize(efficient.width, efficient.height);
 		cache.overflow.resize(efficient.width, efficient.height);
-		
-		generate_layout();
 		
 		render();
 	}
@@ -270,6 +269,8 @@ function container(style) constructor{
 		gpu_set_blendmode(bm_normal);
 		
 		cache.background.reset();
+		
+		dirty = false;
 	}
 	
 	draw = function(tx = 0, ty = 0){
@@ -305,14 +306,14 @@ function draw_content(content, mx = 0, my = 0){
 	}
 }
 
-function assign_parent(element){
+function assign_parent(element, parent){
 	if (!is_array(element)){
-		element.parent = self;
+		element.parent = parent;
 		return;
 	}
 	
 	var contentLength = array_length(element);
 	for(var i = 0; i < contentLength; i++){
-		assign_parent(element);
+		assign_parent(element[i], parent);
 	}
 }

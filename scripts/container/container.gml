@@ -133,7 +133,9 @@ function container(style) constructor{
 		maximum: {
 			width: 0,
 			height: 0,
-		}
+		},
+		
+		aa: 0,
 	};
 	
 	efficient = {
@@ -228,8 +230,6 @@ function container(style) constructor{
 		efficient.width = target.width + target.padding.left + target.padding.right;
 		efficient.height = target.height + target.padding.top + target.padding.bottom;
 		
-
-		
 		// efficient min/max
 		efficient.width = max(efficient.width, target.minimum.width);
 		efficient.height = max(efficient.height, target.minimum.height);
@@ -245,7 +245,10 @@ function container(style) constructor{
 		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
 		
 		//update cache
-		cache.background.resize(efficient.width, efficient.height);
+		//var aa = 12;
+		//target.aa = aa * (target.radius.topLeft != 0 or target.radius.topRight != 0 or target.radius.bottomLeft != 0 or target.radius.bottomRight != 0);
+
+		cache.background.resize(efficient.width , efficient.height);
 		if (overflow == fa_hidden_wrap or overflow == fa_hidden) cache.overflow.resize(efficient.width, efficient.height);
 		
 		render();
@@ -282,12 +285,18 @@ function container(style) constructor{
 		if (overflow == fa_hidden or overflow == fa_hidden_wrap){
 			cache.overflow.target(){
 				draw_clear_alpha(c_black, 0);
+				
 				draw_content(content, target.padding.left, target.padding.top);	
+				
+				gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
+				cache.background.draw(0, 0);
+				gpu_set_blendmode(bm_normal);
+			
 			}
 			
 			cache.overflow.reset();
 			
-			cache.overflow.draw();
+			cache.overflow.draw(x + tx, y + ty);
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		}

@@ -3,9 +3,8 @@ main = new container({
 	"height": "50%",
 	"background": c_red,
 	"direction": row,
-	"overflow": fa_wrap,
-	"radius": "10%",
-	"padding": 12,
+	"overflow": fa_hidden_wrap,
+	"radius": "12%",
 	"gap": 3,
 	"display": flex,
 });
@@ -17,7 +16,6 @@ var bg = new container({
 	"position": fixed,
 });
 
-main.add(bg);
 
 var child = {
 	"height": "24%",
@@ -29,6 +27,8 @@ repeat(4){
 	var element = new container(child);
 	main.add(element);
 }
+
+main.add(bg, 0);
 
 
 

@@ -59,7 +59,10 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		width = w;
 		height = h;
 		
-		if (resurface()) surface_resize(surface, width, height);
+		if (w == 0) width = 1;
+		if (h == 0) height = 1;
+
+		if (resurface()) surface_resize(surface, round(width), round(height));
 	}
 	
 	draw = function(tx = 0, ty = 0, w = width, h = height){

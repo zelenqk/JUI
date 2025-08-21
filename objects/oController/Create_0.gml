@@ -1,4 +1,13 @@
 main = new container({
+	"background": c_red,
+	"display": flex,
+	"padding": 6,
+	"text": "hello, world!",
+})
+
+
+/*
+main = new container({
 	"width": 600,
 	"height": "50%",
 	"background": c_red,

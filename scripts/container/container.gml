@@ -17,6 +17,9 @@ function container(style) constructor{
 	primary = get_default("primary", "height");
 	secondary = "width";
 	
+	text = get_default("text", "");
+	if (text != "") text = new btext(text);
+	
 	axis = {	//the axises in pixels
 		main: 0,	
 		secondary: 0,
@@ -218,6 +221,8 @@ function container(style) constructor{
 		target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
 		
+		if (text != "") text.calculate();
+		
 		if (layout) generate_layout();
 		
 		//calculate efficient width
@@ -294,10 +299,9 @@ function container(style) constructor{
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		}
+		
+		if (text != "") text.draw();
 	}
-	
-	
-	calculate();
 }
 
 function draw_content(content, mx = 0, my = 0){

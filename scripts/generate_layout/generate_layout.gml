@@ -27,6 +27,11 @@ function generate_layout(){
 	if (display == flex){
 		target.width = layout.width - target.gap.left;
 		target.height = layout.height - target.gap.top;
+		
+		if (text != ""){
+			target.width = max(target.width, text.width);
+			target.height = max(target.height, text.height);
+		}
 	}
 	
 	calculate_content(content, 0, fixed);

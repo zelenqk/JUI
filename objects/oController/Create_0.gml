@@ -1,11 +1,11 @@
 main = new container({
-	"width": 300,
+	"width": 600,
 	"height": "50%",
 	"background": c_red,
 	"direction": row,
 	"overflow": fa_hidden_wrap,
 	"radius": "12%",
-	"gap": 3,
+	"gap": 12,
 	"display": flex,
 });
 
@@ -23,12 +23,9 @@ var child = {
 	"image": 1,
 }
 
-repeat(4){
+repeat(12){
 	var element = new container(child);
 	main.add(element);
 }
 
 main.add(bg, 0);
-
-
-

@@ -22,6 +22,8 @@ function generate_layout(){
 		break;
 	}
 	
+	if (target.gap == auto) layout.update()
+	
 	if (display == flex){
 		target.width = layout.width - target.gap.left;
 		target.height = layout.height - target.gap.top;
@@ -75,6 +77,10 @@ function layout_container(dir, mwidth, mheight, wrap, parent) constructor{
 			
 			line.add(element, true);
 		}
+	}
+	
+	update = function(){
+			
 	}
 }
 

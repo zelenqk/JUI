@@ -71,6 +71,15 @@ BASE_CONTAINER = {
 	"radiusBottomRight": 0,
 }
 
+//Font shit
+globalvar FONT_SIZES;
+FONT_SIZES = [];
+
+var i = 0;
+while (font_exists(i)){
+	FONT_SIZES[i] = font_get_size(i);
+	i++;
+}
 
 ///SHADER UNIFORMS
 //border radius

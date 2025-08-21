@@ -36,9 +36,11 @@
   },
   "name":"JUI",
   "resources":[
+    {"id":{"name":"fntMain","path":"fonts/fntMain/fntMain.yy",},},
     {"id":{"name":"oController","path":"objects/oController/oController.yy",},},
     {"id":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
     {"id":{"name":"bsurface","path":"scripts/bsurface/bsurface.yy",},},
+    {"id":{"name":"btext","path":"scripts/btext/btext.yy",},},
     {"id":{"name":"calculate_content","path":"scripts/calculate_content/calculate_content.yy",},},
     {"id":{"name":"calculate_value","path":"scripts/calculate_value/calculate_value.yy",},},
     {"id":{"name":"container","path":"scripts/container/container.yy",},},

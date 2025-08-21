@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"btext",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"btext",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

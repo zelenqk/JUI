@@ -85,10 +85,8 @@ function container(style) constructor{
 	}
 	
 	gap = {
-		left: get_unit(get_default("gapLeft", get_default("gapHorizontal", get_default("gap")))),
-		right: get_unit(get_default("gapRight", get_default("gapHorizontal", get_default("gap")))),
-		top: get_unit(get_default("gapTop", get_default("gapVertical", get_default("gap")))),
-		bottom: get_unit(get_default("gapBottom", get_default("gapVertical", get_default("gap")))),
+		left: get_unit(get_default("gapLeft", get_default("gap"))),
+		top: get_unit(get_default("gapTop", get_default("gap"))),
 	}
 	
 	target = {
@@ -112,9 +110,7 @@ function container(style) constructor{
 		
 		gap: {
 			left: 0,
-			right: 0,
 			top: 0,
-			bottom: 0,
 		},
 		
 		//
@@ -193,7 +189,7 @@ function container(style) constructor{
 		}
 		
 		//calculate aspect ratio
-		if (aspect != auto) target[$ secondary] = target[$ primary] * aspect;
+		if (aspect != auto) target[$ secondary] = target[$ primary] / aspect;
 		
 		// target min/max
 		target.width = max(target.width, target.minimum.width);
@@ -214,9 +210,7 @@ function container(style) constructor{
 		target.padding.bottom = calculate_value(padding.bottom, target.height);
 		
 		target.gap.left = calculate_value(gap.left, target.width);
-		target.gap.right = calculate_value(gap.right, target.width);
 		target.gap.top = calculate_value(gap.top, target.height);
-		target.gap.bottom = calculate_value(gap.bottom, target.height);	
 		
 		//calculate radius
 		target.radius.topLeft = calculate_radius(radius.topLeft, axis.main);

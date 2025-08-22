@@ -20,16 +20,17 @@ function btext(text, w = infinity) constructor{
 	}
 	
 	calculate = function(){
-		var sep = fontSize * style.lineSeparation;
+		var sep = FONT_SIZES[font] * style.lineSeparation;
 		var w = maximum / fontScale;
 		
-		width = string_width_ext(text, sep, w);
-		height = string_height_ext(text, sep, w);	
+		draw_set_font(font);
+		width = string_width_ext(text, sep, w) * fontScale;
+		height = string_height_ext(text, sep, w) * fontScale;	
 		
 		if (width > maximum){
 			for(var i = 0; i < array_length(splitted); i++){
 				var t = splitted[i];
-				width = max(width, string_width(t));
+				width = max(width, string_width(t) * fontScale);
 			}
 			
 			height = sep * array_length(splitted);

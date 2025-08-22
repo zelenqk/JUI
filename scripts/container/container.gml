@@ -297,15 +297,12 @@ function container(style) constructor{
 			cache.overflow.reset();
 			
 			cache.overflow.draw(x + tx, y + ty);
-			
 			if (text != "") text.draw(x + tx, y + ty);
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		
 			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.top);
 		}
-		
-		
 	}
 }
 

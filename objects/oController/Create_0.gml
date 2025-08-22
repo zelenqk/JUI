@@ -1,10 +1,9 @@
 main = new container({
-	"background": c_black,
+	"background": #121212,
+	"padding": 24,
+	"text": "Huilo kak dela\nTi moi svqt eblan\n Q teb mrazq huilo gandon shalava\nHuiloooooo",
 	"display": flex,
-	"padding": 6,
-	"text": "hello, world!\nHuilo ebanoe cuka",
-})
-
+});
 
 /*
 main = new container({
@@ -12,9 +11,10 @@ main = new container({
 	"height": "50%",
 	"background": c_red,
 	"direction": row,
-	"overflow": fa_hidden_wrap,
-	"radius": "12%",
-	"gap": 12,
+	"overflow": fa_wrap,
+	"radius": "24%",
+	"gap": 0,
+	"padding": 12,
 	"display": flex,
 });
 

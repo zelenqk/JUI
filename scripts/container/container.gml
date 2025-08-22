@@ -163,6 +163,13 @@ function container(style) constructor{
 		//target dimensions
 		target.width = calculate_value(width, parent.target.width);
 		target.height = calculate_value(height, parent.target.height);
+				
+		// target min/max
+		target.width = max(target.width, target.minimum.width);
+		target.height = max(target.height, target.minimum.height);
+		
+		target.width = min(target.width, target.maximum.width);
+		target.height = min(target.height, target.maximum.height);
 		
 		//find main axis
 		switch (primary){
@@ -194,13 +201,6 @@ function container(style) constructor{
 		//calculate aspect ratio
 		if (aspect != auto) target[$ secondary] = target[$ primary] / aspect;
 		
-		// target min/max
-		target.width = max(target.width, target.minimum.width);
-		target.height = max(target.height, target.minimum.height);
-		
-		target.width = min(target.width, target.maximum.width);
-		target.height = min(target.height, target.maximum.height);
-		
 		//styling dimensions
 		target.margin.left = calculate_value(margin.left, target.width);
 		target.margin.right = calculate_value(margin.right, target.width);
@@ -220,10 +220,10 @@ function container(style) constructor{
 		target.radius.topRight = calculate_radius(radius.topRight, axis.main);
 		target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
-		
+
 		if (text != "") text.calculate();
 		if (layout) generate_layout();
-		
+
 		//calculate efficient width
 		efficient.width = target.width + target.padding.left + target.padding.right;
 		efficient.height = target.height + target.padding.top + target.padding.bottom;
@@ -232,8 +232,8 @@ function container(style) constructor{
 		efficient.width = max(efficient.width, target.minimum.width);
 		efficient.height = max(efficient.height, target.minimum.height);
 		
-		efficient.width = min(efficient.width, target.maximum.width);
-		efficient.height = min(efficient.height, target.maximum.height);
+		efficient.width = round(min(efficient.width, target.maximum.width));
+		efficient.height = round(min(efficient.height, target.maximum.height));
 		
 		instance = (object == -1) ? -1 : instance_create_depth(x, y, -1, object, {parent: self, width: efficient.width, height: efficient.height, persistent: other.persistent});
 		
@@ -269,9 +269,9 @@ function container(style) constructor{
 		
 		shader_reset();
 		
-		gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-		draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, background, 1);
-		gpu_set_blendmode(bm_normal);
+		//gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
+		//draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, background, 1);
+		//gpu_set_blendmode(bm_normal);
 		
 		cache.background.reset();
 		
@@ -279,7 +279,7 @@ function container(style) constructor{
 	}
 	
 	draw = function(tx = 0, ty = 0){
-		if (dirty) calculate();
+		if (dirty) calculate(true);
 		cache.background.draw(x + tx, y + ty, opacity);
 		
 		if (overflow == fa_hidden or overflow == fa_hidden_wrap){
@@ -291,19 +291,19 @@ function container(style) constructor{
 				gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
 				cache.background.draw(0, 0);
 				gpu_set_blendmode(bm_normal);
-			
 			}
 			
 			cache.overflow.reset();
 			
 			cache.overflow.draw(x + tx, y + ty);
-			if (text != "") text.draw(x + tx, y + ty);
+			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.left);
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		
 			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.top);
 		}
 	}
+	
 }
 
 function draw_content(content, mx = 0, my = 0){

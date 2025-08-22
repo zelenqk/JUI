@@ -55,6 +55,8 @@ function layout_container(dir, mwidth, mheight, wrap, parent) constructor{
 	line = lines[0];
 
 	calculate = function(element){
+		if (element.position == fixed) return;
+		
 		var added = line.add(element, wrap);
 		
 		if (!added and wrap){

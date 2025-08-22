@@ -1,7 +1,6 @@
 main = new container({
 	"background": #121212,
-	"padding": 24,
-	"text": "Huilo kak dela\nTi moi svqt eblan\n Q teb mrazq huilo gandon shalava\nHuiloooooo",
+	"text": "Huilo kak dela\nTi moi svqt eblan\nQ teb mrazq huilo gandon shalava\nHuiloooooo",
 	"display": flex,
 });
 

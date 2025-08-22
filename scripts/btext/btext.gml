@@ -1,6 +1,12 @@
 //bozhi surfaces and now bozhi text? whats next bozhi sprites?
 
-function btext(text, w = infinity) constructor{
+function btext(text, w = infinity, normalize = true) constructor{
+	
+	if (normalize){//normalizations
+		text = string_replace_all(text, "\r\n", "\n")	//newlines/linebreaks
+		text = string_replace_all(text, "\t", "    ")	//tabs
+	}
+	
 	self.text = text;
 	splitted = string_split(text, "\n", true);
 	

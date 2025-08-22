@@ -1,8 +1,8 @@
 main = new container({
-	"background": c_red,
+	"background": c_black,
 	"display": flex,
 	"padding": 6,
-	"text": "hello, world!",
+	"text": "hello, world!\nHuilo ebanoe cuka",
 })
 
 

@@ -51,7 +51,7 @@ function container(style) constructor{
 	opacity = get_default("opacity", 1);
 	
 	object = get_default("object", -1);
-	instance = (object == -1) ? -1 : instance_create_depth(x, y, -1, object, {parent: self, width: 0, height: 0});
+	instance = -1;
 	
 	//children
 	content = get_default("content", []);
@@ -222,7 +222,6 @@ function container(style) constructor{
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
 		
 		if (text != "") text.calculate();
-		
 		if (layout) generate_layout();
 		
 		//calculate efficient width
@@ -235,6 +234,8 @@ function container(style) constructor{
 		
 		efficient.width = min(efficient.width, target.maximum.width);
 		efficient.height = min(efficient.height, target.maximum.height);
+		
+		instance = (object == -1) ? -1 : instance_create_depth(x, y, -1, object, {parent: self, width: efficient.width, height: efficient.height, persistent: other.persistent});
 		
 		if (instance != -1) instance.width = efficient.width;
 		if (instance != -1) instance.height = efficient.height;
@@ -296,11 +297,15 @@ function container(style) constructor{
 			cache.overflow.reset();
 			
 			cache.overflow.draw(x + tx, y + ty);
+			
+			if (text != "") text.draw(x + tx, y + ty);
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
+		
+			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.top);
 		}
 		
-		if (text != "") text.draw();
+		
 	}
 }
 

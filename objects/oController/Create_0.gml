@@ -3,6 +3,7 @@ main = new container({
 	"text": "Huilo kak dela\nTi moi svqt eblan\nQ teb mrazq huilo gandon shalava\nHuiloooooo",
 	"display": flex,
 	"color": c_white,
+	"halign": fa_center,
 });
 
 /*

@@ -23,6 +23,9 @@ function btext(text, w = 0, normalize = true, style) constructor{
 	separation = get_default_style(style, "separation", 1.35);
 	fontSize = get_default_style(style, "fontSize", 20);
 	
+	halign = get_default_style(style, "halign", fa_left);
+	valign = get_default_style(style, "valign", fa_top);
+	
 	fontScale = (fontSize / FONT_SIZES[font]);
 	
 	surface = new bsurface();
@@ -66,11 +69,25 @@ function btext(text, w = 0, normalize = true, style) constructor{
 		gpu_set_blendmode_ext(bm_one, bm_inv_src_alpha);
 		
 		var sep = fontSize * separation;
+		var h = draw_get_halign();
 		
-		for(var i = 0; i < array_length(splitted); i++){
-			draw_text_transformed(0, sep * i, splitted[i], fontScale, fontScale, 0);	
+		draw_set_halign(halign);
+		
+		var xoffset = 0;
+		
+		switch(halign){
+		case fa_center:
+			xoffset = width / 2;
+			break;
+		case fa_right: 
+			xoffset = width;
 		}
 		
+		for(var i = 0; i < array_length(splitted); i++){
+			draw_text_transformed(xoffset, sep * i, splitted[i], fontScale, fontScale, 0);	
+		}
+		
+		draw_set_halign(h);
 		gpu_set_blendmode(bm_normal);
 		surface.reset();
 	}

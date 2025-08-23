@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"markup_tokenize",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"markup_tokenize",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

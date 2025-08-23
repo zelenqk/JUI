@@ -48,6 +48,7 @@
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
     {"id":{"name":"get_unit","path":"scripts/get_unit/get_unit.yy",},},
     {"id":{"name":"initialization","path":"scripts/initialization/initialization.yy",},},
+    {"id":{"name":"markup_tokenize","path":"scripts/markup_tokenize/markup_tokenize.yy",},},
     {"id":{"name":"recurse_array","path":"scripts/recurse_array/recurse_array.yy",},},
     {"id":{"name":"shBorderRadius","path":"shaders/shBorderRadius/shBorderRadius.yy",},},
     {"id":{"name":"sPixel","path":"sprites/sPixel/sPixel.yy",},},

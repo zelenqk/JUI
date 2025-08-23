@@ -18,6 +18,8 @@ function container(style) constructor{
 	secondary = "width";
 	
 	text = get_default("text", "");
+	alignText = get_default("alignText", fa_left);
+	justifyText = get_default("justifyText", fa_top);
 	
 	axis = {	//the axises in pixels
 		main: 0,	
@@ -34,8 +36,8 @@ function container(style) constructor{
 	}
 	
 	maximum = {}
-	maximum.width = get_unit(get_default("maxWidth", GUIW));
-	maximum.height = get_unit(get_default("maxHeight", GUIH));
+	maximum.width = get_unit(get_default("maxWidth", infinity));
+	maximum.height = get_unit(get_default("maxHeight", infinity));
 	
 	//background
 	background = get_default("background");
@@ -295,11 +297,70 @@ function container(style) constructor{
 			cache.overflow.reset();
 			
 			cache.overflow.draw(x + tx, y + ty);
-			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.left);
+			if (text != ""){
+				var textOffsetX = 0;
+				var textOffsetY = 0;
+				
+				switch (textAlign){
+				case fa_center:
+					textOffsetX = (target.width / 2) - text.width / 2;
+					break;
+				case fa_right:
+					textOffsetX = (target.width - text.width);
+					break;
+				default:
+					textOffsetX = (target.width * textAlign) - text.width * textAlign;
+					break;
+				}
+				
+				switch (textJustify){
+				case fa_center:
+					textOffsetY = (target.height / 2) - text.height / 2;
+					break;
+				case fa_bottom:
+					textOffsetY = (target.height - text.height);
+					break;
+				default:
+					textOffsetY = (target.height * textJustify) - text.height * textJustify;
+					break;
+				}
+				
+				text.draw(x + tx + target.padding.left + textOffsetX, y + ty + target.padding.left + textOffsetY);
+			}
 		}else{
 			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		
-			if (text != "") text.draw(x + tx + target.padding.left, y + ty + target.padding.top);
+			if (text != ""){
+				var textOffsetX = 0;
+				var textOffsetY = 0;
+				
+				switch (alignText){
+				case fa_center:
+					textOffsetX = (target.width / 2) - text.width / 2;
+					break;
+				case fa_right:
+					textOffsetX = (target.width - text.width);
+					break;
+				default:
+					textOffsetX = (target.width * alignText) - text.width * alignText;
+					break;
+				}
+				
+				
+				switch (justifyText){
+				case fa_center:
+					textOffsetY = (target.height / 2) - text.height / 2;
+					break;
+				case fa_bottom:
+					textOffsetY = (target.height - text.height);
+					break;
+				default:
+					textOffsetY = (target.height * justifyText) - text.height * justifyText;
+					break;
+				}
+
+				text.draw(x + tx + target.padding.left + textOffsetX, y + ty + target.padding.top + textOffsetY);
+			}
 		}
 	}
 	

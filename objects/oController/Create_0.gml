@@ -1,35 +1,34 @@
-main = new container({
+
+/*main = new container({
 	"background": #121212,
+	"width": 600,
+	"height": 400,
+	"textAlign": fa_center,
+	
 	"text": "Huilo kak dela\nTi moi svqt eblan\nQ teb mrazq huilo gandon shalava\nHuiloooooo",
-	"display": flex,
 	"color": c_white,
 	"halign": fa_center,
 });
-
-/*
+*/
 main = new container({
-	"width": 600,
-	"height": "50%",
-	"background": c_red,
+	"width": "100%",
+	"height": "100%",
+	"background": #252287,
 	"direction": row,
 	"overflow": fa_wrap,
 	"radius": "24%",
-	"gap": 0,
+	"gap": 128,
 	"padding": 12,
-	"display": flex,
-});
-
-var bg = new container({
-	"width": "100%",
-	"height": "100%",
-	"background": c_blue,
-	"position": fixed,
 });
 
 var child = {
-	"height": "24%",
+	"height": "50%",
 	"aspect": 1,
 	"image": 1,
+	"background": #E449C9,
+	"text": "hui",
+	"alignText": fa_center,
+	"justifyText": fa_center,
 }
 
 repeat(12){
@@ -37,4 +36,3 @@ repeat(12){
 	main.add(element);
 }
 
-main.add(bg, 0);

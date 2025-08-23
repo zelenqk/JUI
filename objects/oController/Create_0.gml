@@ -2,6 +2,7 @@ main = new container({
 	"background": #121212,
 	"text": "Huilo kak dela\nTi moi svqt eblan\nQ teb mrazq huilo gandon shalava\nHuiloooooo",
 	"display": flex,
+	"color": c_white,
 });
 
 /*
@@ -23,7 +24,6 @@ var bg = new container({
 	"background": c_blue,
 	"position": fixed,
 });
-
 
 var child = {
 	"height": "24%",

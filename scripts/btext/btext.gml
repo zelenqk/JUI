@@ -1,6 +1,7 @@
 //bozhi surfaces and now bozhi text? whats next bozhi sprites?
 
-function btext(text, w = infinity, normalize = true) constructor{
+function btext(text, w = 0, normalize = true, style) constructor{
+	if (w == 0) w = infinity;
 	
 	if (normalize){//normalizations
 		text = string_replace_all(text, "\r\n", "\n")	//newlines/linebreaks
@@ -15,21 +16,29 @@ function btext(text, w = infinity, normalize = true) constructor{
 	width = 0;
 	height = 0;
 	
-	font = fntMain;
-	fontSize = 15.5;
+	font = get_default_style(style, "font", fntMain);
+	color = get_default_style(style, "color", c_white);
+	alpha = get_default_style(style, "alpha", 1);
+	
+	separation = get_default_style(style, "separation", 1.35);
+	fontSize = get_default_style(style, "fontSize", 20);
+	
 	fontScale = (fontSize / FONT_SIZES[font]);
 	
 	surface = new bsurface();
-	
-	style = {
-		"lineSeparation": 1.3,
-	}
-	
+
 	calculate = function(){
-		var sep = FONT_SIZES[font] * style.lineSeparation;
+		var sep = FONT_SIZES[font] * separation;
 		var w = maximum / fontScale;
 		
+		var fnt = draw_get_font();
+		var col = draw_get_color();
+		var a = draw_get_alpha();
+		
 		draw_set_font(font);
+		draw_set_color(color);
+		draw_set_alpha(alpha);
+		
 		width = string_width_ext(text, sep, w) * fontScale;
 		height = string_height_ext(text, sep, w) * fontScale;	
 		
@@ -45,6 +54,10 @@ function btext(text, w = infinity, normalize = true) constructor{
 		surface.resize(width, height);
 		
 		render();
+	
+		draw_set_font(fnt);
+		draw_set_color(col);
+		draw_set_alpha(a);
 	}
 	
 	render = function(){
@@ -52,9 +65,8 @@ function btext(text, w = infinity, normalize = true) constructor{
 		draw_clear_alpha(c_black, 0);
 		gpu_set_blendmode_ext(bm_one, bm_inv_src_alpha);
 		
-		var sep = fontSize * style.lineSeparation;
+		var sep = fontSize * separation;
 		
-		draw_set_font(font);
 		for(var i = 0; i < array_length(splitted); i++){
 			draw_text_transformed(0, sep * i, splitted[i], fontScale, fontScale, 0);	
 		}
@@ -66,4 +78,6 @@ function btext(text, w = infinity, normalize = true) constructor{
 	draw = function(tx = 0, ty = 0){
 		surface.draw(tx, ty);
 	}
+	
+	calculate();
 }

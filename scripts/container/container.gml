@@ -18,7 +18,6 @@ function container(style) constructor{
 	secondary = "width";
 	
 	text = get_default("text", "");
-	if (text != "") text = new btext(text);
 	
 	axis = {	//the axises in pixels
 		main: 0,	
@@ -221,9 +220,9 @@ function container(style) constructor{
 		target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
 
-		if (text != "") text.calculate();
+		if (text != "") text = new btext(text, target.width * (display != flex), true, style);
 		if (layout) generate_layout();
-
+	
 		//calculate efficient width
 		efficient.width = target.width + target.padding.left + target.padding.right;
 		efficient.height = target.height + target.padding.top + target.padding.bottom;

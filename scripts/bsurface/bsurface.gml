@@ -19,6 +19,8 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		if (!exists and window_has_focus()){
 			surface_free(surface);
 			
+			if (width == 0 or height == 0) return false;
+			
 			surface = surface_create(width, height, format)	
 			pointer = surface_get_texture(surface);	
 			
@@ -59,9 +61,9 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		width = ceil(w);
 		height = ceil(h);
 		
-		if (w == 0) width = 1;
-		if (h == 0) height = 1;
-
+		if (w <= 0) width = 1;
+		if (h <= 0) height = 1;
+		
 		if (resurface()) surface_resize(surface, w, h);
 	}
 	

@@ -8,7 +8,7 @@ function container(style) constructor{
 	y = 0;
 	
 	//properties
-	position = get_default("position");
+	position = get_default("position", relative);
 	
 	display = get_default("display");
 	direction = get_default("direction");
@@ -43,7 +43,7 @@ function container(style) constructor{
 	background = get_default("background");
 	
 	//sprite
-	sprite = get_default("sprite", sPixel);
+	sprite = get_default("sprite", -1);
 	
 	image = get_default("image", 0);
 	spriteXscale = get_unit(get_default("spriteXscale", -1));
@@ -221,10 +221,10 @@ function container(style) constructor{
 		target.radius.topRight = calculate_radius(radius.topRight, axis.main);
 		target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 		target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
-
+	
 		if (text != "") text = new btext(text, target.width * (display != flex), true, style);
 		if (layout) generate_layout();
-	
+		
 		//calculate efficient width
 		efficient.width = target.width + target.padding.left + target.padding.right;
 		efficient.height = target.height + target.padding.top + target.padding.bottom;
@@ -240,10 +240,6 @@ function container(style) constructor{
 		
 		if (instance != -1) instance.width = efficient.width;
 		if (instance != -1) instance.height = efficient.height;
-		
-		//calculate sprite scale
-		target.spriteXscale = (spriteXscale.unit == UNIT.PERCENT) ? calculate_value(spriteXscale, efficient.width / sprite_get_width(sprite)) :  calculate_value(spriteXscale, 0);
-		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
 		
 		//update cache
 		//var aa = 12;
@@ -264,15 +260,15 @@ function container(style) constructor{
 		shader_set_uniform_f(uRadius, target.radius.topLeft, target.radius.topRight, target.radius.bottomRight, target.radius.bottomLeft);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		
-		if (target.spriteXscale == -1) target.spriteXscale = efficient.width / sprite_get_width(sprite);
-		if (target.spriteYscale == -1) target.spriteYscale = efficient.height / sprite_get_height(sprite);
 		draw_sprite_stretched_ext(sPixel, 0, 0, 0, efficient.width, efficient.height, background, 1);
 		
 		shader_reset();
 		
-		//gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-		//draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, background, 1);
-		//gpu_set_blendmode(bm_normal);
+		if (sprite != -1){
+			gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
+			draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, c_white, 1);
+			gpu_set_blendmode(bm_normal);
+		}
 		
 		cache.background.reset();
 		

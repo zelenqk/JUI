@@ -24,6 +24,15 @@ function generate_layout(){
 	
 	if (target.gap == auto) layout.update()
 	
+	//calculate sprite scale
+	if (sprite != -1){
+		target.spriteXscale = (spriteXscale.unit == UNIT.PERCENT) ? calculate_value(spriteXscale, efficient.width / sprite_get_width(sprite)) :  calculate_value(spriteXscale, 0);
+		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
+		
+		if (target.spriteXscale == -1) target.spriteXscale = efficient.width / sprite_get_width(sprite);
+		if (target.spriteYscale == -1) target.spriteYscale = efficient.height / sprite_get_height(sprite);
+	}
+	
 	if (display == flex){
 		target.width = layout.width - target.gap.left;
 		target.height = layout.height - target.gap.top;
@@ -31,6 +40,14 @@ function generate_layout(){
 		if (text != ""){
 			target.width = max(target.width, text.width);
 			target.height = max(target.height, text.height);
+		}
+		
+		if (sprite != -1){
+			if (target.spriteXscale <= 0) target.spriteXscale = 1;
+			if (target.spriteYscale <= 0) target.spriteYscale = 1;
+			
+			target.width = max(target.width, (sprite_get_width(sprite) * target.spriteXscale) - target.padding.left - target.padding.right);
+			target.height = max(target.height, (sprite_get_height(sprite) * target.spriteYscale) - target.padding.bottom - target.padding.top);
 		}
 	}
 	

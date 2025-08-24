@@ -52,6 +52,7 @@
     {"id":{"name":"recurse_array","path":"scripts/recurse_array/recurse_array.yy",},},
     {"id":{"name":"shBorderRadius","path":"shaders/shBorderRadius/shBorderRadius.yy",},},
     {"id":{"name":"sPixel","path":"sprites/sPixel/sPixel.yy",},},
+    {"id":{"name":"sSprite","path":"sprites/sSprite/sSprite.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

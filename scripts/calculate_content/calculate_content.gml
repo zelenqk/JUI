@@ -5,6 +5,8 @@ function calculate_content(content, index = 0, type){
 		var element = content[i];
 		
 		if (is_array(element)) calculate_content(element, index + i);
-		else if (element.position == type) element.calculate();
+		else {
+			if (element.position == type) element.calculate();
+		}
 	}
 }

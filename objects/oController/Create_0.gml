@@ -11,16 +11,17 @@
 });
 */
 
-
-
-
 main = new container({
-	"width": "99%",
-	"background": #252287,
+	"width": "32%",
+	"height": "32%",
 	"direction": row,
-	"overflow": fa_wrap,
-	"gap": 1,
 	"display": flex,
+	"background": c_red,
+	"padding": 12,
+});
+
+
+main.add({
 	"sprite": sSprite,
-	"aspect": 16 / 9
+	"display": flex,
 });

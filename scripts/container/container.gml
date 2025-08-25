@@ -60,7 +60,7 @@ function container(style) constructor{
 	add = function(element, index = 1){
 		if (!is_array(content)) content = [content];
 		
-		assign_parent(element, self);
+		element = assign_parent(element, self);
 		array_insert(content, index * array_length(content), element);
 		dirty = true;
 	}
@@ -375,12 +375,18 @@ function draw_content(content, mx = 0, my = 0){
 
 function assign_parent(element, parent){
 	if (!is_array(element)){
+		if (!is_callable(element[$ "draw"])){
+			element = new container(element);	
+		}
+		
 		element.parent = parent;
-		return;
+		return element;
 	}
 	
 	var contentLength = array_length(element);
 	for(var i = 0; i < contentLength; i++){
-		assign_parent(element[i], parent);
+		element[i] = assign_parent(element[i], parent);
 	}
+	
+	return element;
 }

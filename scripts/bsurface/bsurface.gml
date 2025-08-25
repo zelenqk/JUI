@@ -7,6 +7,8 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	
 	width = w;
 	height = h;
+	if (width = 0) width = 1;
+	if (height = 0) height = 1;
 	
 	surface = surface_create(width, height, format);
 	pointer = surface_get_texture(surface);
@@ -58,13 +60,13 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	}
 	
 	resize = function(w, h){
-		width = ceil(w);
-		height = ceil(h);
+		width = abs(ceil(w));
+		height = abs(ceil(h));
 		
 		if (w <= 0) width = 1;
 		if (h <= 0) height = 1;
 		
-		if (resurface()) surface_resize(surface, w, h);
+		if (resurface()) surface_resize(surface, width, height);
 	}
 	
 	draw = function(tx = 0, ty = 0, w = width, h = height){

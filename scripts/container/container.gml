@@ -14,8 +14,8 @@ function container(style) constructor{
 	direction = get_default("direction");
 	overflow = get_default("overflow");
 	aspect = get_default("aspect", auto);
-	primary = get_default("primary", "height");
-	secondary = "width";
+	primary = get_default("primary", "width");
+	secondary = "height";
 	
 	text = get_default("text", "");
 	alignText = get_default("alignText", fa_left);

@@ -23,32 +23,42 @@ function generate_layout(){
 	}
 	
 	if (target.gap == auto) layout.update()
+	if (aspect != auto) target[$ secondary] = target[$ primary] / aspect;
 	
 	//calculate sprite scale
 	if (sprite != -1){
-		target.spriteXscale = (spriteXscale.unit == UNIT.PERCENT) ? calculate_value(spriteXscale, efficient.width / sprite_get_width(sprite)) :  calculate_value(spriteXscale, 0);
-		target.spriteYscale = (spriteYscale.unit == UNIT.PERCENT) ? calculate_value(spriteYscale, efficient.height / sprite_get_height(sprite)) :  calculate_value(spriteYscale, 0);
+		var ewidth = (target.width + target.padding.left + target.padding.right);
+		var eheight = (target.height + target.padding.top + target.padding.bottom);
+		target.spriteXscale = calculate_value(spriteXscale, ewidth);
+		target.spriteYscale = calculate_value(spriteYscale, eheight);
 		
-		if (target.spriteXscale == -1) target.spriteXscale = efficient.width / sprite_get_width(sprite);
-		if (target.spriteYscale == -1) target.spriteYscale = efficient.height / sprite_get_height(sprite);
+		if (target.spriteXscale <= 0) target.spriteXscale = ewidth / sprite_get_width(sprite);
+		if (target.spriteYscale <= 0) target.spriteYscale = eheight / sprite_get_height(sprite);
 	}
 	
 	if (display == flex){
 		target.width = layout.width - target.gap.left;
 		target.height = layout.height - target.gap.top;
+
+		if (sprite != -1){
+			target.width = max(target.width, (sprite_get_width(sprite) * target.spriteXscale) - target.padding.left - target.padding.right);
+			target.height = max(target.height, (sprite_get_height(sprite) * target.spriteYscale) - target.padding.bottom - target.padding.top);
+		}
 		
 		if (text != ""){
 			target.width = max(target.width, text.width);
 			target.height = max(target.height, text.height);
 		}
 		
-		if (sprite != -1){
-			if (target.spriteXscale <= 0) target.spriteXscale = 1;
-			if (target.spriteYscale <= 0) target.spriteYscale = 1;
-			
-			target.width = max(target.width, (sprite_get_width(sprite) * target.spriteXscale) - target.padding.left - target.padding.right);
-			target.height = max(target.height, (sprite_get_height(sprite) * target.spriteYscale) - target.padding.bottom - target.padding.top);
-		}
+		if (aspect != auto) target[$ secondary] = target[$ primary] / aspect;
+	}
+	
+	if (sprite != -1){
+		var ewidth = (target.width + target.padding.left + target.padding.right);
+		var eheight = (target.height + target.padding.top + target.padding.bottom);
+	
+		if (spriteXscale.value == auto) target.spriteXscale = ewidth / sprite_get_width(sprite);
+		if (spriteYscale.value == auto) target.spriteYscale = eheight / sprite_get_height(sprite);
 	}
 	
 	calculate_content(content, 0, fixed);

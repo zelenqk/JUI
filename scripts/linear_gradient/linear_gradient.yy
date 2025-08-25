@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"linear_gradient",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"linear_gradient",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

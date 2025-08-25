@@ -18,8 +18,9 @@ main = new container({
 	"display": flex,
 	"background": c_red,
 	"padding": 12,
-});
 
+	"gradient": linear_gradient(0, c_white, 0.5, 0x000000ff, 0.5),
+});
 
 main.add({
 	"sprite": sSprite,

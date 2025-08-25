@@ -19,7 +19,10 @@ function linear_gradient(dir) {	//this is gpt (im sorry)
 			// If no factor, divide the gradient evenly
 			f = 1 / color_count;
 		}
-
+		
+		col = int_to_bytes(col);
+		if (col[3] == 0) col[3] = 0xFF;
+		
 		array_push(gradient, [col, f]);
 	}
 

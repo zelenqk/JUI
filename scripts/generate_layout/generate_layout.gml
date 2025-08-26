@@ -60,8 +60,8 @@ function generate_layout(){
 		var ewidth = (target.width + target.padding.left + target.padding.right);
 		var eheight = (target.height + target.padding.top + target.padding.bottom);
 	
-		if (spriteXscale.value == auto and display != flex) target.spriteXscale = ewidth / sprite_get_width(sprite);
-		if (spriteYscale.value == auto and display != flex) target.spriteYscale = eheight / sprite_get_height(sprite);
+		if (spriteXscale.value == auto) target.spriteXscale = ewidth / sprite_get_width(sprite);
+		if (spriteYscale.value == auto) target.spriteYscale = eheight / sprite_get_height(sprite);
 	}
 	
 	calculate_content(content, 0, fixed);

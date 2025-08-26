@@ -17,6 +17,8 @@ function container(style) constructor{
 	primary = get_default("primary", "width");
 	secondary = "height";
 	
+	gradient = get_default("gradient", -1);
+	
 	text = get_default("text", "");
 	alignText = get_default("alignText", fa_left);
 	justifyText = get_default("justifyText", fa_top);
@@ -148,6 +150,7 @@ function container(style) constructor{
 	cache = {
 		"background": new bsurface(),
 		"overflow": new bsurface(),
+		"gradient": new bsurface(),
 	}
 	
 	calculate = function(layout = true){
@@ -246,6 +249,7 @@ function container(style) constructor{
 		//target.aa = aa * (target.radius.topLeft != 0 or target.radius.topRight != 0 or target.radius.bottomLeft != 0 or target.radius.bottomRight != 0);
 
 		cache.background.resize(efficient.width , efficient.height);
+		if (gradient != -1) cache.gradient.resize(efficient.width , efficient.height);
 		if (overflow == fa_hidden_wrap or overflow == fa_hidden) cache.overflow.resize(efficient.width, efficient.height);
 		
 		render();
@@ -253,7 +257,7 @@ function container(style) constructor{
 	
 	render = function(){
 		cache.background.target();
-		draw_clear_alpha(c_black, 0);
+		draw_clear_alpha(background, 0);
 		
 		shader_set(shBorderRadius);
 		
@@ -272,92 +276,41 @@ function container(style) constructor{
 		
 		cache.background.reset();
 		
+		if (gradient != -1){
+			cache.gradient.target()
+			draw_clear(c_white);
+			
+			shader_set(shLinearGradient);
+			
+			shader_set_uniform_f(uColN, 2);
+			shader_set_uniform_f(uDirection, gradient[1]);
+			shader_set_uniform_f_array(uColor, gradient[2]);
+			shader_set_uniform_f_array(uFactor, gradient[3]);
+			
+			draw_sprite_stretched(sPixel, 0, 0, 0, width, height);
+			
+			shader_reset();
+			cache.gradient.reset();
+		}
+		
 		dirty = false;
+	}
+
+	switch (overflow){
+	case fa_hidden_wrap:
+	case fa_hidden:
+		drawType = draw_overflow;
+	default:
+		drawType = draw_vanilla;
+		break;
 	}
 	
 	draw = function(tx = 0, ty = 0){
 		if (dirty) calculate(true);
-		cache.background.draw(x + tx, y + ty, opacity);
 		
-		if (overflow == fa_hidden or overflow == fa_hidden_wrap){
-			cache.overflow.target(){
-				draw_clear_alpha(c_black, 0);
-				
-				draw_content(content, target.padding.left, target.padding.top);	
-				
-				gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
-				cache.background.draw(0, 0);
-				gpu_set_blendmode(bm_normal);
-			}
-			
-			cache.overflow.reset();
-			
-			cache.overflow.draw(x + tx, y + ty);
-			if (text != ""){
-				var textOffsetX = 0;
-				var textOffsetY = 0;
-				
-				switch (textAlign){
-				case fa_center:
-					textOffsetX = (target.width / 2) - text.width / 2;
-					break;
-				case fa_right:
-					textOffsetX = (target.width - text.width);
-					break;
-				default:
-					textOffsetX = (target.width * textAlign) - text.width * textAlign;
-					break;
-				}
-				
-				switch (textJustify){
-				case fa_center:
-					textOffsetY = (target.height / 2) - text.height / 2;
-					break;
-				case fa_bottom:
-					textOffsetY = (target.height - text.height);
-					break;
-				default:
-					textOffsetY = (target.height * textJustify) - text.height * textJustify;
-					break;
-				}
-				
-				text.draw(x + tx + target.padding.left + textOffsetX, y + ty + target.padding.left + textOffsetY);
-			}
-		}else{
-			draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
+		cache.background.draw(x + tx, y + ty);
 		
-			if (text != ""){
-				var textOffsetX = 0;
-				var textOffsetY = 0;
-				
-				switch (alignText){
-				case fa_center:
-					textOffsetX = (target.width / 2) - text.width / 2;
-					break;
-				case fa_right:
-					textOffsetX = (target.width - text.width);
-					break;
-				default:
-					textOffsetX = (target.width * alignText) - text.width * alignText;
-					break;
-				}
-				
-				
-				switch (justifyText){
-				case fa_center:
-					textOffsetY = (target.height / 2) - text.height / 2;
-					break;
-				case fa_bottom:
-					textOffsetY = (target.height - text.height);
-					break;
-				default:
-					textOffsetY = (target.height * justifyText) - text.height * justifyText;
-					break;
-				}
-
-				text.draw(x + tx + target.padding.left + textOffsetX, y + ty + target.padding.top + textOffsetY);
-			}
-		}
+		drawType();
 	}
 	
 }

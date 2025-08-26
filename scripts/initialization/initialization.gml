@@ -87,3 +87,11 @@ globalvar uRadius, uSize;
 
 uRadius = shader_get_uniform(shBorderRadius, "radius");
 uSize = shader_get_uniform(shBorderRadius, "size");
+
+//gradient shaders
+globalvar uDirection, uFactor, uColor, uColN;
+
+uDirection = shader_get_uniform(shBorderRadius, "uDirection");
+uFactor = shader_get_uniform(shBorderRadius, "factor");
+uColor = shader_get_uniform(shBorderRadius, "color");
+uColN = shader_get_uniform(shBorderRadius, "uColorCount");

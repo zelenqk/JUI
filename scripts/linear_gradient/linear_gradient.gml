@@ -1,30 +1,17 @@
 function linear_gradient(dir) {	//this is gpt (im sorry)
-	var gradient = [];
+	var color = [];
+	var factor = [];
 	var color_count = 0;
-
-	// Count number of color/factor arguments passed
-	for (var i = 0; i < argument_count - 1; i += 2) {
-		color_count += 1;
-	}
-
-	// Loop through each color/factor pair
-	for (var i = 0; i < argument_count - 1; i += 2) {
+	
+	for(var i = 1; i < argument_count; i += 2){
 		var col = argument[i];
-		var f;
-
-		// Check if a factor was provided
-		if (i + 1 < argument_count - 1) {
-			f = argument[i + 1];
-		} else {
-			// If no factor, divide the gradient evenly
-			f = 1 / color_count;
-		}
+		var fac = argument[i + 1];
 		
 		col = int_to_bytes(col);
-		if (col[3] == 0) col[3] = 0xFF;
 		
-		array_push(gradient, [col, f]);
+		color = array_concat(color, col);
+		array_push(factor, fac);
 	}
-
-	return gradient;
+	
+	return [shLinearGradient, dir, color, factor];
 }

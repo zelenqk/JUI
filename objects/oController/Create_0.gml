@@ -16,10 +16,9 @@ main = new container({
 	"height": "32%",
 	"direction": row,
 	"display": flex,
-	"background": c_red,
 	"padding": 12,
-
-	"gradient": linear_gradient(0, c_white, 0.5, 0x000000ff, 0.5),
+	"background": c_red,
+	"gradient": linear_gradient(0, #00FF00, 0.5, 0x000000ff, 0.5),
 });
 
 main.add({

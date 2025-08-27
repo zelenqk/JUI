@@ -88,10 +88,10 @@ globalvar uRadius, uSize;
 uRadius = shader_get_uniform(shBorderRadius, "radius");
 uSize = shader_get_uniform(shBorderRadius, "size");
 
-//gradient shaders
-globalvar uDirection, uFactor, uColor, uColN;
+//blur shader
+globalvar uBlurSizeH, uBlurRadiusH, uBlurSizeV, uBlurRadiusV;
 
-uDirection = shader_get_uniform(shBorderRadius, "uDirection");
-uFactor = shader_get_uniform(shBorderRadius, "factor");
-uColor = shader_get_uniform(shBorderRadius, "color");
-uColN = shader_get_uniform(shBorderRadius, "uColorCount");
+uBlurSizeH = shader_get_uniform(shBlurH, "texture_size");
+uBlurRadiusH = shader_get_uniform(shBlurH, "blur_radius");
+uBlurSizeV = shader_get_uniform(shBlurV, "texture_size");
+uBlurRadiusV = shader_get_uniform(shBlurV, "blur_radius");

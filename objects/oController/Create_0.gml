@@ -11,17 +11,14 @@
 });
 */
 
-main = new container({
+style = {
 	"width": "32%",
 	"height": "32%",
 	"direction": row,
-	"display": flex,
 	"padding": 12,
-	"background": c_red,
-	"gradient": linear_gradient(0, #00FF00, 0.5, 0x000000ff, 0.5),
-});
+	"opacity": 0.12,
+	"background": c_black,
+	"blur": 24,
+};
 
-main.add({
-	"sprite": sSprite,
-	"display": flex,
-});
+main = new container(style);

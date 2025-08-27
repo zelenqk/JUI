@@ -11,7 +11,9 @@ function calculate_content(content, index = 0, type){
 				element = content[i];
 			}
 			
-			if (element.position == type) element.calculate();
+			if (element.position == type){
+				with (element) calculate_container();
+			}
 		}
 	}
 }

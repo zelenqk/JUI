@@ -259,7 +259,6 @@ function container(style) constructor{
 		
 		drawType();
 	}
-	
 }
 
 function draw_content(content, mx = 0, my = 0){

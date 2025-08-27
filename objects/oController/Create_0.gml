@@ -16,9 +16,10 @@ style = {
 	"height": "32%",
 	"direction": row,
 	"padding": 12,
-	"opacity": 0.12,
+	"opacity": 0.8,
 	"background": c_black,
 	"blur": 24,
+	"radius": "12%",
 };
 
 main = new container(style);

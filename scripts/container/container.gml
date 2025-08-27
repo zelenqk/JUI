@@ -22,6 +22,7 @@ function container(style) constructor{
 	overflow = get_default("overflow");
 	aspect = get_default("aspect", auto);
 	
+	tint = get_default("tint", c_white);
 	blur = get_default("blur", -1);
 	
 	//axis
@@ -185,7 +186,7 @@ function container(style) constructor{
 		
 		if (sprite != -1){
 			gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-			draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, c_white, 1);
+			draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, tint, 1);
 			gpu_set_blendmode(bm_normal);
 		}
 		
@@ -253,7 +254,8 @@ function container(style) constructor{
 		self.tx = tx;
 		self.ty = ty;
 		
-		cache.blurB.draw(x + tx, y + ty);
+		if (blur > 0) cache.blurB.draw(x + tx, y + ty);
+		cache.background.draw(x + tx, y + ty, opacity);
 		
 		drawType();
 	}

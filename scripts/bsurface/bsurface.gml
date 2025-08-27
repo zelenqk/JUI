@@ -69,8 +69,8 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		if (resurface()) surface_resize(surface, width, height);
 	}
 	
-	draw = function(tx = 0, ty = 0, w = width, h = height){
-		if (resurface()) draw_surface(surface, tx, ty);
+	draw = function(tx = 0, ty = 0, opacity = 1){
+		if (resurface()) draw_surface_ext(surface, tx, ty, 1, 1, 0, c_white, opacity);
 	}
 }
 

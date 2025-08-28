@@ -17,17 +17,19 @@ style = {
 	"direction": row,
 	"background": c_black,
 	"radius": "32%",
-	"opacity": 0.9,
+	"padding": 120,
+	"opacity": 1,
 	"sprite": sSprite
 };
 
 main = new container(style);
 
 test = main.add({
-	"width": "120%",	
-	"height": "120%",
-	"blur": 23,
+	"width": "100%",	
+	"height": "100%",
 	"opacity": 0.75,
+	"blur": 12,
+	"staticBlur": false,
 	"background": c_black,
 });
 

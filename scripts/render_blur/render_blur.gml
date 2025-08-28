@@ -1,4 +1,5 @@
 function render_blur(){
+	//horizontal pass
 	cache.blurA.target();
 	
 	gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
@@ -15,6 +16,7 @@ function render_blur(){
 	shader_reset();
 	cache.blurA.reset();
 	
+	//vertical pass
 	cache.blurB.target();
 	
 	shader_set(shBlurV);

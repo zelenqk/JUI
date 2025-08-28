@@ -54,6 +54,4 @@ void main(){
     bool alpha = (d <= 0.0);
 	
 	gl_FragColor.a = float(alpha);
-	
-	
 }

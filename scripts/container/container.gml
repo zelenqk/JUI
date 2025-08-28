@@ -25,8 +25,10 @@ function container(style) constructor{
 	aspect = get_default("aspect", auto);
 	
 	tint = get_default("tint", c_white);
+	
 	blur = get_default("blur", -1);
 	staticBlur = get_default("staticBlur", true);
+	blurStack = false;
 	
 	visible = get_default("visible", true);
 	
@@ -84,6 +86,8 @@ function container(style) constructor{
 		element = assign_parent(element, self);
 		array_insert(content, index * array_length(content), element);
 		dirty = true;
+		
+		return element;
 	}
 	
 	
@@ -183,7 +187,7 @@ function container(style) constructor{
 		shader_set(shBorderRadius);
 		
 		shader_set_uniform_f(uRadius, target.radius.topLeft, target.radius.topRight, target.radius.bottomRight, target.radius.bottomLeft);
-		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
+		shader_set_uniform_f(uSize, efficient.width, efficient.height);
 		
 		draw_sprite_stretched_ext(sPixel, 0, 0, 0, efficient.width, efficient.height, background, 1);
 		
@@ -196,8 +200,6 @@ function container(style) constructor{
 		}
 		
 		cache.background.reset();
-		
-		if (blur != -1) render_blur();
 		
 		if (gradient != -1){
 			cache.gradient.target()
@@ -248,7 +250,7 @@ function container(style) constructor{
 		
 		
 		if (blur > 0){
-			if (!staticBlur) render_blur();
+			if (!staticBlur or blurStack == false) render_blur();
 			cache.blurB.draw(tx, ty);
 		}
 		

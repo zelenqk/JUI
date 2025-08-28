@@ -83,10 +83,11 @@ while (font_exists(i)){
 
 ///SHADER UNIFORMS
 //border radius
-globalvar uRadius, uSize;
+globalvar uRadius, uSize, uResolution;
 
 uRadius = shader_get_uniform(shBorderRadius, "radius");
 uSize = shader_get_uniform(shBorderRadius, "size");
+uResolution = shader_get_uniform(shBorderRadius, "iResolution");
 
 //blur shader
 globalvar uBlurSizeH, uBlurRadiusH, uBlurSizeV, uBlurRadiusV;

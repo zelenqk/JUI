@@ -20,8 +20,6 @@ function calculate_container(layout = true){
 	target.width = min(target.width, target.maximum.width);
 	target.height = min(target.height, target.maximum.height);
 
-
-
 	//find main axis
 	switch (primary){
 	case "width":

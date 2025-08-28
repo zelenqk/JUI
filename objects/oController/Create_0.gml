@@ -15,12 +15,20 @@ style = {
 	"width": "32%",
 	"height": "32%",
 	"direction": row,
-	"padding": 12,
-	"opacity": 0.8,
 	"background": c_black,
-	"blur": 12,
-	"radius": "50%",
-	"staticBlur": false,
+	"radius": "32%",
+	"opacity": 0.9,
+	"sprite": sSprite
 };
 
 main = new container(style);
+
+test = main.add({
+	"width": "120%",	
+	"height": "120%",
+	"blur": 23,
+	"opacity": 0.75,
+	"background": c_black,
+});
+
+drawn = false;

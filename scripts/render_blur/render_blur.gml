@@ -1,21 +1,21 @@
 function render_blur(){
 	cache.blurA.target();
+	
+	gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
 	cache.background.draw();
+	gpu_set_blendmode(bm_normal);
 	
 	shader_set(shBlurH);
 	
 	shader_set_uniform_f(uBlurSizeH, efficient.width, efficient.height);
 	shader_set_uniform_f(uBlurRadiusH, blur);
 	
-	gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-	draw_surface(application_surface, -(x + tx+ offsetx), -(y + ty + offsety));
-	gpu_set_blendmode(bm_normal);
+	draw_surface(application_surface, -(x + tx + offsetx), -(y + ty + offsety));
 	
 	shader_reset();
 	cache.blurA.reset();
 	
 	cache.blurB.target();
-	draw_clear_alpha(c_black, 0);
 	
 	shader_set(shBlurV);
 	shader_set_uniform_f(uBlurSizeV, efficient.width, efficient.height);
@@ -24,5 +24,8 @@ function render_blur(){
 	cache.blurA.draw();
 	
 	shader_reset();
+	
 	cache.blurB.reset();
+	
+	blurStack = true;
 }

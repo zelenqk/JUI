@@ -53,5 +53,5 @@ void main(){
 
     bool alpha = (d <= 0.0);
 	
-	gl_FragColor.a = float(alpha);
+	gl_FragColor.a = 1.0 - smoothstep(0.0, 0.0, d);
 }

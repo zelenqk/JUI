@@ -16,6 +16,8 @@ function container(style) constructor{
 	
 	//properties
 	position = get_default("position", relative);
+	offsetx = get_default("offsetx", 0);
+	offsety = get_default("offsety", 0);
 	
 	display = get_default("display");
 	direction = get_default("direction");
@@ -24,6 +26,9 @@ function container(style) constructor{
 	
 	tint = get_default("tint", c_white);
 	blur = get_default("blur", -1);
+	staticBlur = get_default("staticBlur", true);
+	
+	visible = get_default("visible", true);
 	
 	//axis
 	primary = get_default("primary", "width");
@@ -192,32 +197,7 @@ function container(style) constructor{
 		
 		cache.background.reset();
 		
-		if (blur != -1){
-			cache.blurA.target();
-			cache.background.draw();
-			
-			shader_set(shBlurH);
-			
-			shader_set_uniform_f(uBlurSizeH, efficient.width, efficient.height);
-			shader_set_uniform_f(uBlurRadiusH, blur);
-			
-			gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-			draw_surface(application_surface, -(x + tx), -(y + ty));
-			gpu_set_blendmode(bm_normal);
-			
-			shader_reset();
-			cache.blurA.reset();
-			
-			cache.blurB.target();
-			shader_set(shBlurV);
-			shader_set_uniform_f(uBlurSizeV, efficient.width, efficient.height);
-			shader_set_uniform_f(uBlurRadiusV, blur);
-			
-			cache.blurA.draw();
-			
-			shader_reset();
-			cache.blurB.reset();
-		}
+		if (blur != -1) render_blur();
 		
 		if (gradient != -1){
 			cache.gradient.target()
@@ -234,6 +214,9 @@ function container(style) constructor{
 			
 			shader_reset();
 			cache.gradient.reset();
+			
+			cache.background.free();
+			cache.background = cache.gradient;
 		}
 		
 		dirty = false;
@@ -249,12 +232,25 @@ function container(style) constructor{
 	}
 	
 	draw = function(tx = 0, ty = 0){
+		if (!visible) return;
 		if (dirty) calculate_container(true);
 		
 		self.tx = tx;
 		self.ty = ty;
 		
-		if (blur > 0) cache.blurB.draw(x + tx, y + ty);
+		tx = x + tx + offsetx;
+		ty = y + ty + offsety;
+		
+		if (instance != -1){
+			instance.x = tx;
+			instance.y = ty;
+		}
+		
+		
+		if (blur > 0){
+			if (!staticBlur) render_blur();
+			cache.blurB.draw();
+		}
 		cache.background.draw(x + tx, y + ty, opacity);
 		
 		drawType();

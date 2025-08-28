@@ -18,7 +18,7 @@ style = {
 	"padding": 12,
 	"opacity": 0.8,
 	"background": c_black,
-	"blur": 24,
+	"blur": 12,
 	"radius": "12%",
 };
 

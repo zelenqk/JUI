@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"draw_types",
+  "%Name":"render_blur",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"draw_types",
+  "name":"render_blur",
   "parent":{
     "name":"pipeline",
     "path":"folders/Scripts/pipeline.yy",

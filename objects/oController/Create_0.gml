@@ -14,20 +14,30 @@
 style = {
 	"width": "24%",
 	"height": "69%",
-	"direction": row,
 	"background": c_black,
 	"radius": "12%",
 	"opacity": 0.25,
 	"align": fa_right,
 	"justify": fa_center,
-	"blur": 12,
-	"staticBlur": false,
+	"display": flex,
+	"blur": 24,
 	"offsetx": -32,
 	"padding": 12,
-	"text": "Hello there!\nThis is a test of the text system and whatnot\n\nDo whatever just dont overdo it"
 };
 
 main = new container(style);
+main.add({
+	"width": "100%",
+	"height": auto,
+	"sprite": sJuiLogo,	
+	"marginBottom": 12,
+});
 
+main.add({
+	"width": "100%",
+	"display": flex,
+	"opacity": 0,
+	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box"
+})
 
 

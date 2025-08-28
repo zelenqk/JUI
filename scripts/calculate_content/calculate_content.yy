@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"calculate_content",
   "parent":{
-    "name":"util",
-    "path":"folders/Scripts/util.yy",
+    "name":"pipeline",
+    "path":"folders/Scripts/pipeline.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

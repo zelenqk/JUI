@@ -48,12 +48,28 @@ function generate_layout(){
 			target.height = max(target.height, (sprite_get_height(sprite) * target.spriteYscale) - target.padding.bottom - target.padding.top);
 		}
 		
-		if (text != ""){
-			target.width = max(target.width, text.width);
-			target.height = max(target.height, text.height);
+		if (text != -1){
+			target.width = max(target.width, text.get_width());
+			target.height = max(target.height, text.get_height());
 		}
 		
 		if (aspect != auto) target[$ secondary] = target[$ primary] / aspect;
+	}else if (height.value == auto){
+		if (sprite != -1){
+			target.height = max(target.height, (sprite_get_height(sprite) * target.spriteYscale) - target.padding.bottom - target.padding.top);
+		}
+		
+		if (text != -1){
+			target.height = max(target.height, text.get_height());
+		}
+	}else if (width.value == auto){
+		if (sprite != -1){
+			target.width = max(target.width, (sprite_get_width(sprite) * target.spriteXscale) - target.padding.left - target.padding.right);
+		}
+		
+		if (text != -1){
+			target.width = max(target.width, text.get_width());
+		}
 	}
 	
 	if (sprite != -1){
@@ -139,8 +155,8 @@ function line_container(dir, tx, ty, mwidth, mheight, wrap, parent) constructor{
 	direction = dir;
 	
 	add = function(element){
-		var twidth = element.efficient.width + parent.target.gap.left;
-		var theight = element.efficient.height + parent.target.gap.top;
+		var twidth = element.efficient.width + parent.target.gap.left + element.target.margin.left + element.target.margin.right;
+		var theight = element.efficient.height + parent.target.gap.top + element.target.margin.top + element.target.margin.bottom;
 		
 		switch (direction){
 		case row:

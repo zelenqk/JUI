@@ -71,7 +71,8 @@ function calculate_container(layout = true){
 
 	if (text != -1){
 		text = scribble(text);
-		if (display == fixed) text.wrap(target.width);
+		
+		text.wrap(target.width);
 	}
 	
 	if (layout) generate_layout();

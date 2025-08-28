@@ -2,10 +2,6 @@ function render_blur(){
 	//horizontal pass
 	cache.blurA.target();
 	
-	gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
-	cache.background.draw();
-	gpu_set_blendmode(bm_normal);
-	
 	shader_set(shBlurH);
 	
 	shader_set_uniform_f(uBlurSizeH, efficient.width, efficient.height);
@@ -14,6 +10,9 @@ function render_blur(){
 	draw_surface(application_surface, -(x + tx + offsetx), -(y + ty + offsety));
 	
 	shader_reset();
+	
+
+	
 	cache.blurA.reset();
 	
 	//vertical pass
@@ -26,6 +25,10 @@ function render_blur(){
 	cache.blurA.draw();
 	
 	shader_reset();
+	
+	gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
+	cache.background.draw();
+	gpu_set_blendmode(bm_normal);
 	
 	cache.blurB.reset();
 	

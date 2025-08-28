@@ -4,18 +4,20 @@ function draw_overflow(tx = 0, ty = 0){
 		
 		draw_content(content, target.padding.left, target.padding.top);	
 		
+		if (text != -1) text.draw(target.padding.left, target.padding.top);	
+		
 		gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
 		cache.background.draw(0, 0);
 		gpu_set_blendmode(bm_normal);
 	}
 	
 	cache.overflow.reset();
-	
-	cache.overflow.draw(x + tx, y + ty);
+	cache.overflow.draw(tx, ty);
 }
 
 function draw_vanilla(tx = 0, ty = 0){
-	draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);	
+	draw_content(content, tx + target.padding.left, ty + target.padding.top);	
+	if (text != -1) text.draw(tx + target.padding.left, ty + target.padding.top);	
 }
 
 //text stuff

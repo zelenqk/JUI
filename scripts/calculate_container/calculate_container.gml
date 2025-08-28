@@ -1,7 +1,6 @@
 function calculate_container(layout = true){
-	target.width = GUIW;
-	target.height = GUIH;
-
+	if (parent == BASE_CONTAINER) position = fixed;
+	
 	//calculate min/max
 	target.maximum.width = calculate_value(maximum.width, parent.target.width);
 	target.maximum.height = calculate_value(maximum.height, parent.target.height);
@@ -70,7 +69,11 @@ function calculate_container(layout = true){
 	target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
 	target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
 
-	if (text != "") text = new btext(text, target.width * (display != flex), true, style);
+	if (text != -1){
+		text = scribble(text);
+		if (display == fixed) text.wrap(target.width);
+	}
+	
 	if (layout) generate_layout();
 
 	//calculate efficient width
@@ -83,6 +86,26 @@ function calculate_container(layout = true){
 
 	efficient.width = round(min(efficient.width, target.maximum.width));
 	efficient.height = round(min(efficient.height, target.maximum.height));
+
+	if (position == fixed){
+		switch (align){
+		case fa_center:
+			x = parent.target.width / 2 - efficient.width / 2;
+			break;
+		case fa_right:
+			x = parent.target.width - efficient.width;
+			break;
+		}
+		
+		switch (justify){
+		case fa_center:
+			y = parent.target.height / 2 - efficient.height / 2;
+			break;
+		case fa_bottom:
+			y = parent.target.height - efficient.height;
+			break;
+		}
+	}
 
 	instance = (object == -1) ? -1 : instance_create_depth(x, y, -1, object, {parent: self, width: efficient.width, height: efficient.height, persistent: other.persistent});
 

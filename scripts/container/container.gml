@@ -3,7 +3,7 @@ containersN = 0; //used for tracking animation indexes and blabla
 
 function container(style) constructor{
 	dirty = true;
-	parent = self;
+	parent = BASE_CONTAINER;
 	
 	id = containersN++;
 	self.style = style;
@@ -16,6 +16,10 @@ function container(style) constructor{
 	
 	//properties
 	position = get_default("position", relative);
+	
+	align = get_default("align", fa_left);
+	justify = get_default("justify", fa_top);
+	
 	offsetx = get_default("offsetx", 0);
 	offsety = get_default("offsety", 0);
 	
@@ -28,6 +32,7 @@ function container(style) constructor{
 	
 	blur = get_default("blur", -1);
 	staticBlur = get_default("staticBlur", true);
+	blurOpacity = get_default("blurOpacity", 1);
 	blurStack = false;
 	
 	visible = get_default("visible", true);
@@ -38,9 +43,8 @@ function container(style) constructor{
 	
 	gradient = get_default("gradient", -1);
 	
-	text = get_default("text", "");
-	alignText = get_default("alignText", fa_left);
-	justifyText = get_default("justifyText", fa_top);
+	//scribble
+	text = get_default("text", -1);
 	
 	axis = {	//the axises in pixels
 		main: 0,	
@@ -50,8 +54,8 @@ function container(style) constructor{
 	animations = [];
 	
 	//boundaries
-	width = get_unit(get_default("width"));
-	height = get_unit(get_default("height"));
+	width = get_unit(get_default("width", 0));
+	height = get_unit(get_default("height", 0));
 	
 	minimum = {
 		"width": get_unit(get_default("minWidth", 0)),
@@ -248,15 +252,14 @@ function container(style) constructor{
 			instance.y = ty;
 		}
 		
-		
 		if (blur > 0){
 			if (!staticBlur or blurStack == false) render_blur();
-			cache.blurB.draw(tx, ty);
+			cache.blurB.draw(tx, ty, blurOpacity);
 		}
 		
 		cache.background.draw(tx, ty, opacity);
 		
-		drawType();
+		drawType(tx, ty);
 	}
 }
 

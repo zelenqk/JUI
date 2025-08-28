@@ -69,6 +69,11 @@ BASE_CONTAINER = {
 	"radiusTopRight": 0,
 	"radiusBottomLeft": 0,
 	"radiusBottomRight": 0,
+	
+	"target": {
+		"width": GUIW,	
+		"height": GUIH,	
+	}
 }
 
 //Font shit

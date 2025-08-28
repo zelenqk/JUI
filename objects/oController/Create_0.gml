@@ -12,28 +12,21 @@
 */
 
 style = {
-	"width": "32%",
-	"height": "32%",
+	"width": "24%",
+	"height": "69%",
 	"direction": row,
 	"background": c_black,
-	"radius": "32%",
+	"radius": "12%",
+	"opacity": 0.25,
+	"align": fa_right,
+	"justify": fa_center,
+	"blur": 12,
+	"offsetx": -32,
 	"padding": 12,
-	"opacity": 1,
-	"sprite": sSprite
+	"text": "Hello there!\nThis is a test of the text system and whatnot\n\nDo whatever just dont overdo it"
 };
 
 main = new container(style);
-
-test = main.add({
-	"width": "100%",	
-	"height": "100%",
-	"radius": "32%",
-	"opacity": 0.75,
-	"staticBlur": false,
-	"background": c_black,
-});
-
-drawn = false;
 
 
 

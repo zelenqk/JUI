@@ -21,6 +21,7 @@ style = {
 	"align": fa_right,
 	"justify": fa_center,
 	"blur": 12,
+	"staticBlur": false,
 	"offsetx": -32,
 	"padding": 12,
 	"text": "Hello there!\nThis is a test of the text system and whatnot\n\nDo whatever just dont overdo it"

@@ -1,10 +1,11 @@
 function draw_overflow(tx = 0, ty = 0){
 	cache.overflow.target(){
+		gpu_set_blendenable(false);
 		draw_clear_alpha(c_black, 0);
 		
 		draw_content(content, target.padding.left, target.padding.top);	
-		
 		if (text != -1) text.draw(target.padding.left, target.padding.top);	
+		gpu_set_blendenable(true);
 		
 		gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
 		cache.background.draw(0, 0);

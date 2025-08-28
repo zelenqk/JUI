@@ -25,7 +25,7 @@ function container(style) constructor{
 	
 	display = get_default("display");
 	direction = get_default("direction");
-	overflow = get_default("overflow");
+	overflow = get_default("overflow", fa_allow);
 	aspect = get_default("aspect", auto);
 	
 	tint = get_default("tint", c_white);
@@ -232,6 +232,7 @@ function container(style) constructor{
 	case fa_hidden_wrap:
 	case fa_hidden:
 		drawType = draw_overflow;
+		break;
 	default:
 		drawType = draw_vanilla;
 		break;
@@ -268,9 +269,13 @@ function draw_content(content, mx = 0, my = 0){
 	
 	for(var i = 0; i < contentLength; i++){
 		var element = content[i];
-	
+		
 		if (is_array(element)) draw_content(element, mx, my);
-		else element.draw(mx, my);
+		else{
+			if (overflow == fa_hidden or overflow == fa_hidden_wrap) and (element.x > efficient.width or element.y > efficient.height) continue;
+			
+			element.draw(mx, my);
+		}
 	}
 }
 

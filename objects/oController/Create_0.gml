@@ -13,16 +13,16 @@
 
 style = {
 	"width": "24%",
-	"height": "69%",
+	"height": "48%",
 	"background": c_black,
 	"radius": "12%",
 	"opacity": 0.25,
 	"align": fa_right,
 	"justify": fa_center,
-	"display": flex,
 	"blur": 24,
 	"offsetx": -32,
 	"padding": 12,
+	"overflow": fa_hidden,
 };
 
 main = new container(style);
@@ -37,7 +37,13 @@ main.add({
 	"width": "100%",
 	"display": flex,
 	"opacity": 0,
-	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box"
+	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box\n\nAlso here's 500 containers for the heck of it :P"
 })
 
-
+repeat(500){
+	main.add({
+		"width": "100%",
+		"height": 12,
+		"background": c_red,
+	})	
+}

@@ -19,7 +19,8 @@ style = {
 	"opacity": 0.8,
 	"background": c_black,
 	"blur": 12,
-	"radius": "12%",
+	"radius": "50%",
+	"staticBlur": false,
 };
 
 main = new container(style);

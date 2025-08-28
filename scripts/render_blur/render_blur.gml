@@ -8,7 +8,7 @@ function render_blur(){
 	shader_set_uniform_f(uBlurRadiusH, blur);
 	
 	gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
-	draw_surface(application_surface, -(x + tx), -(y + ty));
+	draw_surface(application_surface, -(x + tx+ offsetx), -(y + ty + offsety));
 	gpu_set_blendmode(bm_normal);
 	
 	shader_reset();

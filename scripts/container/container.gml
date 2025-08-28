@@ -249,9 +249,10 @@ function container(style) constructor{
 		
 		if (blur > 0){
 			if (!staticBlur) render_blur();
-			cache.blurB.draw();
+			cache.blurB.draw(tx, ty);
 		}
-		cache.background.draw(x + tx, y + ty, opacity);
+		
+		cache.background.draw(tx, ty, opacity);
 		
 		drawType();
 	}

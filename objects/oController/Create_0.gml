@@ -13,7 +13,7 @@
 
 style = {
 	"width": "24%",
-	"height": "48%",
+	"height": "56%",
 	"background": c_black,
 	"radius": "8%",
 	"opacity": 0.25,
@@ -21,6 +21,7 @@ style = {
 	"justify": fa_center,
 	"blur": 24,
 	"offsetx": -32,
+	"staticBlur": false,
 	"padding": 12,
 	"overflow": fa_hidden,
 };
@@ -37,7 +38,7 @@ main.add({
 	"width": "100%",
 	"display": flex,
 	"opacity": 0,
-	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box\n\nAlso here's 500 containers for the heck of it :P"
+	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box\n\nAlso here's 500 containers for the heck of it :P (technically not since when overflow is hidden they are skipped if outside of bounds)"
 })
 
 repeat(500){

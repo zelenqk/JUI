@@ -1,17 +1,16 @@
 function render_blur(){
 	//horizontal pass
 	cache.blurA.target();
+	draw_clear_alpha(c_white, 0);
 	
 	shader_set(shBlurH);
 	
 	shader_set_uniform_f(uBlurSizeH, efficient.width, efficient.height);
 	shader_set_uniform_f(uBlurRadiusH, blur);
 	
-	draw_surface(application_surface, -(x + tx + offsetx), -(y + ty + offsety));
+	draw_surface_part(application_surface, (x + tx + offsetx), (y + ty + offsety), efficient.width, efficient.height, 0, 0);
 	
 	shader_reset();
-	
-
 	
 	cache.blurA.reset();
 	

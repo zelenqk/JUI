@@ -15,7 +15,7 @@ style = {
 	"width": "24%",
 	"height": "48%",
 	"background": c_black,
-	"radius": "12%",
+	"radius": "8%",
 	"opacity": 0.25,
 	"align": fa_right,
 	"justify": fa_center,

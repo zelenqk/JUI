@@ -162,8 +162,8 @@ function line_container(dir, tx, ty, mwidth, mheight, wrap, parent) constructor{
 		case row:
 		case reverseRow:
 			if (wrap and (width + twidth > maximum.width)) return false;
-			element.x = width;
-			element.y = y;
+			element.x = width + element.target.margin.left;
+			element.y = y + element.target.margin.top;
 			
 			width += twidth;
 			height = max(height, theight);
@@ -171,8 +171,8 @@ function line_container(dir, tx, ty, mwidth, mheight, wrap, parent) constructor{
 		case column:
 		case reverseColumn:
 			if (wrap and (height + theight > maximum.height)) return false;
-			element.x = x;
-			element.y = height
+			element.x = x + element.target.margin.left;
+			element.y = height + element.target.margin.top;
 
 			height += theight;
 			width = max(width, twidth);

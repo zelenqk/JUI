@@ -63,12 +63,12 @@ function calculate_container(layout = true){
 	target.gap.left = calculate_value(gap.left, target.width);
 	target.gap.top = calculate_value(gap.top, target.height);
 
-
-
 	if (text != -1){
 		text = scribble(text);
 		
-		text.wrap(target.width);
+		if (target.width > 0) text.wrap(target.width);
+		if (fontSize == auto and target.height > 0) text.scale(target.height / text.get_height());
+		else if (fontSize > 0) text.scale(fontSize / FONT_SIZES[fntMain]);
 	}
 	
 	if (layout) generate_layout();
@@ -85,10 +85,10 @@ function calculate_container(layout = true){
 	efficient.height = round(min(efficient.height, target.maximum.height));
 	
 	//calculate radius
-	target.radius.topLeft = calculate_radius(radius.topLeft, efficient.height / 2);
-	target.radius.topRight = calculate_radius(radius.topRight, efficient.height / 2);
-	target.radius.bottomLeft = calculate_radius(radius.bottomLeft, efficient.height / 2);
-	target.radius.bottomRight = calculate_radius(radius.bottomRight, efficient.height / 2);
+	target.radius.topLeft = calculate_radius(radius.topLeft, efficient.height);
+	target.radius.topRight = calculate_radius(radius.topRight, efficient.height);
+	target.radius.bottomLeft = calculate_radius(radius.bottomLeft, efficient.height);
+	target.radius.bottomRight = calculate_radius(radius.bottomRight, efficient.height);
 	
 	if (position == fixed){
 		switch (align){

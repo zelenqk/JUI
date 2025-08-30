@@ -35,23 +35,19 @@ varying vec4 v_vColour;
 uniform vec4 radius;
 uniform vec2 size;
 
-float sdRoundBox( in vec2 p, in vec2 b, in vec4 r ) 
-{
+float sdRoundBox( in vec2 p, in vec2 b, in vec4 r) {
     r.xy = (p.x > 0.0) ? r.xy : r.zw;
     r.x  = (p.y > 0.0) ? r.x  : r.y;
+	
     vec2 q = abs(p) - b + r.x;
     return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r.x;
 }
 
 void main(){
 	gl_FragColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
-
-	vec2 p = (2.0 * gl_FragCoord.xy - size.xy) / size.y;
+	vec2 p = (gl_FragCoord.xy - size.xy);
 	
-	float ratio = size.x / size.y;
-	float d = sdRoundBox(p, vec2(ratio, 1.0), radius);
-
-    bool alpha = (d <= 0.0);
+	float d = sdRoundBox(p, size, radius);
 	
-	gl_FragColor.a = 1.0 - smoothstep(0.0, 0.0, d);
+	gl_FragColor.a = 1.0 - smoothstep(0.0, 0.1, d);
 }

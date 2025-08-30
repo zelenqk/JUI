@@ -35,7 +35,7 @@ function container(style) constructor{
 	
 	tint = get_default("tint", c_white);
 	
-	blur = get_default("blur", -1);
+	blur = get_default("blur", auto);
 	staticBlur = get_default("staticBlur", true);
 	blurOpacity = get_default("blurOpacity", 1);
 	blurStack = false;
@@ -46,11 +46,12 @@ function container(style) constructor{
 	primary = get_default("primary", "width");
 	secondary = "height";
 	
-	gradient = get_default("gradient", -1);
+	gradient = get_default("gradient", auto);
 	
 	//scribble
-	text = get_default("text", -1);
+	text = get_default("text", auto);
 	
+	fontSize = get_default("fontSize", auto)
 	axis = {	//the axises in pixels
 		main: 0,	
 		secondary: 0,
@@ -75,17 +76,17 @@ function container(style) constructor{
 	background = get_default("background");
 	
 	//sprite
-	sprite = get_default("sprite", -1);
+	sprite = get_default("sprite", auto);
 	
 	image = get_default("image", 0);
-	spriteXscale = get_unit(get_default("spriteXscale", -1));
-	spriteYscale = get_unit(get_default("spriteYscale", -1));
+	spriteXscale = get_unit(get_default("spriteXscale", auto));
+	spriteYscale = get_unit(get_default("spriteYscale", auto));
 	blend = get_default("blend", c_white);
 	opacity = get_default("opacity", 1);
 	
-	object = get_default("object", -1);
-	instance = -1;
-	expressions = get_default("expressions", -1);
+	object = get_default("object", auto);
+	instance = auto;
+	expressions = get_default("expressions", auto);
 	
 	//children
 	content = get_default("content", []);
@@ -197,13 +198,13 @@ function container(style) constructor{
 		shader_set(shBorderRadius);
 		
 		shader_set_uniform_f(uRadius, target.radius.topLeft, target.radius.topRight, target.radius.bottomRight, target.radius.bottomLeft);
-		shader_set_uniform_f(uSize, efficient.width, efficient.height);
+		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		
 		draw_sprite_stretched_ext(sPixel, 0, 0, 0, efficient.width, efficient.height, background, 1);
 		
 		shader_reset();
 		
-		if (sprite != -1){
+		if (sprite != auto){
 			gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_src_alpha);
 			draw_sprite_tiled_ext(sprite, image, 0, 0, target.spriteXscale, target.spriteYscale, tint, 1);
 			gpu_set_blendmode(bm_normal);
@@ -211,7 +212,7 @@ function container(style) constructor{
 		
 		cache.background.reset();
 		
-		if (gradient != -1){
+		if (gradient != auto){
 			cache.gradient.target()
 			draw_clear(c_white);
 			

@@ -18,7 +18,7 @@ style = {
 	"width": "24%",
 	"height": "56%",
 	"background": c_black,
-	"radius": "100%",
+	"radius": "8%",
 	"opacity": 0.25,
 	"align": fa_right,
 	"justify": fa_center,
@@ -33,6 +33,7 @@ main = new container(style);
 main.add({
 	"width": "100%",
 	"height": auto,
+	"radius": "16%",
 	"sprite": sJuiLogo,	
 	"marginBottom": 12,
 });
@@ -40,23 +41,32 @@ main.add({
 main.add({
 	"width": "100%",
 	"display": flex,
+	"fontSize": 16,
 	"opacity": 0,
 	"text": "I gotta say that [rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box\n\nAlso here's 500 containers for the heck of it :P (technically not since when overflow is hidden they are skipped if outside of bounds)"
 })
 
+main.add({
+	"width": "100%",
+	"height": 64,
+	"opacity": 0,
+	"text": "hello!",
+});
+
 main.add(new button({
-	"width": "90%",
+	"width": "100%",
 	"text": "Rice button",
 	"height": auto,
 	"radius": "100%",
 	"overflow": fa_hidden,
+	"fontSize": 32,
 	"background": c_black,
 	"expressions": {
 		"onHover": function(){
 			opacity = lerp(opacity, 0.1, 0.1 * dt);	
 		},
 		"onStep": function(){
-			opacity = lerp(opacity, 0.6, 0.2 * dt);	
+			opacity = lerp(opacity, 0.65, 0.2 * dt);	
 		},
 	}
 }))

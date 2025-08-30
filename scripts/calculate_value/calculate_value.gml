@@ -36,23 +36,22 @@ function calculate_radius(value, size){
 	
 	switch (unit){
 	case UNIT.PIXEL:
-		return value / size;
+		return value / 2;
 		break;
 	case UNIT.PERCENT:
-		// Percent unit is capped at 50 real percent to avoid radius overlap/clipping (technically not capped but everything over 100% will be weird)
-		return (value / 100) / 2;
+		return (value / 100) * (size / 2);
 		break;
 	case UNIT.VIEW_WIDTH:
-		return ((value / 100) * GUIW) / GUIW;
+		return ((value / 100) * GUIW);
 		break;
 	case UNIT.VIEW_HEIGHT:
-		return ((value / 100) * GUIH) / GUIH;
+		return ((value / 100) * GUIH);
 		break;
 	case UNIT.PARENT_WIDTH:
-		return ((value / 100) * parent.target.width) / parent.target.width;
+		return ((value / 100) * parent.target.width);
 		break;
 	case UNIT.PARENT_HEIGHT:
-		return ((value / 100) * parent.target.height) / parent.target.width;
+		return ((value / 100) * parent.target.height);
 		break;
 	}	
 }

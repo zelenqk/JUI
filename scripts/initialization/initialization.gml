@@ -107,3 +107,9 @@ uBlurSizeH = shader_get_uniform(shBlurH, "texture_size");
 uBlurRadiusH = shader_get_uniform(shBlurH, "blur_radius");
 uBlurSizeV = shader_get_uniform(shBlurV, "texture_size");
 uBlurRadiusV = shader_get_uniform(shBlurV, "blur_radius");
+
+
+//scribble
+scribble_font_set_default("fntMain");
+
+

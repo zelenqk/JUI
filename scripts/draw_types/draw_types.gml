@@ -1,12 +1,15 @@
 function draw_overflow(tx = 0, ty = 0){
 	cache.overflow.target(){
-	
 		draw_clear_alpha(c_black, 0);
 		gpu_set_blendenable(false);
+		gpu_set_blendmode_ext_sepalpha(
+			bm_one, bm_inv_src_alpha,   // RGB
+			bm_one, bm_inv_src_alpha    // Alpha
+		);
 		
-		draw_content(content, target.padding.left, target.padding.top);	
+		draw_content(content, target.padding.left, target.padding.top);
+		
 		if (text != -1) text.draw(target.padding.left, target.padding.top);	
-		
 		gpu_set_blendenable(true);
 		
 		gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
@@ -19,8 +22,11 @@ function draw_overflow(tx = 0, ty = 0){
 }
 
 function draw_vanilla(tx = 0, ty = 0){
-	draw_content(content, tx + target.padding.left, ty + target.padding.top);	
-	if (text != -1) text.draw(tx + target.padding.left, ty + target.padding.top);
+	draw_content(content, tx + target.padding.left, ty + target.padding.top);
+	
+	if (text != -1){
+		text.draw(tx + target.padding.left, ty + target.padding.top);
+	}
 }
 
 //text stuff

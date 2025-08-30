@@ -63,11 +63,7 @@ function calculate_container(layout = true){
 	target.gap.left = calculate_value(gap.left, target.width);
 	target.gap.top = calculate_value(gap.top, target.height);
 
-	//calculate radius
-	target.radius.topLeft = calculate_radius(radius.topLeft, axis.main);
-	target.radius.topRight = calculate_radius(radius.topRight, axis.main);
-	target.radius.bottomLeft = calculate_radius(radius.bottomLeft, axis.main);
-	target.radius.bottomRight = calculate_radius(radius.bottomRight, axis.main);
+
 
 	if (text != -1){
 		text = scribble(text);
@@ -76,7 +72,7 @@ function calculate_container(layout = true){
 	}
 	
 	if (layout) generate_layout();
-
+	
 	//calculate efficient width
 	efficient.width = target.width + target.padding.left + target.padding.right;
 	efficient.height = target.height + target.padding.top + target.padding.bottom;
@@ -87,7 +83,13 @@ function calculate_container(layout = true){
 
 	efficient.width = round(min(efficient.width, target.maximum.width));
 	efficient.height = round(min(efficient.height, target.maximum.height));
-
+	
+	//calculate radius
+	target.radius.topLeft = calculate_radius(radius.topLeft, efficient.height / 2);
+	target.radius.topRight = calculate_radius(radius.topRight, efficient.height / 2);
+	target.radius.bottomLeft = calculate_radius(radius.bottomLeft, efficient.height / 2);
+	target.radius.bottomRight = calculate_radius(radius.bottomRight, efficient.height / 2);
+	
 	if (position == fixed){
 		switch (align){
 		case fa_center:
@@ -108,11 +110,24 @@ function calculate_container(layout = true){
 		}
 	}
 
-	instance = (object == -1) ? -1 : instance_create_depth(x, y, -1, object, {parent: self, width: efficient.width, height: efficient.height, persistent: other.persistent});
+	instance = (object == -1) ? -1 : instance_create_depth(realistic.x, realistic.y, -1, object, {parent: self, width: efficient.width, height: efficient.height});
 
-	if (instance != -1) instance.width = efficient.width;
-	if (instance != -1) instance.height = efficient.height;
-
+	if (instance != -1){
+		instance.width = efficient.width;
+		instance.height = efficient.height;
+		
+		if (expressions != -1){
+			var expressionsList = struct_get_names(expressions);
+			
+			recurse_array(expressionsList, function(name, args){
+				var instance = args[0];
+				var meth = args[1];
+				
+				instance[$ name] = method(self, expressions[$ name]);
+			}, [instance, expressions]);
+		}
+	}
+	
 	//update cache
 	//var aa = 12;
 	//target.aa = aa * (target.radius.topLeft != 0 or target.radius.topRight != 0 or target.radius.bottomLeft != 0 or target.radius.bottomRight != 0);

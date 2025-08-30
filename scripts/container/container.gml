@@ -14,6 +14,11 @@ function container(style) constructor{
 	tx = 0;
 	ty = 0;
 	
+	realistic = {
+		x: 0,
+		y: 0,
+	}
+	
 	//properties
 	position = get_default("position", relative);
 	
@@ -80,6 +85,7 @@ function container(style) constructor{
 	
 	object = get_default("object", -1);
 	instance = -1;
+	expressions = get_default("expressions", -1);
 	
 	//children
 	content = get_default("content", []);
@@ -242,15 +248,18 @@ function container(style) constructor{
 		if (!visible) return;
 		if (dirty) calculate_container(true);
 		
-		self.tx = tx;
-		self.ty = ty;
+		self.tx = tx + offsetx;
+		self.ty = ty + offsety;
 		
 		tx = x + tx + offsetx;
 		ty = y + ty + offsety;
 		
+		realistic.x = parent.x + parent.tx + tx;
+		realistic.y = parent.y + parent.ty + ty;
+		
 		if (instance != -1){
-			instance.x = tx;
-			instance.y = ty;
+			instance.x = realistic.x;
+			instance.y = realistic.y;
 		}
 		
 		if (blur > 0){

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"button",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"button",
+  "parent":{
+    "name":"button",
+    "path":"folders/Scripts/objects/button.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

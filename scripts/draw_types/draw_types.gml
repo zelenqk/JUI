@@ -20,7 +20,7 @@ function draw_overflow(tx = 0, ty = 0){
 
 function draw_vanilla(tx = 0, ty = 0){
 	draw_content(content, tx + target.padding.left, ty + target.padding.top);	
-	if (text != -1) text.draw(tx + target.padding.left, ty + target.padding.top);	
+	if (text != -1) text.draw(tx + target.padding.left, ty + target.padding.top);
 }
 
 //text stuff

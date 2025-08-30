@@ -70,6 +70,12 @@ BASE_CONTAINER = {
 	"radiusBottomLeft": 0,
 	"radiusBottomRight": 0,
 	
+	"x": 0,
+	"y": 0,
+	
+	"tx": 0,
+	"ty": 0,
+	
 	"target": {
 		"width": GUIW,	
 		"height": GUIH,	

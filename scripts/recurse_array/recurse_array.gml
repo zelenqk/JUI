@@ -16,6 +16,6 @@ function recurse_array_reverse(array, scr, args){
 		var element = array[i];
 		
 		if (is_array(element)) recurse_array_reverse(element, scr, args);
-		else scr(element);
+		else scr(element, args);
 	}	
 }

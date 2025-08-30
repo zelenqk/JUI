@@ -27,7 +27,7 @@ style = {
 	"offsetx": -32,
 	"padding": 12,
 	"overflow": fa_hidden,
-	"maxHeight": "90%",
+	"maxHeight": "80%",
 };
 
 main = new container(style);
@@ -46,13 +46,6 @@ main.add({
 	"opacity": 0,
 	"text": "I [fntSecondary]gotta say that [fntMain][rainbow]scribble[/rainbow] has to be the best system made in gamemaker it legit has way too many stuff while being incredibly lightweight.\n\nI guess now i'll center anything text based to be controlled by [rainbow]scribble[/rainbow] and dump that btext idea i had, [rainbow]scribble[/rainbow] is just plug and play out of the box\n\nAlso here's 500 containers for the heck of it :P (technically not since when overflow is hidden they are skipped if outside of bounds)"
 })
-
-main.add({
-	"width": "100%",
-	"height": 64,
-	"opacity": 0,
-	"text": "hello!",
-});
 
 main.add(new button({
 	"width": "100%",

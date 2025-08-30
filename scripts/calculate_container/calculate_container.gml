@@ -68,7 +68,7 @@ function calculate_container(layout = true){
 		
 		if (target.width > 0) text.wrap(target.width);
 		if (fontSize == auto and target.height > 0) text.scale(target.height / text.get_height());
-		else if (fontSize > 0) text.scale(fontSize / FONT_SIZES[fntMain]);
+		else if (fontSize > 0) text.scale(fontSize / FONT_SIZES[asset_get_index(text.__starting_font)]);
 	}
 	
 	if (layout) generate_layout();

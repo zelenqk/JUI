@@ -60,6 +60,7 @@
   "name":"JUI",
   "resources":[
     {"id":{"name":"fntMain","path":"fonts/fntMain/fntMain.yy",},},
+    {"id":{"name":"fntSecondary","path":"fonts/fntSecondary/fntSecondary.yy",},},
     {"id":{"name":"scribble_fallback_font","path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},},
     {"id":{"name":"oButton","path":"objects/oButton/oButton.yy",},},
     {"id":{"name":"oController","path":"objects/oController/oController.yy",},},

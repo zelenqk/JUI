@@ -54,6 +54,7 @@ function container(style) constructor{
 	fontSize = get_default("fontSize", auto);
 	textAlign = get_default("textAlign", fa_left);
 	textJustify = get_default("textJustify", fa_top);
+	halign = get_default("halign", fa_left);
 	
 	axis = {	//the axises in pixels
 		main: 0,	

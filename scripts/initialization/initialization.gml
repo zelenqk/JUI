@@ -8,9 +8,9 @@
 #macro auto_first -2
 
 //position
-//fixed
+//fixed		//uses parent's position as a starting position is also drawn inside parent
 #macro relative 1
-#macro hybrid 2
+#macro absolute 2	//its inside a container but has its own position and is drawn outside of a container
 
 //directions
 #macro column 0

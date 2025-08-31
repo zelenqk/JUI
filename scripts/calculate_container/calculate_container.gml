@@ -65,6 +65,7 @@ function calculate_container(layout = true){
 
 	if (text != -1){
 		text = scribble(text);
+		text.__starting_halign = halign;
 		
 		if (target.width > 0) text.wrap(target.width);
 		if (fontSize == auto and target.height > 0) text.scale(target.height / text.get_height());
@@ -80,6 +81,15 @@ function calculate_container(layout = true){
 			break;
 		case fa_right:
 			target.textOffset.x = target.width - text.get_width();
+			break;
+		}
+		
+		switch (halign){
+		case fa_center:
+			target.textOffset.x += text.get_width() / 2;
+			break;
+		case fa_right:
+			target.textOffset.x += text.get_width();
 			break;
 		}
 		

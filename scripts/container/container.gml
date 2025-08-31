@@ -51,7 +51,10 @@ function container(style) constructor{
 	//scribble
 	text = get_default("text", auto);
 	
-	fontSize = get_default("fontSize", auto)
+	fontSize = get_default("fontSize", auto);
+	textAlign = get_default("textAlign", fa_left);
+	textJustify = get_default("textJustify", fa_top);
+	
 	axis = {	//the axises in pixels
 		main: 0,	
 		secondary: 0,
@@ -169,6 +172,11 @@ function container(style) constructor{
 		maximum: {
 			width: 0,
 			height: 0,
+		},
+		
+		textOffset: {
+			x: 0,
+			y: 0,
 		},
 		
 		aa: 0,

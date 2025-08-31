@@ -9,7 +9,7 @@ function draw_overflow(tx = 0, ty = 0){
 		
 		draw_content(content, target.padding.left, target.padding.top);
 		
-		if (text != -1) text.draw(target.padding.left, target.padding.top);	
+		if (text != -1) text.draw(target.padding.left + target.textOffset.x, target.padding.top + target.textOffset.y);	
 		gpu_set_blendenable(true);
 		
 		gpu_set_blendmode_ext(bm_zero, bm_src_alpha);
@@ -25,7 +25,7 @@ function draw_vanilla(tx = 0, ty = 0){
 	draw_content(content, tx + target.padding.left, ty + target.padding.top);
 	
 	if (text != -1){
-		text.draw(tx + target.padding.left, ty + target.padding.top);
+		text.draw(tx + target.padding.left + target.textOffset.x, ty + target.padding.top + target.textOffset.y);
 	}
 }
 

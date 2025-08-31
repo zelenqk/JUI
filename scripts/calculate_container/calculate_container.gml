@@ -73,6 +73,25 @@ function calculate_container(layout = true){
 	
 	if (layout) generate_layout();
 	
+	if (text != -1){
+		switch (textAlign){
+		case fa_center:
+			target.textOffset.x = target.width / 2 - text.get_width() / 2;
+			break;
+		case fa_right:
+			target.textOffset.x = target.width - text.get_width();
+			break;
+		}
+		
+		switch (textJustify){
+		case fa_center:
+			target.textOffset.y = target.height / 2 - text.get_height() / 2;
+			break;
+		case fa_bottom:
+			target.textOffset.y = target.height - text.get_height();
+			break;
+		}
+	}
 	//calculate efficient width
 	efficient.width = target.width + target.padding.left + target.padding.right;
 	efficient.height = target.height + target.padding.top + target.padding.bottom;
@@ -109,7 +128,7 @@ function calculate_container(layout = true){
 			break;
 		}
 	}
-
+	
 	instance = (object == -1) ? -1 : instance_create_depth(realistic.x, realistic.y, -1, object, {parent: self, width: efficient.width, height: efficient.height});
 
 	if (instance != -1){

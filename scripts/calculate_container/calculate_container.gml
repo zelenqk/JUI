@@ -30,7 +30,7 @@ function calculate_container(){
 	target.radius.right.bottom = calculate_value(radius.right.bottom, efficient.height);
 	
 	////background
-	target.background = is_array(background) ? get_rgb(c_white) : get_rgb(background);
+	target.background = (is_array(background) or background <= auto) ? get_rgb(c_white) : get_rgb(background);
 	
 	
 	

@@ -12,11 +12,23 @@ function container(style) constructor{
 	
 	aspect = get_default("aspect");
 	
+	//style
 	background = get_default("background", c_white);
+	
+	radius = {
+		left: {
+			top: get_default("radiusTopLeft", get_default("radiusLeft", get_default("radiusTop", get_default("radius", 0)))),
+			bottom: get_default("radiusBottomLeft", get_default("radiusLeft", get_default("radiusBottom", get_default("radius", 0))))	
+		},
+		right: {
+			top: get_default("radiusTopRight", get_default("radiusRight", get_default("radiusTop", get_default("radius", 0)))),
+			bottom: get_default("radiusBottomRight", get_default("radiusRight", get_default("radiusBottom", get_default("radius", 0))))	
+		}
+	}
 	
 	//children
 	content = get_default("content", []);
-	overflow = get_default("display", fa_allow);
+	overflow = get_default("overflow", fa_allow);
 
 	//functions
 	add = function(element, index = 1){

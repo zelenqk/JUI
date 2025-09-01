@@ -1,8 +1,5 @@
 function calculate_container(parent = self.parent){
 	if (parent == BASE_CONTAINER) position = fixed;
-		
-	target.x = parent.target.x + x;
-	target.y = parent.target.y + y;
 	
 	//dimensions
 	target.width = calculate_value(width, parent.target.width);
@@ -21,8 +18,8 @@ function calculate_container(parent = self.parent){
 	target.margin.bottom = calculate_value(margin.bottom, parent.target.height);
 	
 	//
-	efficient.width = target.width;
-	efficient.height = target.height;
+	efficient.width = round(target.width + target.padding.left + target.padding.right);
+	efficient.height = round(target.height + target.padding.top + target.padding.bottom);
 	
 	generate_layout();
 	
@@ -34,8 +31,8 @@ function calculate_container(parent = self.parent){
 	if (matrix.scale == auto) matrix.scale = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	if (matrix.rotation == auto) matrix.rotation = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	
-	target.x += efficient.width;
-	target.y += efficient.height;
+	target.x = target.anchorx;
+	target.y = target.anchory;
 	
 	matrix.scale[MAT.X] = target.x;
 	matrix.scale[MAT.Y] = target.y;
@@ -58,4 +55,6 @@ function calculate_container(parent = self.parent){
 	}
 	
 	build_quad(uvs);
+	
+	dirty = false;
 }

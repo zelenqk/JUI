@@ -1,5 +1,4 @@
 //3d stuff
-gpu_set_cullmode(cull_counterclockwise);
 
 #macro GUIW display_get_gui_width()
 #macro GUIH display_get_gui_height()

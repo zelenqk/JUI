@@ -81,11 +81,17 @@ function container(style) constructor{
 
 	//functions
 	add = function(element, index = 1){
+		if (!is_array(content)) content = [content];
+		
 		//index is a multiplier value meaning 0 is start of the array 1 the end of the array + 1 and 0.5 is the middle
 		index = array_length(content) * index;
+		if (!is_callable(element[$ "draw"])) element = new container(element);
 		
+		element.parent = self;
 		array_insert(content, index, element);
 		dirty = true;
+	
+		return element;
 	}
 	
 	draw = function(){

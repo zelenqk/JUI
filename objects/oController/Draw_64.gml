@@ -1,3 +1,3 @@
-draw_text(0, 0, fps);
-
 main.draw();
+
+draw_text(0, main.target.height, fps);

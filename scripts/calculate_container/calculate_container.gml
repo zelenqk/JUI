@@ -24,8 +24,11 @@ function calculate_container(){
 	efficient.width = target.width;
 	efficient.height = target.height;
 	
-	matrix.scale = matrix_build(target.x + efficient.width / 2, target.y + efficient.height / 2, 0, 0, 0, 0, 1, 1, 1);
-	matrix.rotation = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	if (matrix.scale == auto) matrix.scale = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	if (matrix.rotation == auto) matrix.rotation = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	
+	matrix.scale[MAT.X] = target.x + efficient.width / 2;
+	matrix.scale[MAT.Y] = target.y + efficient.height / 2;
 	//style
 	
 	////radius

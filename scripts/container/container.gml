@@ -24,8 +24,8 @@ function container(style) constructor{
 	
 	//matrixes
 	matrix = {
-		scale: get_default("scale", array_create(4 * 4, 0)),
-		rotation: get_default("rotation", array_create(4 * 4, 0)),
+		scale: get_default("scale", auto),
+		rotation: get_default("rotation", auto),
 	}
 	
 	//layout properties
@@ -73,7 +73,11 @@ function container(style) constructor{
 		if (dirty) calculate_container();
 		
 		matrix_set(matrix_world, matrix_multiply(matrix.rotation, matrix.scale));
+		
+		draw_set_alpha(opacity);
 		vertex_submit(cache.vbuff, pr_trianglefan, texture);
+		draw_set_alpha(1);
+		
 		matrix_set(matrix_world, identity);
 	}
 	

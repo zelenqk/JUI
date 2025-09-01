@@ -4,7 +4,12 @@ dt = (delta_time / targetDt) / 1000000;
 
 main = new container({
 	"width": "100%",
-	"height": "12%",
+	"height": "32%",
 	
-	"background": c_white,
+	"background": c_red,
+	
+	"sprite": sSprite,
+	"opacity": 0.25,
 });
+
+rotation = 0;

@@ -10,7 +10,7 @@ function container(style) constructor{
 	
 	dirty = true;
 	
-	target = {};
+	target = new target_container();
 	efficient = {};
 	
 	texture = -1;
@@ -18,6 +18,8 @@ function container(style) constructor{
 	cache = {
 		vbuff: vertex_create_buffer(),
 	}
+	
+	line = [];
 	
 	x = 0;
 	y = 0;
@@ -27,6 +29,9 @@ function container(style) constructor{
 		scale: get_default("scale", auto),
 		rotation: get_default("rotation", auto),
 	}
+	
+	anchorx = get_default("anchorx", fa_center);
+	anchory = get_default("anchory", fa_center);
 	
 	//layout properties
 	width = get_unit(get_default("width", GUIW));
@@ -65,20 +70,19 @@ function container(style) constructor{
 		//index is a multiplier value meaning 0 is start of the array 1 the end of the array + 1 and 0.5 is the middle
 		index = array_length(content) * index;
 		
-		array_insert(element);
+		array_insert(content, index, element);
 		dirty = true;
 	}
 	
 	draw = function(){
 		if (dirty) calculate_container();
 		
-		matrix_set(matrix_world, matrix_multiply(matrix.rotation, matrix.scale));
+		var prvMat = matrix_get(matrix_world);
+		matrix_set(matrix_world, matrix_multiply(matrix_multiply(matrix.rotation, matrix.scale), prvMat));
 		
-		draw_set_alpha(opacity);
 		vertex_submit(cache.vbuff, pr_trianglefan, texture);
-		draw_set_alpha(1);
 		
-		matrix_set(matrix_world, identity);
+		matrix_set(matrix_world, prvMat);
 	}
 	
 	destroy = function(){

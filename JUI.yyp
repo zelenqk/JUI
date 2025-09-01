@@ -45,6 +45,7 @@
     {"id":{"name":"calculate_container","path":"scripts/calculate_container/calculate_container.yy",},},
     {"id":{"name":"calculate_value","path":"scripts/calculate_value/calculate_value.yy",},},
     {"id":{"name":"container","path":"scripts/container/container.yy",},},
+    {"id":{"name":"generate_layout","path":"scripts/generate_layout/generate_layout.yy",},},
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
     {"id":{"name":"get_unit","path":"scripts/get_unit/get_unit.yy",},},
     {"id":{"name":"jui_initialization","path":"scripts/jui_initialization/jui_initialization.yy",},},

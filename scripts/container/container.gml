@@ -43,6 +43,20 @@ function container(style) constructor{
 	
 	aspect = get_default("aspect");
 	
+	padding = {
+		top: get_unit(get_overwrites(0, "paddingTop", "paddingVertical", "padding")),
+		left: get_unit(get_overwrites(0, "paddingLeft", "paddingHorizontal", "padding")),
+		right: get_unit(get_overwrites(0, "paddingRight", "paddingHorizontal", "padding")),
+		bottom: get_unit(get_overwrites(0, "paddingBottom", "paddingVertical", "padding")),
+	}
+	
+	margin = {
+		top: get_unit(get_overwrites(0, "marginTop", "marginVertical", "margin")),
+		left: get_unit(get_overwrites(0, "marginLeft", "marginHorizontal", "margin")),
+		right: get_unit(get_overwrites(0, "marginRight", "marginHorizontal", "margin")),
+		bottom: get_unit(get_overwrites(0, "marginBottom", "marginVertical", "margin")),
+	}
+	
 	//style
 	sprite = get_default("sprite");
 	image = get_default("image", 0);
@@ -51,13 +65,13 @@ function container(style) constructor{
 	opacity = get_default("opacity", 1);
 	
 	radius = {
-		left: {
-			top: get_unit(get_default("radiusTopLeft", get_default("radiusLeft", get_default("radiusTop", get_default("radius", 0))))),
-			bottom: get_unit(get_default("radiusBottomLeft", get_default("radiusLeft", get_default("radiusBottom", get_default("radius", 0)))))	
+		top: {
+			left: get_unit(get_overwrites(0, "radiusTopLeft", "radiusTop", "radius")),
+			right: get_unit(get_overwrites(0, "radiusTopRight", "radiusTop", "radius")),
 		},
-		right: {
-			top: get_unit(get_default("radiusTopRight", get_default("radiusRight", get_default("radiusTop", get_default("radius", 0))))),
-			bottom: get_unit(get_default("radiusBottomRight", get_default("radiusRight", get_default("radiusBottom", get_default("radius", 0)))))	
+		bottom: {
+			left: get_unit(get_overwrites(0, "radiusBottomLeft", "radiusBottom", "radius")),
+			right: get_unit(get_overwrites(0, "radiusBottomRight", "radiusBottom", "radius")),	
 		}
 	}
 	

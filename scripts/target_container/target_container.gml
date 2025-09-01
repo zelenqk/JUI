@@ -10,6 +10,9 @@ function target_container() constructor{
 	width = 0;
 	height = 0;
 	
+	anchorx = 0;
+	anchory = 0;
+	
 	padding = {
 		top: 0,
 		left: 0,

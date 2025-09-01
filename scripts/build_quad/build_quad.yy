@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"build_quad",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"build_quad",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

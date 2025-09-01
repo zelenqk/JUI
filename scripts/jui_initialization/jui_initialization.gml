@@ -7,6 +7,11 @@
 #macro fixed 0
 #macro flex 1
 
+//position
+//fixed 0
+#macro relative 1
+#macro absolute 2
+
 //direction
 #macro column 0
 #macro row 1
@@ -31,6 +36,8 @@ JUI_FORMAT = vertex_format_end();
 BASE_CONTAINER = {
 	parent: self,
 	target: {
+		x: 0,
+		y: 0,
 		width: GUIW,
 		height: GUIH,
 	}

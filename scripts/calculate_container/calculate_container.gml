@@ -1,4 +1,9 @@
 function calculate_container(){
+	if (parent == BASE_CONTAINER) position = fixed;
+	
+	target.x = parent.x + x;
+	target.y = parent.y + y;
+	
 	//dimensions
 	target.width = calculate_value(width, parent.width);
 	target.height = calculate_value(width, parent.height);
@@ -17,7 +22,6 @@ function calculate_container(){
 	
 	generate_layout();
 	
-	
 	//style
 	
 	////radius
@@ -32,8 +36,12 @@ function calculate_container(){
 	////background
 	target.background = (is_array(background) or background <= auto) ? get_rgb(c_white) : get_rgb(background);
 	
+	//create vertex buffer
+	var uvs = [0, 0, 0, 0];
+	if (sprite != auto){
+		texture = sprite_get_texture(sprite, image);
+		uvs = sprite_get_uvs(sprite, image);
+	}
 	
-	
-	
-	
+	build_quad(uvs);
 }

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"calculate_value",
+  "%Name":"render_container",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"calculate_value",
+  "name":"render_container",
   "parent":{
     "name":"tools",
     "path":"folders/Scripts/tools.yy",

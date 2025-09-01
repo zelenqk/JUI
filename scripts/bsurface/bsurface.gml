@@ -2,26 +2,26 @@ globalvar SURFACE_LIST, TARGET;
 SURFACE_LIST = [];
 TARGET = -1;
 
-function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
+function bsurface(w = 0, h = 0, format = surface_rgba8unorm) constructor{
 	self.format = format;
 	
 	width = w;
 	height = h;
-	if (width = 0) width = 1;
-	if (height = 0) height = 1;
 	
-	surface = surface_create(width, height, format);
-	pointer = surface_get_texture(surface);
+	render = (width > 0 and height > 0);
+	
+	surface = (render) ? surface_create(width, height, format) : -1;
+	pointer = (render) ? surface_get_texture(surface) : -1;
 	
 	upper = -1;
+	exists = false;
+	
 	
 	resurface = function(){
-		var exists = surface_exists(surface);
+		exists = surface_exists(surface);
 		
-		if (!exists and window_has_focus()){
+		if (!exists and render and window_has_focus()){
 			surface_free(surface);
-			
-			if (width == 0 or height == 0) return false;
 			
 			surface = surface_create(width, height, format)	
 			pointer = surface_get_texture(surface);	
@@ -47,7 +47,7 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 	}
 	
 	reset = function(){
-		if (TARGET == self)surface_reset_target();
+		if (TARGET == self) surface_reset_target();
 
 		if (upper != -1) upper.target(false);
 		else TARGET = -1;
@@ -63,14 +63,15 @@ function bsurface(w = 1, h = 1, format = surface_rgba8unorm) constructor{
 		width = abs(ceil(w));
 		height = abs(ceil(h));
 		
-		if (width <= 1) width = 1;
-		if (height <= 1) height = 1;
-
+		if (width <= 1) render = false;
+		if (height <= 1) render = false;
+		
+		render = true;
 		if (resurface()) surface_resize(surface, width, height);
 	}
 	
 	draw = function(tx = 0, ty = 0, opacity = 1){
-		if (resurface()) draw_surface_ext(surface, tx, ty, 1, 1, 0, c_white, opacity);
+		if (render and resurface()) draw_surface_ext(surface, tx, ty, 1, 1, 0, c_white, opacity);
 	}
 }
 

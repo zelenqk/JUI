@@ -49,5 +49,6 @@ void main(){
 	
 	float d = sdRoundBox(p, size, radius);
 	
-	gl_FragColor.a = 1.0 - smoothstep(0.0, 0.1, d);
+	float aa = 0.01;	//anti-aliasing (0.01 == hard edge, fwidth(d) = smooth edge but has some weird black line at the end)
+	gl_FragColor.a = 1.0 - smoothstep(0.0, aa, d);
 }

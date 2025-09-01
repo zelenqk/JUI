@@ -1,57 +1,29 @@
-function calculate_value(value, parentvalue){
-	var unit = value.unit;
-	value = value.value;
-	
-	switch (unit){
-	case UNIT.PIXEL:
-		return value;
-		break;
-	case UNIT.PERCENT:
-		return (value / 100) * parentvalue;
-		break;
-	case UNIT.VIEW_WIDTH:
-		return (value / 100) * GUIW;
-		break;
-	case UNIT.VIEW_HEIGHT:
-		return (value / 100) * GUIH;
-		break;
-	case UNIT.TARGET_WIDTH:
-		return (value / 100) * target.width;
-		break;
-	case UNIT.TARGET_HEIGHT:
-		return(value / 100) * target.height;
-		break;
-	case UNIT.PARENT_WIDTH:
-		return (value / 100) * parent.target.width;
-		break;
-	case UNIT.PARENT_HEIGHT:
-		return(value / 100) * parent.target.height;
-		break;
-	}	
-}
+function calculate_value(value, target = 0){
 
-function calculate_radius(value, size){
-	var unit = value.unit;
-	value = value.value;
+	switch (value.unit){
+	case JUNIT.PIXEL:
+		return value.value;
+		break;
+	case JUNIT.TARGET_WIDTH:
+		target = self.target.width;
+		break;
+	case JUNIT.TARGET_HEIGHT:
+		target = self.target.height;
+		break;
+	case JUNIT.PARENT_WIDTH:
+		target = parent.target.width;
+		break;
+	case JUNIT.PARENT_HEIGHT:
+		target = parent.target.height;
+		break;
+	case JUNIT.PARENT_EWIDTH:
+		target = parent.target.width + parent.efficient.width;
+		break;
+	case JUNIT.PARENT_EHEIGHT:
+		target = parent.target.height + parent.efficient.height;
+		break;
+	//JUNIT.PERCENT is skipped here
+	}
 	
-	switch (unit){
-	case UNIT.PIXEL:
-		return value / 2;
-		break;
-	case UNIT.PERCENT:
-		return (value / 100) * (size / 2);
-		break;
-	case UNIT.VIEW_WIDTH:
-		return ((value / 100) * GUIW);
-		break;
-	case UNIT.VIEW_HEIGHT:
-		return ((value / 100) * GUIH);
-		break;
-	case UNIT.PARENT_WIDTH:
-		return ((value / 100) * parent.target.width);
-		break;
-	case UNIT.PARENT_HEIGHT:
-		return ((value / 100) * parent.target.height);
-		break;
-	}	
+	return target * (value.value / 100);
 }

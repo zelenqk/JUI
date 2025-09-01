@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"calculate_value",
+  "%Name":"jui_initialization",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"calculate_value",
+  "name":"jui_initialization",
   "parent":{
-    "name":"tools",
-    "path":"folders/Scripts/tools.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

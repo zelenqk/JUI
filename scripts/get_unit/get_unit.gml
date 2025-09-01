@@ -1,3 +1,5 @@
+enum JUNIT { PIXEL, PERCENT, TARGET_WIDTH, TARGET_HEIGHT, PARENT_WIDTH, PARENT_HEIGHT, PARENT_EWIDTH, PARENT_EHEIGHT };
+
 function get_unit(val){
 	if (is_real(val) or val == infinity) return {unit: UNIT.PIXEL, value: val};
 	
@@ -14,45 +16,35 @@ function get_unit(val){
 		index--;
 	}
 	
-	var value = string_copy(val, 0, index);
-	var unit = string_copy(val, index + 1, length - index);
+	var value = real(string_copy(val, 0, index));
+	var unit = string_lower(string_copy(val, index + 1, length - index));
 	
-	switch (string_lower(unit)){
-	case "px":
-		unit = UNIT.PIXEL;
+	switch (unit){
+	default:
+		unit = JUNIT.PIXEL;
 		break;
 	case "%":
-	case "pc":
-		unit = UNIT.PERCENT;
-		break;
-	case "vw":
-		unit = UNIT.VIEW_WIDTH;
-		break;
-	case "vh":
-		unit = UNIT.VIEW_HEIGHT;
+		unit = JUNIT.PERCENT;
 		break;
 	case "tw":
-		unit = UNIT.TARGET_WIDTH;
+		unit = JUNIT.TARGET_WIDTH;
 		break;
 	case "th":
-		unit = UNIT.TARGET_HEIGHT;
-		break;
-	case "ew":
-		unit = UNIT.EFFICIENT_WIDTH;
-		break;
-	case "eh":
-		unit = UNIT.EFFICIENT_HEIGHT;
+		unit = JUNIT.TARGET_WIDTH;
 		break;
 	case "pw":
-		unit = UNIT.PARENT_WIDTH;
+		unit = JUNIT.PARENT_WIDTH;
 		break;
 	case "ph":
-		unit = UNIT.PARENT_HEIGHT;
+		unit = JUNIT.PARENT_WIDTH;
 		break;
-	default:
-		unit = UNIT.PIXEL;
+	case "pew":
+		unit = JUNIT.PARENT_EWIDTH;
+		break;
+	case "peh":
+		unit = JUNIT.PARENT_EWIDTH;
 		break;
 	}
 	
-	return {unit: unit, value: real(value)};
+	return {value: value, unit: unit}
 }

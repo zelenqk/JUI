@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"linear_gradient",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"tools",
+    "path":"folders/Scripts/tools.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

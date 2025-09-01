@@ -19,12 +19,19 @@
 #macro fa_wrap 2
 #macro fa_hidden_wrap 3
 
-globalvar BASE_CONTAINER;
+globalvar JUI_FORMAT, BASE_CONTAINER;
+
+vertex_format_begin();
+vertex_format_add_color();
+vertex_format_add_texcoord();
+vertex_format_add_position_3d();
+JUI_FORMAT = vertex_format_end();
 
 //parent of all
 BASE_CONTAINER = {
+	parent: self,
 	target: {
-		width: 0,
-		height: 0,
+		width: GUIW,
+		height: GUIH,
 	}
 }

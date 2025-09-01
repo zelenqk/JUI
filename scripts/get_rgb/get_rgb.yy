@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"get_rgb",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"get_rgb",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

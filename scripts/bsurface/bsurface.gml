@@ -1,3 +1,11 @@
+/*
+	This constructor is a simple way to use surfaces
+	it even checks if you're inside a surface already
+	and when you reset target it will re-target back to the "upper" surface
+	
+	currently i plan to use vertex buffers so i might not use it in the future
+*/
+
 globalvar SURFACE_LIST, TARGET;
 SURFACE_LIST = [];
 TARGET = -1;

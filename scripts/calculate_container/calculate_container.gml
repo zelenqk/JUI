@@ -1,4 +1,5 @@
 function calculate_container(){
+	//dimensions
 	target.width = calculate_value(width, parent.width);
 	target.height = calculate_value(width, parent.height);
 
@@ -15,5 +16,24 @@ function calculate_container(){
 	target.margin.bottom = calculate_value(margin.bottom, parent.height);
 	
 	generate_layout();
+	
+	
+	//style
+	
+	////radius
+	target.radius = {};
+	target.radius.left = {};
+	target.radius.right = {};
+	target.radius.left.top = calculate_value(radius.left.top, efficient.height);
+	target.radius.left.bottom = calculate_value(radius.left.bottom, efficient.height);
+	target.radius.right.top = calculate_value(radius.right.top, efficient.height);
+	target.radius.right.bottom = calculate_value(radius.right.bottom, efficient.height);
+	
+	////background
+	target.background = is_array(background) ? get_rgb(c_white) : get_rgb(background);
+	
+	
+	
+	
 	
 }

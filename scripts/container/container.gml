@@ -1,19 +1,36 @@
+/*
+	This constructor is what the whole ui system is built off of
+	
+	ps. Dont forget to purge on cleanup!
+*/
+
 function container(style) constructor{
 	self.style = style;
+	parent = BASE_CONTAINER;
+	
 	dirty = true;
 	
 	target = {};
 	efficient = {};
 	
 	texture = -1;
-	vertexBuffer = vertex_create_buffer();
+	
+	cache = {
+		vbuff: vertex_create_buffer(),
+	}
 	
 	x = 0;
 	y = 0;
 	
+	//matrixes
+	matrix = {
+		scale: get_default("scale", array_create(4 * 4, 0)),
+		rotation: get_default("rotation", array_create(4 * 4, 0)),
+	}
+	
 	//layout properties
-	width = get_default("width", GUIW);
-	height = get_default("height", 0);
+	width = get_unit(get_default("width", GUIW));
+	height = get_unit(get_default("height", 0));
 	
 	display = get_default("display", fixed);
 	position = get_default("position", relative);
@@ -26,15 +43,16 @@ function container(style) constructor{
 	image = get_default("image", 0);
 	
 	background = get_default("background", c_white);
+	opacity = get_default("opacity", 1);
 	
 	radius = {
 		left: {
-			top: get_default("radiusTopLeft", get_default("radiusLeft", get_default("radiusTop", get_default("radius", 0)))),
-			bottom: get_default("radiusBottomLeft", get_default("radiusLeft", get_default("radiusBottom", get_default("radius", 0))))	
+			top: get_unit(get_default("radiusTopLeft", get_default("radiusLeft", get_default("radiusTop", get_default("radius", 0))))),
+			bottom: get_unit(get_default("radiusBottomLeft", get_default("radiusLeft", get_default("radiusBottom", get_default("radius", 0)))))	
 		},
 		right: {
-			top: get_default("radiusTopRight", get_default("radiusRight", get_default("radiusTop", get_default("radius", 0)))),
-			bottom: get_default("radiusBottomRight", get_default("radiusRight", get_default("radiusBottom", get_default("radius", 0))))	
+			top: get_unit(get_default("radiusTopRight", get_default("radiusRight", get_default("radiusTop", get_default("radius", 0))))),
+			bottom: get_unit(get_default("radiusBottomRight", get_default("radiusRight", get_default("radiusBottom", get_default("radius", 0)))))	
 		}
 	}
 	
@@ -53,7 +71,31 @@ function container(style) constructor{
 	
 	draw = function(){
 		if (dirty) calculate_container();
+		
+		matrix_set(matrix_world, matrix_multiply(matrix.rotation, matrix.scale));
+		vertex_submit(cache.vbuff, pr_trianglefan, texture);
+		matrix_set(matrix_world, identity);
+	}
 	
+	destroy = function(){
+		vertex_delete_buffer(cache.vbuff);
+	}
+	
+	//save to purge later
+	JUI_CONTAINERS_LIST[array_length(JUI_CONTAINERS_LIST)] = self;
+}
+
+
+globalvar JUI_CONTAINERS_LIST;
+JUI_CONTAINERS_LIST = [];
+
+function container_purge(){
+	var containersN = array_length(JUI_CONTAINERS_LIST);
+	
+	for(var i = 0; i < containersN; i++){
+		var con = JUI_CONTAINERS_LIST[i];
+		
+		con.destroy();
 		
 	}
 }

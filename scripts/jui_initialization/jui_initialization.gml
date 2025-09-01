@@ -24,12 +24,16 @@
 #macro fa_wrap 2
 #macro fa_hidden_wrap 3
 
+//matrix stuff
+enum MAT {XSCALE = 0, YSCALE = 4, ZSCALE = 8, X = 12, Y, Z };
+#macro identity matrix_build_identity()
+
 globalvar JUI_FORMAT, BASE_CONTAINER;
 
 vertex_format_begin();
 vertex_format_add_color();
 vertex_format_add_texcoord();
-vertex_format_add_position_3d();
+vertex_format_add_position();
 JUI_FORMAT = vertex_format_end();
 
 //parent of all

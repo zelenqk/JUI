@@ -19,7 +19,7 @@ function bsurface(w = 0, h = 0, format = surface_rgba8unorm) constructor{
 	render = (width > 0 and height > 0);
 	
 	surface = (render) ? surface_create(width, height, format) : -1;
-	texture = (render) ? surface_get_texture(surface) : -1;
+	pointer = (render) ? surface_get_texture(surface) : -1;
 	
 	upper = -1;
 	exists = false;
@@ -32,7 +32,7 @@ function bsurface(w = 0, h = 0, format = surface_rgba8unorm) constructor{
 			surface_free(surface);
 			
 			surface = surface_create(width, height, format)	
-			texture = surface_get_texture(surface);	
+			pointer = surface_get_texture(surface);
 			
 			return true;
 		}

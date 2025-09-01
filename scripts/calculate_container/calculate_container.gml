@@ -1,27 +1,31 @@
 function calculate_container(){
 	if (parent == BASE_CONTAINER) position = fixed;
 	
-	target.x = parent.x + x;
-	target.y = parent.y + y;
+	target.x = parent.target.x + x;
+	target.y = parent.target.y + y;
 	
 	//dimensions
-	target.width = calculate_value(width, parent.width);
-	target.height = calculate_value(width, parent.height);
+	target.width = calculate_value(width, parent.target.width);
+	target.height = calculate_value(height, parent.target.height);
 
 	target.padding = {};
-	target.padding.left = calculate_value(padding.left, parent.width);
-	target.padding.right = calculate_value(padding.right, parent.width);
-	target.padding.top = calculate_value(padding.top, parent.height);
-	target.padding.bottom = calculate_value(padding.bottom, parent.height);
+	//target.padding.left = calculate_value(padding.left, parent.target.width);
+	//target.padding.right = calculate_value(padding.right, parent.target.width);
+	//target.padding.top = calculate_value(padding.top, parent.target.height);
+	//target.padding.bottom = calculate_value(padding.bottom, parent.target.height);
 	
 	target.margin = {};
-	target.margin.left = calculate_value(margin.left, parent.width);
-	target.margin.right = calculate_value(margin.right, parent.width);
-	target.margin.top = calculate_value(margin.top, parent.height);
-	target.margin.bottom = calculate_value(margin.bottom, parent.height);
+	//target.margin.left = calculate_value(margin.left, parent.target.width);
+	//target.margin.right = calculate_value(margin.right, parent.target.width);
+	//target.margin.top = calculate_value(margin.top, parent.target.height);
+	//target.margin.bottom = calculate_value(margin.bottom, parent.target.height);
 	
 	generate_layout();
+	efficient.width = target.width;
+	efficient.height = target.height;
 	
+	matrix.scale = matrix_build(target.x + efficient.width / 2, target.y + efficient.height / 2, 0, 0, 0, 0, 1, 1, 1);
+	matrix.rotation = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	//style
 	
 	////radius

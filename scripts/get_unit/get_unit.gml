@@ -1,10 +1,11 @@
 enum JUNIT { PIXEL, PERCENT, TARGET_WIDTH, TARGET_HEIGHT, PARENT_WIDTH, PARENT_HEIGHT, PARENT_EWIDTH, PARENT_EHEIGHT };
 
 function get_unit(val){
-	if (is_real(val) or val == infinity) return {unit: UNIT.PIXEL, value: val};
+	if (is_real(val) or val == infinity) return {unit: JUNIT.PIXEL, value: val};
 	
 	var length = string_length(val);
 	var index = length;
+	
 	while (index > 0){
 		var char = string_char_at(val, index);
 		var orded = ord(char);

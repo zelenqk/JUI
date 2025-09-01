@@ -11,7 +11,7 @@ function container(style) constructor{
 	dirty = true;
 	
 	target = new target_container();
-	efficient = {};
+	efficient = new target_container();	//might not use an efficient holder doe idk yet
 	
 	texture = -1;
 	

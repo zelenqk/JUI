@@ -46,5 +46,13 @@ BASE_CONTAINER = {
 		y: 0,
 		width: GUIW,
 		height: GUIH,
+		
+		anchorx: 0,
+		anchory: 0,
 	}
 }
+
+
+globalvar uRadius, uSize;
+uRadius = shader_get_uniform(shBorderRadius, "radius");
+uSize = shader_get_uniform(shBorderRadius, "size");

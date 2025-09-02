@@ -4,9 +4,9 @@ dt = (delta_time / targetDt) / 1000000;
 
 main = new container({
 	"width": "100%",
-	"height": "32%",
+	"height": "12%",
 	
-	"radius": 48,
+	"radius": "50%",
 	"sprite": sSprite,
 	"opacity": 0.25,
 	
@@ -14,11 +14,11 @@ main = new container({
 });
 
 
-repeat(2000){
+repeat(3000){
 	main.add({
-		"radius": 32,
+		"radius": "50%",
 		"width": 300,
-		"height": 123,
+		"height": "50%",
 		"background": c_red,
 	})	
 }

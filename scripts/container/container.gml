@@ -97,16 +97,14 @@ function container(style) constructor{
 	draw = function(){
 		if (dirty) calculate_container();
 		
-		
-		
 		var prvMat = matrix_get(matrix_world);
 		matrix_set(matrix_world, matrix_multiply(matrix_multiply(matrix.rotation, matrix.scale), prvMat));
 		
 		shader_set(shBorderRadius);
-		shader_set_uniform_f(uRadius, target.radius.top.left, target.radius.top.right, target.radius.bottom.right, target.radius.bottom.left);
+		shader_set_uniform_f(uRadius, target.radius.bottom.right, target.radius.top.right, target.radius.bottom.left, target.radius.top.left);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		
-		vertex_submit(cache.vbuff, pr_trianglefan, texture);
+		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
 		
 		shader_reset();
 		

@@ -1,4 +1,4 @@
-enum JUNIT { PIXEL, PERCENT, TARGET_WIDTH, TARGET_HEIGHT, PARENT_WIDTH, PARENT_HEIGHT, PARENT_EWIDTH, PARENT_EHEIGHT };
+enum JUNIT { PIXEL, PERCENT, TARGET_WIDTH, TARGET_HEIGHT, PARENT_WIDTH, PARENT_HEIGHT, PARENT_EWIDTH, PARENT_EHEIGHT, VIEW_WIDTH, VIEW_HEIGHT };
 
 function get_unit(val){
 	if (is_real(val) or val == infinity) return {unit: JUNIT.PIXEL, value: val};
@@ -31,19 +31,25 @@ function get_unit(val){
 		unit = JUNIT.TARGET_WIDTH;
 		break;
 	case "th":
-		unit = JUNIT.TARGET_WIDTH;
+		unit = JUNIT.TARGET_HEIGHT;
 		break;
 	case "pw":
 		unit = JUNIT.PARENT_WIDTH;
 		break;
 	case "ph":
-		unit = JUNIT.PARENT_WIDTH;
+		unit = JUNIT.PARENT_HEIGHT;
 		break;
 	case "pew":
 		unit = JUNIT.PARENT_EWIDTH;
 		break;
 	case "peh":
-		unit = JUNIT.PARENT_EWIDTH;
+		unit = JUNIT.PARENT_EHEIGHT;
+		break;
+	case "vw":
+		unit = JUNIT.VIEW_WIDTH;
+		break;
+	case "vh":
+		unit = JUNIT.VIEW_HEIGHT;
 		break;
 	}
 	

@@ -1,9 +1,9 @@
 //3d stuff
-
 #macro GUIW display_get_gui_width()
 #macro GUIH display_get_gui_height()
 
 #macro auto -1
+#macro k *1000
 
 //display
 #macro fixed 0
@@ -44,6 +44,7 @@ BASE_CONTAINER = {
 	target: {
 		x: 0,
 		y: 0,
+		
 		width: GUIW,
 		height: GUIH,
 		
@@ -52,7 +53,7 @@ BASE_CONTAINER = {
 	}
 }
 
-
-globalvar uRadius, uSize;
+globalvar uRadius, uSize, uPos;
 uRadius = shader_get_uniform(shBorderRadius, "radius");
 uSize = shader_get_uniform(shBorderRadius, "size");
+uPos = shader_get_uniform(shBorderRadius, "pos");

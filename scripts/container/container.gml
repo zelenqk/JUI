@@ -10,6 +10,7 @@ function container(style) constructor{
 	
 	dirty = true;
 	
+	perspective = get_default("perspective", false);
 	target = new target_container();
 	efficient = new target_container();	//might not use an efficient holder doe idk yet
 	
@@ -21,13 +22,19 @@ function container(style) constructor{
 	
 	line = [];
 	
-	x = parent.target;
-	y = parent.target;
+	x = 0;
+	y = 0;
 	
 	//matrixes
 	matrix = {
 		scale: get_default("scale", auto),
+		position: get_default("scale", auto),
 		rotation: get_default("rotation", auto),
+	}
+	
+	offset = {
+		x: get_default("offsetx", 0),	
+		y: get_default("offsety", 0),	
 	}
 	
 	anchorx = get_default("anchorx", fa_center);
@@ -94,25 +101,60 @@ function container(style) constructor{
 		return element;
 	}
 	
-	draw = function(){
+	draw = function() {
 		if (dirty) calculate_container();
 		
+		if (perspective) {
+			var w = GUIW;
+			var h = GUIH;
+			var aspect = w / h;
+			var fov = 90;
+			
+			// Set up perspective projection
+			var perspMat = matrix_build_projection_perspective_fov(
+				fov,
+				aspect,
+				0.1,
+				2000
+			);
+			matrix_set(matrix_projection, perspMat);
+			
+			// Calculate perfect camera Z for 1:1 scaling
+			var fov_rad = degtorad(fov);
+			var camZ = (h * 0.5) / sin(fov_rad * 0.5) * cos(fov_rad * 0.5); 
+			// Equivalent to h/2 / tan(fov/2)
+			
+			// Build camera view matrix
+			var camMat = matrix_build_lookat(
+				w * 0.5, h * 0.5, camZ,   // Camera position
+				w * 0.5, h * 0.5, 0,      // Look at center of screen
+				0, -1, 0                 // Up vector
+			);
+			matrix_set(matrix_view, camMat);
+		}
+		
 		var prvMat = matrix_get(matrix_world);
-		matrix_set(matrix_world, matrix_multiply(matrix_multiply(matrix.rotation, matrix.scale), prvMat));
+		var fmat = matrix_multiply(matrix.rotation, matrix.scale);
+		
+		fmat[MAT.X] = x + target.x;
+		fmat[MAT.Y] = y + target.y;
+		var tmat = matrix_multiply(fmat, prvMat);
+		matrix_set(matrix_world, tmat);
 		
 		shader_set(shBorderRadius);
 		shader_set_uniform_f(uRadius, target.radius.bottom.right, target.radius.top.right, target.radius.bottom.left, target.radius.top.left);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
+		shader_set_uniform_f(uPos, 0, 0);
 		
 		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
-		
 		shader_reset();
-		
+	
 		draw_content(content);
-		
-		matrix_set(matrix_world, prvMat);
-		
-	}
+	
+		matrix_set(matrix_world, identity);
+		matrix_set(matrix_projection, identity);
+	};
+
 	
 	destroy = function(){
 		vertex_delete_buffer(cache.vbuff);

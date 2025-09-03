@@ -28,14 +28,17 @@ function calculate_container(parent = self.parent){
 	target.anchory = get_anchor(self.anchory, efficient.height);
 	
 	//matrix stuff wont be offseted in the layout and can be used of animations and whatnot
-	if (matrix.scale == auto) matrix.scale = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	target.x = target.anchorx;
+	target.y = target.anchory;
+	
+	if (position != absolute){
+		target.x = target.anchorx - parent.target.anchorx;
+		target.y = target.anchory - parent.target.anchory;	
+	}
+	
+	if (matrix.scale == auto) matrix.scale = matrix_build(target.x, target.y, 0, 0, 0, 0, 1, 1, 1);
 	if (matrix.rotation == auto) matrix.rotation = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	
-	target.x = target.anchorx - parent.target.anchorx;
-	target.y = target.anchory - parent.target.anchory;
-	
-	matrix.scale[MAT.X] = target.x;
-	matrix.scale[MAT.Y] = target.y;
 	//style
 	
 	////radius

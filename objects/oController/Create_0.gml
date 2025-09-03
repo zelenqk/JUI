@@ -3,22 +3,24 @@ targetDt = 1 / 60;
 dt = (delta_time / targetDt) / 1000000;
 
 main = new container({
-	"width": "100%",
-	"height": "12%",
+	"width": "32vw",
+	"height": "32vw",
 	
-	"radius": "50%",
+	"radius": "12%",
 	"sprite": sSprite,
 	"opacity": 0.25,
 	
+	"perspective": true,
 	"overflow": fa_hidden,
 });
 
-
-repeat(3000){
+repeat(3){
 	main.add({
-		"radius": "50%",
-		"width": 300,
+		"width": "50%",	
 		"height": "50%",
 		"background": c_red,
-	})	
+	})
 }
+
+rotation = 0;
+

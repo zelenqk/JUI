@@ -22,6 +22,12 @@ function calculate_value(value, target = 0){
 	case JUNIT.PARENT_EHEIGHT:
 		target = parent.target.height + parent.efficient.height;
 		break;
+	case JUNIT.VIEW_WIDTH:
+		target = GUIW;
+		break;
+	case JUNIT.VIEW_HEIGHT:
+		target = GUIH;
+		break;
 	//JUNIT.PERCENT is skipped here
 	}
 	

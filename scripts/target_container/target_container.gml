@@ -40,4 +40,8 @@ function target_container() constructor{
 			right: 0,	
 		}
 	}
+	
+	tmat = identity;
+	
+	
 }

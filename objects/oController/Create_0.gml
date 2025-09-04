@@ -16,7 +16,7 @@ main = new container({
 	"overflow": fa_hidden,
 });
 
-repeat(3){
+repeat(2000){
 	main.add({
 		"width": "50%",	
 		"height": "50%",

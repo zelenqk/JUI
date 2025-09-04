@@ -59,5 +59,13 @@ function calculate_container(parent = self.parent){
 	
 	build_quad(uvs);
 	
+	//matrices
+	var fmat = matrix_multiply(matrix.rotation, matrix.scale);
+	
+	fmat[MAT.X] = x + target.x;
+	fmat[MAT.Y] = y + target.y;
+		
+	target.tmat = matrix_multiply(parent.target.tmat, fmat);
+	
 	dirty = false;
 }

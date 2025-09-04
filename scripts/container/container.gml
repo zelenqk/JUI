@@ -130,7 +130,7 @@ function container(style, parent = self) constructor{
 		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
 		shader_reset();
 
-		draw_content(content, x + tx, y + ty);
+		draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
 		
 		matrix_set(matrix_world, prvMat);
 	};

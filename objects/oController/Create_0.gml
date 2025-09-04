@@ -12,6 +12,7 @@ main = new container({
 	"align": fa_center,
 	"justify": fa_center,
 	
+	"padding": 32,
 	"overflow": fa_hidden,
 });
 

@@ -31,7 +31,6 @@ function build_quad(uvs){
 	vertex_texcoord(cache.vbuff, uvs[0], uvs[1]); // left, top
 	vertex_position(cache.vbuff, -target.anchorx, -target.anchory);
 	
-
 	vertex_end(cache.vbuff);
 	
 	vertex_freeze(cache.vbuff);

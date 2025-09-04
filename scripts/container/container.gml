@@ -6,7 +6,7 @@
 
 function container(style) constructor{
 	self.style = style;
-	parent = BASE_CONTAINER;
+	parent = self;
 	
 	dirty = true;
 	
@@ -104,35 +104,6 @@ function container(style) constructor{
 	draw = function() {
 		if (dirty) calculate_container();
 		
-		if (perspective) {
-			var w = GUIW;
-			var h = GUIH;
-			var aspect = w / h;
-			var fov = 90;
-			
-			// Set up perspective projection
-			var perspMat = matrix_build_projection_perspective_fov(
-				fov,
-				aspect,
-				0.1,
-				2000
-			);
-			matrix_set(matrix_projection, perspMat);
-			
-			// Calculate perfect camera Z for 1:1 scaling
-			var fov_rad = degtorad(fov);
-			var camZ = (h * 0.5) / sin(fov_rad * 0.5) * cos(fov_rad * 0.5); 
-			// Equivalent to h/2 / tan(fov/2)
-			
-			// Build camera view matrix
-			var camMat = matrix_build_lookat(
-				w * 0.5, h * 0.5, camZ,   // Camera position
-				w * 0.5, h * 0.5, 0,      // Look at center of screen
-				0, -1, 0                 // Up vector
-			);
-			matrix_set(matrix_view, camMat);
-		}
-		
 		var prvMat = matrix_get(matrix_world);
 		var fmat = matrix_multiply(matrix.rotation, matrix.scale);
 		
@@ -144,15 +115,14 @@ function container(style) constructor{
 		shader_set(shBorderRadius);
 		shader_set_uniform_f(uRadius, target.radius.bottom.right, target.radius.top.right, target.radius.bottom.left, target.radius.top.left);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
-		shader_set_uniform_f(uPos, 0, 0);
+		shader_set_uniform_f(uPos, efficient.width / 2 - target.anchorx, efficient.height / 2 - target.anchory);
 		
 		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
 		shader_reset();
 	
 		draw_content(content);
 	
-		matrix_set(matrix_world, identity);
-		matrix_set(matrix_projection, identity);
+		matrix_set(matrix_world, prvMat);
 	};
 
 	

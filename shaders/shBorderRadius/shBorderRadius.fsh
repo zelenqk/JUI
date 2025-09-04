@@ -4,6 +4,7 @@ varying vec3 v_vPosition;
 
 uniform vec4 radius;
 uniform vec2 size;
+uniform vec2 pos;
 
 float sdRoundBox( in vec2 p, in vec2 b, in vec4 r) {
 	r.xy = (p.x > 0.0) ? r.xy : r.zw;
@@ -15,7 +16,7 @@ float sdRoundBox( in vec2 p, in vec2 b, in vec4 r) {
 void main() {
 	gl_FragColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
 	
-	vec2 p = v_vPosition.xy;
+	vec2 p = v_vPosition.xy - pos;
 
 	float d = sdRoundBox(p, size, radius);
 

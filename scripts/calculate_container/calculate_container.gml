@@ -31,7 +31,7 @@ function calculate_container(parent = self.parent){
 	target.x = target.anchorx;
 	target.y = target.anchory;
 	
-	if (position != absolute){
+	if (position != absolute and parent != self){
 		target.x = target.anchorx - parent.target.anchorx;
 		target.y = target.anchory - parent.target.anchory;	
 	}

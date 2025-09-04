@@ -1,5 +1,4 @@
 
-shader_set(shBorderRadius);
 main.draw();
 shader_reset();
 

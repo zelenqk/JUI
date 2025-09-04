@@ -4,15 +4,19 @@
 	ps. Dont forget to purge on cleanup!
 */
 
-function container(style) constructor{
+function container(style, parent = self) constructor{
 	self.style = style;
-	parent = self;
+	self.parent = parent;
 	
 	dirty = true;
+	
+	bake = get_default("bake", false);
+	batch = get_default("batch", true);
 	
 	perspective = get_default("perspective", false);
 	target = new target_container();
 	efficient = new target_container();	//might not use an efficient holder doe idk yet
+	visible = get_default("visible", true);
 	
 	texture = -1;
 	
@@ -41,6 +45,9 @@ function container(style) constructor{
 	anchory = get_default("anchory", fa_center);
 	
 	//layout properties
+	align = get_default("align", 0);
+	justify = get_default("justify", 0);
+	
 	width = get_unit(get_default("width", GUIW));
 	height = get_unit(get_default("height", 0));
 	
@@ -82,6 +89,10 @@ function container(style) constructor{
 		}
 	}
 	
+	//gm-object
+	object = get_default("object", -1);
+	instance = -1;
+	
 	//children
 	content = get_default("content", []);
 	overflow = get_default("overflow", fa_allow);
@@ -101,20 +112,26 @@ function container(style) constructor{
 		return element;
 	}
 	
-	draw = function() {
+	draw = function(tx = 0, ty = 0) {
 		if (dirty) calculate_container();
 		
 		var prvMat = matrix_get(matrix_world);
+		target.tmat[MAT.X] = (x + target.x) + tx;
+		target.tmat[MAT.Y] = (y + target.y) + ty;
+		
 		matrix_set(matrix_world, target.tmat);
 		
+		shader_set(shBorderRadius);
+
 		shader_set_uniform_f(uRadius, target.radius.bottom.right, target.radius.top.right, target.radius.bottom.left, target.radius.top.left);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		shader_set_uniform_f(uPos, efficient.width / 2 - target.anchorx, efficient.height / 2 - target.anchory);
 		
 		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
+		shader_reset();
 
-		draw_content(content);
-	
+		draw_content(content, x + tx, y + ty);
+		
 		matrix_set(matrix_world, prvMat);
 	};
 
@@ -123,6 +140,8 @@ function container(style) constructor{
 		vertex_delete_buffer(cache.vbuff);
 	}
 	
+	
+
 	//save to purge later
 	JUI_CONTAINERS_LIST[array_length(JUI_CONTAINERS_LIST)] = self;
 }

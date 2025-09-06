@@ -53,7 +53,8 @@ BASE_CONTAINER = {
 	}
 }
 
-globalvar uRadius, uSize, uPos;
+globalvar uRadius, uSize, uPos, uAlpha;
 uRadius = shader_get_uniform(shBorderRadius, "radius");
 uSize = shader_get_uniform(shBorderRadius, "size");
 uPos = shader_get_uniform(shBorderRadius, "pos");
+uAlpha = shader_get_uniform(shBorderRadius, "alpha");

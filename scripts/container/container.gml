@@ -90,6 +90,16 @@ function container(style, parent = self) constructor{
 		}
 	}
 	
+	//text
+	text = get_default("text", -1);
+	font = get_default("font", -1);
+	fontSize = get_unit(get_default("fontSize", 20));
+	color = get_default("color", c_white);
+	
+	textAlign = get_default("textAlign", fa_left);
+	halign = get_default("halign", fa_left);
+	valign = get_default("valign", fa_top);
+	
 	//gm-objects
 	object = get_default("object", -1);
 	instance = -1;
@@ -132,13 +142,15 @@ function container(style, parent = self) constructor{
 		shader_set_uniform_f(uRadius, target.radius.bottom.right, target.radius.top.right, target.radius.bottom.left, target.radius.top.left);
 		shader_set_uniform_f(uSize, efficient.width / 2, efficient.height / 2);
 		shader_set_uniform_f(uPos, efficient.width / 2 - target.anchorx, efficient.height / 2 - target.anchory);
+		shader_set_uniform_f(uAlpha, opacity);
 		
 		vertex_submit(cache.vbuff, pr_trianglestrip, texture);
 		shader_reset();
+		matrix_set(matrix_world, prvMat);
+		
+		if (text != -1) text.draw(x + tx + target.padding.left + target.offset.text.x, y + ty + target.padding.top + target.offset.text.y);
 
 		draw_content(content, x + tx + target.padding.left, y + ty + target.padding.top);
-		
-		matrix_set(matrix_world, prvMat);
 	};
 
 	

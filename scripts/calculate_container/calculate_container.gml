@@ -17,11 +17,32 @@ function calculate_container(parent = self.parent){
 	target.margin.top = calculate_value(margin.top, parent.target.height);
 	target.margin.bottom = calculate_value(margin.bottom, parent.target.height);
 	
-	//
+	//scribble
+	if (text != -1){
+		text = scribble(text);
+		
+		var scl = 1;
+		if (font == -1) scl = fontSize / font_get_size(asset_get_index(text.__starting_font));
+		else scl = fontSize / font_get_size(font);
+		
+		text.__starting_colour = color;
+		text.scale(scl);
+		
+		text.__starting_halign = textAlign;	
+		if (font != -1) text.__starting_font = font;
+		
+		target.offset.text.x = get_anchor(textAlign, text.get_width());
+	}
+	
 	generate_layout();
 	
 	efficient.width = round(target.width + target.padding.left + target.padding.right);
 	efficient.height = round(target.height + target.padding.top + target.padding.bottom);
+	
+	if (text != -1){
+		target.offset.text.x += get_anchor(halign, target.width) - get_anchor(halign, text.get_width());
+		target.offset.text.y += get_anchor(valign, target.height) - get_anchor(valign, text.get_height());
+	}
 	
 	//positioning
 	if (position == fixed or position == absolute){
@@ -68,7 +89,12 @@ function calculate_container(parent = self.parent){
 		uvs = sprite_get_uvs(sprite, image);
 	}
 	
+	vertex_begin(cache.vbuff, JUI_FORMAT);
+
 	build_quad(uvs);
+	
+	vertex_end(cache.vbuff);
+	vertex_freeze(cache.vbuff);
 	
 	//matrices
 	var fmat = matrix_multiply(matrix.rotation, matrix.scale);

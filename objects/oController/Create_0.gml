@@ -8,12 +8,19 @@ main = new container({
 	
 	"radius": "50%",
 	"sprite": sSprite,
-	"opacity": 0.25,
 	"align": fa_center,
 	"justify": fa_center,
 	
+	"textAlign": fa_center,
+	"halign": fa_center,	
+	"valign": fa_center,	
+	
 	"padding": 32,
 	"overflow": fa_hidden,
+	
+	"text": "hello world!",
+	"fontSize": 10,
+	"color": c_black
 });
 
 repeat(12){

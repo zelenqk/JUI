@@ -5,6 +5,7 @@ varying vec3 v_vPosition;
 uniform vec4 radius;
 uniform vec2 size;
 uniform vec2 pos;
+uniform float alpha;
 
 float sdRoundBox( in vec2 p, in vec2 b, in vec4 r) {
 	r.xy = (p.x > 0.0) ? r.xy : r.zw;
@@ -21,5 +22,5 @@ void main() {
 	float d = sdRoundBox(p, size, radius);
 
 	float aa = 0.01;
-	gl_FragColor.a = gl_FragColor.a - smoothstep(0.0, aa, d);
+	gl_FragColor.a = (gl_FragColor.a * alpha) - smoothstep(0.0, aa, d);
 }

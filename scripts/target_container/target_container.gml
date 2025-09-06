@@ -41,6 +41,13 @@ function target_container() constructor{
 		}
 	}
 	
+	offset = {
+		text: {
+			x: 0,
+			y: 0,
+		}
+	}
+	
 	tmat = identity;
 	
 	

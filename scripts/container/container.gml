@@ -13,6 +13,7 @@ function container(style, parent = self) constructor{
 	bake = get_default("bake", false);
 	batch = get_default("batch", true);
 	
+	uvs = get_default("uvs", [0, 0, 0, 0]);
 	perspective = get_default("perspective", false);
 	target = new target_container();
 	efficient = new target_container();	//might not use an efficient holder doe idk yet
@@ -89,19 +90,24 @@ function container(style, parent = self) constructor{
 		}
 	}
 	
-	//gm-object
+	//gm-objects
 	object = get_default("object", -1);
 	instance = -1;
 	
+	//scribble
+	
+	
 	//children
 	content = get_default("content", []);
+	contentDepthSorted = [];
+	
 	overflow = get_default("overflow", fa_allow);
 
 	//functions
 	add = function(element, index = 1){
 		if (!is_array(content)) content = [content];
 		
-		//index is a multiplier value meaning 0 is start of the array 1 the end of the array + 1 and 0.5 is the middle
+		//index is a multiplier value meaning 0 is star	t of the array 1 the end of the array + 1 and 0.5 is the middle
 		index = array_length(content) * index;
 		if (!is_callable(element[$ "draw"])) element = new container(element);
 		

@@ -63,7 +63,6 @@ function calculate_container(parent = self.parent){
 	target.background = (is_array(background) or background <= auto) ? get_rgb(c_white) : get_rgb(background);
 	
 	//create vertex buffer
-	var uvs = [0, 0, 0, 0];
 	if (sprite != auto){
 		texture = sprite_get_texture(sprite, image);
 		uvs = sprite_get_uvs(sprite, image);

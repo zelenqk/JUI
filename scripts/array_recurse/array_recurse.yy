@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"array_recurse",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"array_recurse",
+  "parent":{
+    "name":"Util",
+    "path":"folders/JUI/Util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

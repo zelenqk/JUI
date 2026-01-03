@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"container",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"container",
+  "parent":{
+    "name":"JUI",
+    "path":"folders/JUI.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

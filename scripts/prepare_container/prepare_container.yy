@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"prepare_container",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"prepare_container",
+  "parent":{
+    "name":"System",
+    "path":"folders/JUI/System.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

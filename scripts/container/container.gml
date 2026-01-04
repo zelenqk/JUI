@@ -65,10 +65,15 @@ function container(style, parent = self) constructor{
 	draw = function(){
 		if (!visible) return;
 		
-
+		if (background.type == asset_surface) {
+			background.value.check()
+			texture = background.value.texture;
+		}
+		
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
 		matrix_set(matrix_world, identity);
+		
 		
 		draw_content(content);
 	}

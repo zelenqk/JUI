@@ -7,6 +7,9 @@ vertex_format_add_color();
 JUI_FORMAT = vertex_format_end();
 
 function calculate_container(){
+	efficient.width = GUIW;
+	efficient.height = GUIH;
+	
 	efficient.width = calculate_value(calculations.width, parent.efficient.width);
 	efficient.height = calculate_value(calculations.height, parent.efficient.height);
 	
@@ -69,8 +72,7 @@ function calculate_container(){
 		break;
 	}
 
-	realistic.x += efficient.width	* anchor.x + efficient.border;
-	realistic.y += efficient.height	* anchor.y + efficient.border;
+	realistic.x += efficient.width	* anchor.x + margin.left	+ efficient.border ;
+	realistic.y += efficient.height	* anchor.y + margin.top		+ efficient.border;
 	matrix = matrix_build(realistic.x, realistic.y, 0, 0, 0, 0, 1, 1, 1);
-	
 }

@@ -1,9 +1,14 @@
-function array_recurse(array, check){
+function array_recurse(array, check, args = undefined){
+	if (!is_array(array)){
+		check(array, args);
+		return;
+	}
+	
 	for(var i = 0; i < array_length(array); i++){
 		var element = array[i];
 		
-		if (is_array(element)) array_recurse(element, check);
-		else check(element);
+		if (is_array(element)) array_recurse(element, check, args);
+		else check(element, args);
 	}
 }
 
@@ -13,6 +18,7 @@ function draw_content(content){
 			var element = content[i];
 			draw_content(element);
 		}
+		
 		return;
 	}
 	

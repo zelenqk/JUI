@@ -41,18 +41,34 @@ function container(style, parent = self) constructor{
 	calculate_container();
 	calculate_layout();
 	
+	add = function(element, amount = 1, index = array_length(content)){
+		var final = [];
+		var args = [index, final]
+		
+		repeat(amount){
+			array_recurse(element, function(element, args){
+				if (!is_callable(element[$ "draw"])) element = new container(element, self);
+				else {
+					element.parent = self;
+					element.root = root;
+				};
+				
+				array_insert(content, args[0]++, element)
+				array_push(args[1], element);
+			}, args);
+		}
+		
+		if (array_length(final) == 1) return final[0];
+		return final;
+	}
+	
 	draw = function(){
 		if (!visible) return;
 		
-		if (background.type == asset_surface) {
-			background.value.check()
-			texture = background.value.texture;
-		}
-		
+
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
 		matrix_set(matrix_world, identity);
-		
 		
 		draw_content(content);
 	}

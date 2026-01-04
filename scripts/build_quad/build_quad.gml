@@ -15,7 +15,7 @@ function build_quad(vbuff, anchorx, anchory, w, h, color, alpha, uv = EMPTY_UV){
 	vertex_position(vbuff, startx + w, starty);
 	vertex_texcoord(vbuff, uv.x + uv.width, uv.y);
 	vertex_color(vbuff, color, alpha);
-	d
+	
 	//bottom left
 	vertex_position(vbuff, startx, starty + h);
 	vertex_texcoord(vbuff, uv.x, uv.y + uv.height);

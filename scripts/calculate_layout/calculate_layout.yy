@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"calculate_layout",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"calculate_layout",
+  "parent":{
+    "name":"System",
+    "path":"folders/JUI/System.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

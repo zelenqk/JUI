@@ -5,9 +5,23 @@ function parse_calculations(){
 		width: get_calculation(width),
 		height: get_calculation(height),
 		
-		fontSize: get_calculation(fontSize)
+		fontSize: get_calculation(fontSize),
+		
+		padding: {
+			left: get_calculation(padding.left),	
+			right: get_calculation(padding.right),	
+			top: get_calculation(padding.top),	
+			bottom: get_calculation(padding.bottom),	
+		},
+		
+		margin: {
+			left: get_calculation(margin.left),	
+			right: get_calculation(margin.right),	
+			top: get_calculation(margin.top),	
+			bottom: get_calculation(margin.bottom),	
+		},
+		
 	}
-	
 }
 
 function get_calculation(value){
@@ -43,11 +57,9 @@ function get_calculation(value){
 	return {type, input}; 
 }
 
-function calculate_value(name){
-	var calculation = calculations[$ name];
+function calculate_value(calculation, from = parent.efficient[$ name]){
 	var value = calculation.input;
 	var type = calculation.type;
-	var from = parent.efficient[$ name];
 	
 	switch (type){
 	case CALCULATION.PERCENT:

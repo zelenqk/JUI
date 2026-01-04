@@ -12,6 +12,9 @@ function container(style, parent = self) constructor{
 	efficient = {
 		width: GUIW,
 		height: GUIH,
+		
+		x: 0,
+		y: 0,
 	}
 	
 	vbuff = auto;
@@ -28,6 +31,7 @@ function container(style, parent = self) constructor{
 	prepare_container();
 	parse_calculations();
 	calculate_container();
+	calculate_layout();
 	
 	draw = function(){
 		if (!visible) return;

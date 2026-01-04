@@ -29,6 +29,10 @@ function prepare_container(){
 	color = get_default("color", c_black);
 	alpha = get_default("alpha", 1);
 	
+	//border
+	border = get_default("border", 0);
+	borderColor = get_overwrite("borderColor", "borderColour", c_white);
+	
 	//padding
 	padding = {
 		top:	get_overwrite(	"paddingTop",	"paddingBlock",		"padding", get_overwrite_struct("padding", "top",		"block",	0)),

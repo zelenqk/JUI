@@ -16,5 +16,5 @@ test = main.add({
 	marginTop: 32,
 	width: "50%",
 	height: 23,
-}, 5000);
+}, 10);
 

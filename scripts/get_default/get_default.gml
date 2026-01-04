@@ -16,3 +16,20 @@ function get_overwrite(){
 	
 	return fallback;
 }
+
+function get_overwrite_struct(){
+	var struct = argument[0];
+	var fallback = argument[argument_count - 1];
+	
+	if (!is_struct(properties[$ struct])) return fallback;
+	
+	var name, value;
+	
+	for(var i = 1; i < argument_count - 1; i++){
+		name = argument[i];
+		value = properties[$ struct][$ name];
+		if (value != undefined) return value;		
+	}
+	
+	return fallback;
+}

@@ -3,6 +3,9 @@
 #macro auto -2
 #macro identity matrix_build_identity()
 
+#macro column 0
+#macro row 1
+
 function container(style, parent = self) constructor{
 	properties = style;
 	

@@ -23,14 +23,17 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 		if (surface_exists(surface)) return true;
 		
 		if (window_has_focus() and resurface) {	//на майка му путката човек
+			surface_free(surface);		//for some reason without this we get a slight memory leak
+										//this should not happen... like ever
+			
 			surface = surface_create(width, height, format);
 			texture = surface_get_texture(surface);
 			
 			if (persistent) {
 				if (!buffer_exists(buffer)) {
-					size = get_format_size(format);
+					buffer_delete(buffer);
 					
-					if (buffer_exists(buffer)) buffer_delete(buffer);
+					size = get_format_size(format);
 					buffer = buffer_create(w * h * size, buffer_fixed, 1);
 				}
 				

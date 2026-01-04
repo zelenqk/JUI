@@ -1,10 +1,15 @@
 #macro GUIW display_get_gui_width()
 #macro GUIH display_get_gui_height()
-#macro auto -2
 #macro identity matrix_build_identity()
+#macro auto -2
 
+//direction
 #macro column 0
 #macro row 1
+
+//overflow
+#macro fa_allow 0
+#macro fa_scroll 1
 
 function container(style, parent = self) constructor{
 	properties = style;
@@ -39,7 +44,6 @@ function container(style, parent = self) constructor{
 	prepare_container();
 	parse_calculations();
 	calculate_container();
-	calculate_layout();
 	
 	add = function(element, amount = 1, index = array_length(content)){
 		var final = [];
@@ -70,9 +74,10 @@ function container(style, parent = self) constructor{
 			texture = background.value.texture;
 		}
 		
-		matrix_set(matrix_world, matrix);
+		var mat = matrix_get(matrix_world);
+		matrix_set(matrix_world, matrix_multiply(mat, matrix));
 		vertex_submit(vbuff, pr_trianglelist, texture);
-		matrix_set(matrix_world, identity);
+		matrix_set(matrix_world, mat);
 		
 		draw_content(content);
 	}

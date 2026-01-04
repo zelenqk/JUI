@@ -11,6 +11,8 @@ function get_overwrite(){
 	for(var i = 0; i < argument_count - 1; i++){
 		name = argument[i];
 		value = properties[$ name];
+		
+		if (is_struct(value)) continue;
 		if (value != undefined) return value;		
 	}
 	

@@ -72,7 +72,7 @@ function calculate_container(){
 		break;
 	}
 
-	realistic.x += efficient.width	* anchor.x + margin.left	+ efficient.border ;
-	realistic.y += efficient.height	* anchor.y + margin.top		+ efficient.border;
+	realistic.x += efficient.width	* anchor.x + efficient.margin.left	+ efficient.border ;
+	realistic.y += efficient.height	* anchor.y + efficient.margin.top		+ efficient.border;
 	matrix = matrix_build(realistic.x, realistic.y, 0, 0, 0, 0, 1, 1, 1);
 }

@@ -1,7 +1,7 @@
-surface = new Surface(100, 100, surface_rgba8unorm, true);
+surface = new Surface(100, 100, true, surface_rgba16float);
 
 if (surface.target()){
-	draw_sprite_stretched_ext(sTest,0, 0, 0, 100, 100, c_blue, 1);
+	draw_sprite_stretched_ext(sTest, 0, 0, 0, 100, 100, c_blue, 1);
 	surface.reset();
 }
 

@@ -3,12 +3,12 @@ SURFACE_LIST = [];
 
 #macro asset_surface 14
 
-function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor{
+function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor{
 	width = w;
 	height = h;
-	
 	persistent = persist;
-	format = Format;
+	self.format = format;
+
 	surface = surface_create(width, height, format);
 	texture = surface_get_texture(surface);
 
@@ -22,7 +22,7 @@ function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor
 	check = function(resurface = true){
 		if (surface_exists(surface)) return true;
 		
-		if (window_has_focus() and resurface) {
+		if (window_has_focus() and resurface) {	//на майка му путката човек
 			surface = surface_create(width, height, format);
 			texture = surface_get_texture(surface);
 			
@@ -103,22 +103,27 @@ function surface_purge(){
 
 function get_format_size(format){
 	switch (format){
+	//4u
+	case surface_rgba4unorm:
+		return 2;
+	//8u
 	case surface_r8unorm:
 		return 1;
 	case surface_rg8unorm:
 		return 2;
 	case surface_rgba8unorm:
 		return 4;
-	case surface_rgba4unorm:
-		return 2;
+	//16f
 	case surface_rgba16float:
 		return 8;
 	case surface_r16float:
-		return 2;	
-	case surface_rgba32float:
-		return 16;	
+		return 2;
+	//32f
 	case surface_r32float:
 		return 4;
+	case surface_rgba32float:
+		return 16;	
+
 	default:
 		show_error("unknown surface format", true);
 	}

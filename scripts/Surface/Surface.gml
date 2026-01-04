@@ -8,7 +8,6 @@ function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor
 	height = h;
 	
 	persistent = persist;
-	dirty = false;
 	format = Format;
 	surface = surface_create(width, height, format);
 	texture = surface_get_texture(surface);
@@ -27,7 +26,16 @@ function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor
 			surface = surface_create(width, height, format);
 			texture = surface_get_texture(surface);
 			
-			if (persistent) buffer_set_surface(buffer, surface, 0);
+			if (persistent) {
+				if (!buffer_exists(buffer)) {
+					size = get_format_size(format);
+					
+					if (buffer_exists(buffer)) buffer_delete(buffer);
+					buffer = buffer_create(w * h * size, buffer_fixed, 1);
+				}
+				
+				buffer_set_surface(buffer, surface, 0);
+			}
 			return true;
 		}
 		
@@ -39,7 +47,20 @@ function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor
 		width = w;
 		height = h;
 		
-		if (check(false)) surface_resize(surface, width, height);
+		if (check(false)){
+			if (persistent) {
+				if (!buffer_exists(buffer)) {
+					size = get_format_size(format);
+					
+					if (buffer_exists(buffer)) buffer_delete(buffer);
+					buffer = buffer_create(w * h * size, buffer_fixed, 1);
+				}
+				
+				buffer_set_surface(buffer, surface, 0);
+			}
+			
+			surface_resize(surface, width, height);
+		}
 	}
 	
 	target = function(){
@@ -51,8 +72,8 @@ function Surface(w, h, Format = surface_rgba8unorm, persist = false) constructor
 	}
 	
 	reset = function(){
-		if (persistent) buffer_get_surface(buffer, surface, 0);
-		surface_reset_target();	
+		surface_reset_target();
+		if (persistent and check(false)) buffer_get_surface(buffer, surface, 0);
 	};
 	
 	draw = function(tx, ty, w = width, h = height){

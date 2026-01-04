@@ -17,6 +17,14 @@ function container(style, parent = self) constructor{
 		y: 0,
 	}
 	
+	realistic = {
+		width: 0,
+		height: 0,
+		
+		x: 0,
+		y: 0,
+	}
+	
 	vbuff = auto;
 	cache = [];
 	texture = get_default("texture", -1);

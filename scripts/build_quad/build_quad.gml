@@ -36,4 +36,8 @@ function build_quad(vbuff, anchorx, anchory, w, h, color, alpha, uv = EMPTY_UV){
 	vertex_position(vbuff, startx + w, starty + h);
 	vertex_texcoord(vbuff, uv.x + uv.width, uv.y + uv.height);
 	vertex_color(vbuff, color, alpha);
+	
+	//finish
+	vertex_end(vbuff);
+	vertex_freeze(vbuff);
 }

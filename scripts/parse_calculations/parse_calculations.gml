@@ -2,25 +2,34 @@ enum CALCULATION { PIXEL, PERCENT };
 
 function parse_calculations(){
 	calculations = {
-		width: get_calculation(width),
-		height: get_calculation(height),
+		width:		get_calculation(width),
+		height:		get_calculation(height),
 		
-		fontSize: get_calculation(fontSize),
+		fontSize:	get_calculation(fontSize),
+		
+		border:		get_calculation(border),
 		
 		padding: {
-			left: get_calculation(padding.left),	
-			right: get_calculation(padding.right),	
-			top: get_calculation(padding.top),	
-			bottom: get_calculation(padding.bottom),	
+			left:	get_calculation(padding.left	),	
+			right:	get_calculation(padding.right	),	
+			top:	get_calculation(padding.top		),	
+			bottom:	get_calculation(padding.bottom	),	
 		},
 		
 		margin: {
-			left: get_calculation(margin.left),	
-			right: get_calculation(margin.right),	
-			top: get_calculation(margin.top),	
-			bottom: get_calculation(margin.bottom),	
+			left:	get_calculation(margin.left		),	
+			right:	get_calculation(margin.right	),	
+			top:	get_calculation(margin.top		),	
+			bottom:	get_calculation(margin.bottom	),	
 		},
 		
+		borderRadius: {
+			topLeft:		get_calculation(borderRadius.topLeft		),	
+			topRight:		get_calculation(borderRadius.topRight		),	
+			bottomLeft:		get_calculation(borderRadius.bottomLeft		),	
+			bottomRight:	get_calculation(borderRadius.bottomRight	),	
+		},
+
 	}
 }
 
@@ -40,7 +49,7 @@ function get_calculation(value){
 		else calculator += char;
 	}
 	
-	input = real(input);
+	value = real(input);
 	//-----------------------------------\\
 	
 	switch (calculator){
@@ -54,11 +63,11 @@ function get_calculation(value){
 		break;
 	}
 	
-	return {type, input}; 
+	return {type, value}; 
 }
 
-function calculate_value(calculation, from = parent.efficient[$ name]){
-	var value = calculation.input;
+function calculate_value(calculation, from){
+	var value = calculation.value;
 	var type = calculation.type;
 	
 	switch (type){
@@ -67,5 +76,5 @@ function calculate_value(calculation, from = parent.efficient[$ name]){
 		break;
 	}
 	
-	efficient[$ name] = value;
+	return value;
 }

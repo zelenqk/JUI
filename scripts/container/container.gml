@@ -74,7 +74,6 @@ function container(style, parent = self) constructor{
 		vertex_submit(vbuff, pr_trianglelist, texture);
 		matrix_set(matrix_world, identity);
 		
-		
 		draw_content(content);
 	}
 	

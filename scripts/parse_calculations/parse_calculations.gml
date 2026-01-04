@@ -1,4 +1,4 @@
-enum CALCULATION { PIXEL, PERCENT };
+enum CALCULATION { PIXEL, PERCENT, VIEW_WIDTH, VIEW_HEIGHT };
 
 function parse_calculations(){
 	calculations = {
@@ -52,7 +52,7 @@ function get_calculation(value){
 	value = real(input);
 	//-----------------------------------\\
 	
-	switch (calculator){
+	switch (string_lower(calculator)){
 	case "":
 	case "px":
 		type = CALCULATION.PIXEL;
@@ -60,6 +60,12 @@ function get_calculation(value){
 	case "%":
 	case "p":
 		type = CALCULATION.PERCENT;
+		break;
+	case "vw":
+		type = CALCULATION.VIEW_WIDTH;
+		break;
+	case "vh":
+		type = CALCULATION.VIEW_HEIGHT;
 		break;
 	}
 	
@@ -72,9 +78,12 @@ function calculate_value(calculation, from){
 	
 	switch (type){
 	case CALCULATION.PERCENT:
-		value = from * (value) / 100;
-		break;
+		return from * (value) / 100;
+	case CALCULATION.VIEW_WIDTH:
+		return GUIW * (value) / 100;
+	case CALCULATION.VIEW_HEIGHT:
+		return GUIH * (value) / 100;
+	default:
+		return value;
 	}
-	
-	return value;
 }

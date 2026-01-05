@@ -15,8 +15,8 @@ function container(style, parent = self) constructor{
 	properties = style;
 	
 	efficient = {
-		width: GUIW,
-		height: GUIH,
+		width: 0,
+		height: 0,
 		
 		x: 0,
 		y: 0,
@@ -69,17 +69,26 @@ function container(style, parent = self) constructor{
 	draw = function(){
 		if (!visible) return;
 		
+		efficient.x = 0;
+		efficient.y = 0;
+		
 		if (background.type == asset_surface) {
 			background.value.check()
 			texture = background.value.texture;
 		}
 		
 		var mat = matrix_get(matrix_world);
+		matrix = matrix_build(realistic.x + parent.efficient.x, realistic.y + parent.efficient.y, 0, 0, 0, 0, 1, 1, 1);
+		
 		matrix_set(matrix_world, matrix_multiply(mat, matrix));
 		vertex_submit(vbuff, pr_trianglelist, texture);
-		matrix_set(matrix_world, mat);
 		
 		draw_content(content);
+		
+		parent.efficient.x += (parent.direction == row) * realistic.width + efficient.margin.left + efficient.margin.right;
+		parent.efficient.y += (parent.direction == column) * realistic.height + efficient.margin.top + efficient.margin.bottom;
+		
+		matrix_set(matrix_world, mat);
 	}
 	
 	cleanup = function(freeChildren = true){

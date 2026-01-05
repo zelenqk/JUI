@@ -8,17 +8,15 @@ if (surface.target()){
 main = new container({
 	width: "50%",
 	height: "50%",
-	
+	padding: "1%",
 	background: surface,
 	wrap: true,
 });
 
 test = main.add({
-	margin: {
-		left: 64,
-	},
-	
-	width: "50%",
+	width: "100%",
 	height: 23,
+	margin: {
+		bottom: 4	
+	}
 }, 12);
-

@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shBorderRadius",
+  "name":"shBorderRadius",
+  "parent":{
+    "name":"shaders",
+    "path":"folders/JUI/System/shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

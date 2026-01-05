@@ -9,7 +9,9 @@ main = new container({
 	width: "50%",
 	height: "50%",
 	padding: "1%",
+	marginLeft: "50%",
 	background: surface,
+	borderRadius: 12,
 	wrap: true,
 });
 
@@ -21,4 +23,7 @@ test = main.add(new container({
 	margin: {
 		bottom: 4	
 	}
-}), 12);
+}), 100);
+
+
+show_message(matrix_build(123,123,123, 0, 0, 0, 1, 1,1 ));

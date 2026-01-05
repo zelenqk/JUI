@@ -85,10 +85,19 @@ function container(style, parent = self) constructor{
 		}
 		
 		var mat = matrix_get(matrix_world);
-		matrix = matrix_build(realistic.x + parent.efficient.x, realistic.y + parent.efficient.y, 0, 0, 0, 0, 1, 1, 1);
+		matrix = matrix_build(realistic.x + efficient.width	* anchor.x, realistic.y + efficient.height	* anchor.y, 0, 0, 0, 0, 1, 1, 1);
+
+		var inmat = matrix_multiply(mat, matrix);
+		matrix_set(matrix_world, inmat);
+
+		shader_set(shBorderRadius);
 		
-		matrix_set(matrix_world, matrix_multiply(mat, matrix));
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), inmat[12] - efficient.width * anchor.x, inmat[13] - efficient.height * anchor.y);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topLeft, efficient.borderRadius.topLeft, efficient.borderRadius.topLeft, efficient.borderRadius.topLeft);
+		
 		vertex_submit(vbuff, pr_trianglelist, texture);
+		shader_reset();
 		
 		draw_content(content);
 		

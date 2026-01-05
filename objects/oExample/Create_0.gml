@@ -9,6 +9,7 @@ main = new container({
 	width: "50%",
 	height: "50%",
 	padding: "1%",
+	marginLeft: "50%",
 	background: surface,
 	wrap: true,
 });

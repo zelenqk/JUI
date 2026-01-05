@@ -19,23 +19,23 @@ function calculate_container(){
 	efficient.width		= calculate_value(calculations.width,	parent.realistic.width	);
 	efficient.height	= calculate_value(calculations.height,	parent.realistic.height	);
 	
-	axis = (direction == row) ? efficient.width : efficient.height
-	
+	axis	=	(direction == row) ? efficient.width : efficient.height;
+	cross	=	(direction == row) ? efficient.height : efficient.width;
+
 	efficient.border = calculate_value(calculations.border, axis);
 	
-	
 	efficient.padding = {
-		left:	calculate_value(calculations.padding.left,	axis),
-		right:	calculate_value(calculations.padding.right,	axis),
-		top:	calculate_value(calculations.padding.top,	axis),
-		bottom:	calculate_value(calculations.padding.bottom,axis),
+		left:	calculate_value(calculations.padding.left,		axis),
+		right:	calculate_value(calculations.padding.right,		axis),
+		top:	calculate_value(calculations.padding.top,		axis),
+		bottom:	calculate_value(calculations.padding.bottom,	axis),
 	}
 	
 	efficient.margin = {
-		left:	calculate_value(calculations.margin.left,	axis),
-		right:	calculate_value(calculations.margin.right,	axis),
-		top:	calculate_value(calculations.margin.top,	axis),
-		bottom:	calculate_value(calculations.margin.bottom,	axis),
+		left:	calculate_value(calculations.margin.left,		parent.realistic.width),
+		right:	calculate_value(calculations.margin.right,		parent.realistic.width),
+		top:	calculate_value(calculations.margin.top,		parent.realistic.height),
+		bottom:	calculate_value(calculations.margin.bottom,		parent.realistic.height),
 	}
 	
 	efficient.borderRadius = {

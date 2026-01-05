@@ -6,12 +6,11 @@ if (surface.target()){
 }
 
 main = new container({
-	width: "50%",
-	height: "50%",
+	width: "40%",
+	height: "100%",
 	padding: "1%",
-	marginLeft: "50%",
 	background: surface,
-	borderRadius: 12,
+	borderRadius: "51%",
 	wrap: true,
 });
 
@@ -25,5 +24,3 @@ test = main.add(new container({
 	}
 }), 100);
 
-
-show_message(matrix_build(123,123,123, 0, 0, 0, 1, 1,1 ));

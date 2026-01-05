@@ -35,6 +35,7 @@
     {"id":{"name":"parse_calculations","path":"scripts/parse_calculations/parse_calculations.yy",},},
     {"id":{"name":"prepare_container","path":"scripts/prepare_container/prepare_container.yy",},},
     {"id":{"name":"Surface","path":"scripts/Surface/Surface.yy",},},
+    {"id":{"name":"sdads","path":"sprites/sdads/sdads.yy",},},
     {"id":{"name":"sTest","path":"sprites/sTest/sTest.yy",},},
   ],
   "resourceType":"GMProject",

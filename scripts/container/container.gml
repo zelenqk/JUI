@@ -43,11 +43,13 @@ function container(style, parent = self) constructor{
 	
 	prepare_container();
 	parse_calculations();
-	calculate_container();
+	calculate = method(self, calculate_container);
+	
+	calculate();
 	
 	add = function(element, amount = 1, index = array_length(content)){
 		var final = [];
-		var args = [index, final]
+		var args = [index, final, false]
 		
 		repeat(amount){
 			array_recurse(element, function(element, args){
@@ -55,6 +57,11 @@ function container(style, parent = self) constructor{
 				else {
 					element.parent = self;
 					element.root = root;
+					
+					if (args[2]) element = new container(element.properties, self);
+					else element.calculate();
+					
+					args[2] = true;
 				};
 				
 				array_insert(content, args[0]++, element)

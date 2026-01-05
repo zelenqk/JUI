@@ -14,14 +14,14 @@ function prepare_container(){
 		value: bg,
 	}
 	
+	opacity = get_default("opacity", 1);
+	
 	if (is_struct(bg)) background.type = bg.type;
 	
 	anchor = {
 		x: get_overwrite("anchorx", "anchor", get_overwrite_struct("anchor", "x", 0.5)),
 		y: get_overwrite("anchory", "anchor", get_overwrite_struct("anchor", "y", 0.5)),
 	}
-	
-	opacity = get_default("opacity", 0);
 	
 	//text
 	font = get_default("font", -1);
@@ -56,5 +56,5 @@ function prepare_container(){
 		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"bottom",	"left",		0)),	
 		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	0)),	
 	}
-
+	
 }

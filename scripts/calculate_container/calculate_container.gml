@@ -7,17 +7,18 @@ vertex_format_add_color();
 JUI_FORMAT = vertex_format_end();
 
 function calculate_container(){
-	realistic.width = 0;
-	realistic.height = 0;
+	efficient.width = 0;
+	efficient.height = 0;
 	
-	realistic.x -= parent.efficient.width * parent.anchor.x;
-	realistic.y -= parent.efficient.height * parent.anchor.y;
+	realistic.x = -parent.efficient.width * parent.anchor.x;
+	realistic.y = -parent.efficient.height * parent.anchor.y;
 	
 	realistic.width = GUIW;
 	realistic.height = GUIH;
 	
 	efficient.width		= calculate_value(calculations.width,	parent.realistic.width	);
 	efficient.height	= calculate_value(calculations.height,	parent.realistic.height	);
+	efficient.opacity	= calculate_value(calculations.opacity, 1);
 	
 	axis	=	(direction == row) ? efficient.width : efficient.height;
 	cross	=	(direction == row) ? efficient.height : efficient.width;
@@ -57,13 +58,13 @@ function calculate_container(){
 		var surface = background.value;
 		texture = surface.texture;
 		
-		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, c_white, 1);
+		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, c_white, efficient.opacity);
 		break;
 	case asset_sprite:
 		var sprite = background.value;
 		var uv = sprite_get_uvs(background.value, 0);
 		
-		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, c_white, 1, {
+		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, c_white, efficient.opacity, {
 			x: uv[0],	
 			y: uv[1],
 			width: uv[2] - uv[0],
@@ -77,7 +78,7 @@ function calculate_container(){
 		if (is_ptr(background.value)) texture = background.value;
 		else color = background.value;
 		
-		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, color, 1);
+		build_quad(vbuff, anchor.x, anchor.y, efficient.width, efficient.height, color, efficient.opacity);
 		break;
 	}
 	

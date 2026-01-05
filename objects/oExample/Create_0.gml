@@ -9,15 +9,16 @@ main = new container({
 	width: "50%",
 	height: "50%",
 	padding: "1%",
-	marginLeft: "50%",
 	background: surface,
 	wrap: true,
 });
 
-test = main.add({
+test = main.add(new container({
 	width: "100%",
 	height: 23,
+	opacity: 0.5,
+	background: sdads,
 	margin: {
 		bottom: 4	
 	}
-}, 12);
+}), 12);

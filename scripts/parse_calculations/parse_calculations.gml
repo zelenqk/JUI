@@ -5,6 +5,8 @@ function parse_calculations(){
 		width:		get_calculation(width),
 		height:		get_calculation(height),
 		
+		opacity:	get_calculation(opacity),
+		
 		fontSize:	get_calculation(fontSize),
 		
 		border:		get_calculation(border),

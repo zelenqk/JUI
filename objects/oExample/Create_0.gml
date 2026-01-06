@@ -7,10 +7,13 @@ if (surface.target()){
 
 main = new container({
 	width: "40%",
-	height: "100%",
+	height: "20%",
 	padding: "1%",
 	background: surface,
-	borderRadius: "51%",
+	borderRadius: {
+		"top": 122,
+		"bottom": 122,
+	},
 	wrap: true,
 });
 

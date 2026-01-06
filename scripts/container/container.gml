@@ -94,7 +94,7 @@ function container(style, parent = self) constructor{
 		
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), inmat[12] - efficient.width * anchor.x, inmat[13] - efficient.height * anchor.y);
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topLeft, efficient.borderRadius.topLeft, efficient.borderRadius.topLeft, efficient.borderRadius.topLeft);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.bottomRight, efficient.borderRadius.topRight, efficient.borderRadius.bottomLeft, efficient.borderRadius.topLeft);
 		
 		vertex_submit(vbuff, pr_trianglelist, texture);
 		shader_reset();

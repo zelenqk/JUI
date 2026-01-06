@@ -48,7 +48,12 @@ float sdRoundBox( in vec2 p, in vec2 b, in vec4 r )
 void main(){
 	gl_FragColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
 	vec2 p = ((gl_FragCoord.xy - position.xy) - size.xy);
-	vec4 rad = min(radius, min(size.x, size.y));
+	
+	vec4 rad = vec4(radius);
+	rad.x = min(radius.x, min(size.x, size.y));
+	rad.y = min(radius.y, min(size.x, size.y));
+	rad.z = min(radius.z, min(size.x, size.y));
+	rad.w = min(radius.w, min(size.x, size.y));
 	
 	float d = sdRoundBox(p, size, rad);
 	gl_FragColor.a = 1.0 - smoothstep(0.0, 1.0, d);

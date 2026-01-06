@@ -39,6 +39,9 @@ function calculate_container(){
 		bottom:	calculate_value(calculations.margin.bottom,		parent.realistic.height),
 	}
 	
+	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
+	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
+
 	efficient.borderRadius = {
 		topLeft:		calculate_value(calculations.borderRadius.topLeft,		axis),
 		topRight:		calculate_value(calculations.borderRadius.topRight,		axis),

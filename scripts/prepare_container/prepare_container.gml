@@ -52,8 +52,8 @@ function prepare_container(){
 	//border radius
 	borderRadius = {
 		topLeft:		get_overwrite("borderRadiusTopLeft",		"borderRadiusTop",		"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topLeft",		"top",		"left",		0)),
-		bottomLeft:		get_overwrite("borderRadiusBottomLeft",		"borderRadiusBottom",	"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topRight",	"top",		"right",	0)),	
-		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"bottom",	"left",		0)),	
+		bottomLeft:		get_overwrite("borderRadiusBottomLeft",		"borderRadiusBottom",	"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topRight",	"bottom",	"left",	0)),	
+		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"top",		"right",		0)),	
 		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	0)),	
 	}
 	

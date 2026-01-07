@@ -1,4 +1,9 @@
 function render_pipeline(){
+	pipeline.length = 0;
+	pipeline.content = [];
+	
+	if (step != auto) pipeline_push(method(self, step));
+	
 	if (background.type == asset_surface) pipeline_push(function(){
 		background.value.check()
 		texture = background.value.texture;

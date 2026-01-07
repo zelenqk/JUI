@@ -11,6 +11,12 @@
 #macro fa_allow 0
 #macro fa_scroll 1
 
+//position
+#macro relative 0
+#macro fixed 1
+#macro absolute 2
+#macro sticky 3
+
 function container(style, parent = self) constructor{
 	properties = style;
 	
@@ -32,6 +38,7 @@ function container(style, parent = self) constructor{
 	
 	vbuff = auto;
 	cache = [];
+	segments = {};
 	texture = get_default("texture", -1);
 	matrix = identity;
 	inmat = identity;
@@ -40,17 +47,27 @@ function container(style, parent = self) constructor{
 		content: [],
 	};
 	
+	step = get_default("step", auto);
+	
 	root = self;
 	self.parent = parent;
 	if (parent != self) root = parent.root;
 	
-	content = [];
+	content = {
+		offet: {
+			x: get_default("contentOffsetX", 0),
+			y: get_default("contentOffsetY", 0),
+		},
+		
+		children: get_default("content", []),
+	}
 	
 	prepare_container();
 	parse_calculations();
 	calculate = method(self, calculate_container);
-	
 	calculate();
+	
+	calculate_content();
 	
 	render_pipeline();
 	
@@ -71,7 +88,7 @@ function container(style, parent = self) constructor{
 					args[2] = true;
 				};
 				
-				array_insert(content, args[0]++, element)
+				array_insert(content.children, args[0]++, element)
 				array_push(args[1], element);
 			}, args);
 		}
@@ -107,7 +124,7 @@ function container(style, parent = self) constructor{
 			
 		}
 		
-		if (freeChildren) array_recurse(content, function(element){
+		if (freeChildren) array_recurse(content.children, function(element){
 			element.cleanup();	
 		});
 	}

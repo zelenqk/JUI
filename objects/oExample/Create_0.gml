@@ -14,6 +14,9 @@ main = new container({
 		"top": 122,
 		"bottom": 122,
 	},
+	
+	anchor: 0,
+	
 	wrap: true,
 });
 

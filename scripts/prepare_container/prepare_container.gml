@@ -1,5 +1,8 @@
+
+
 function prepare_container(){
 	//layout
+	position = relative
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
 	

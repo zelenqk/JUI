@@ -56,7 +56,5 @@ void main(){
 	rad.w = min(radius.w, min(size.x, size.y));
 	
 	float d = sdRoundBox(p, size, rad);
-	if (d > 0.0) {
-        discard;
-    }
+	if (d > 0.0) discard;
 }

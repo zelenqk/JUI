@@ -55,7 +55,7 @@ function container(style, parent = self) constructor{
 		content: [],
 	};
 	
-	overflow = get_default("overflow", fa_allow);
+	overflow = get_default("overflow", fa_hidden);
 	
 	step = get_default("step", auto);
 	

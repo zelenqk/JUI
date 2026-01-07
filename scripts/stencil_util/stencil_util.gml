@@ -20,6 +20,7 @@ function finish_mask(){
 	
 	// Draw only where stencil == 1
 	gpu_set_stencil_write_mask(0);
+	gpu_set_stencil_read_mask(1);
 	gpu_set_stencil_func(cmpfunc_equal);
 	gpu_set_stencil_pass(stencilop_keep);
 }

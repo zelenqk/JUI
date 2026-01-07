@@ -27,12 +27,12 @@ function render_pipeline(){
 	if (borderRadius != auto) pipeline_push(shader_reset);	//reset border radius
 	
 	if (overflow != fa_allow) pipeline_push(finish_mask);
-		
+	
 	if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
 		vertex_submit(vbuff, pr_trianglelist, texture);
 	});
 
-	//if (array_length(segments) > 0) pipeline_push(draw_content);	DEBUGGING //draw children
+	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children
 	
 	if (overflow != fa_allow) pipeline_push(stencil_reset);			//reset overflow
 	

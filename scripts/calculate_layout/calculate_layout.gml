@@ -1,5 +1,5 @@
 function calculate_layout(){
-	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, realistic.width, realistic.height, wrap)];
+	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, efficient.width, efficient.height, wrap)];
 	
 	array_recurse(content.children, function(element, segments){
 		var segment = array_last(segments);

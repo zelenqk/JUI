@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"calculate_layout",
+  "%Name":"render_background",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"calculate_layout",
+  "name":"render_background",
   "parent":{
-    "name":"pipeline",
-    "path":"folders/JUI/System/pipeline.yy",
+    "name":"System",
+    "path":"folders/JUI/System.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

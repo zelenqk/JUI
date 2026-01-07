@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"JUI Example","folderPath":"folders/JUI Example.yy","name":"JUI Example","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"JUI","folderPath":"folders/JUI.yy","name":"JUI","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"pipeline","folderPath":"folders/JUI/System/pipeline.yy","name":"pipeline","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"System","folderPath":"folders/JUI/System.yy","name":"System","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"overflow","folderPath":"folders/JUI/System/overflow.yy","name":"overflow","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"shaders","folderPath":"folders/JUI/System/shaders.yy","name":"shaders","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -36,6 +37,7 @@
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
     {"id":{"name":"parse_calculations","path":"scripts/parse_calculations/parse_calculations.yy",},},
     {"id":{"name":"prepare_container","path":"scripts/prepare_container/prepare_container.yy",},},
+    {"id":{"name":"render_background","path":"scripts/render_background/render_background.yy",},},
     {"id":{"name":"render_pipeline","path":"scripts/render_pipeline/render_pipeline.yy",},},
     {"id":{"name":"Surface","path":"scripts/Surface/Surface.yy",},},
     {"id":{"name":"shBorderRadius","path":"shaders/shBorderRadius/shBorderRadius.yy",},},

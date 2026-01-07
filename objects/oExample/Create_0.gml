@@ -15,16 +15,13 @@ main = new container({
 		contentoffset.y -= 0.1;	
 	},
 	
-	overflow: fa_hidden,
-	
-	anchor: 0,
-	
 	wrap: true,
 });
 
 test = main.add(new container({
 	width: "100%",
 	height: 64,
+	
 	opacity: 0.5,
 	background: c_blue,
 	margin: {

@@ -10,8 +10,6 @@ function render_pipeline(){
 		texture = background.value.texture;
 	});	
 	
-	if (overflow != fa_allow) pipeline_push(stencil_prepare_mask);
-	
 	if (borderRadius != auto) pipeline_push(function(){	//apply border radius uniforms
 		shader_set(shBorderRadius);
 		
@@ -20,21 +18,46 @@ function render_pipeline(){
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.bottomRight, efficient.borderRadius.topRight, efficient.borderRadius.bottomLeft, efficient.borderRadius.topLeft);
 	});
 	
-	if (borderRadius != auto) pipeline_push(function(){	//if opacity is 0 no need to render background
-		vertex_submit(vbuff, pr_trianglelist, -1);
-	});	
-
+	if (overflow != fa_allow){
+		if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
+			if (cache.overflow.target()){
+				mat = matrix_get(matrix_world);
+				
+				var tx = realistic.x + (efficient.width * anchor.x) + parent.efficient.x;
+				var ty = realistic.y + (efficient.height * anchor.y) + parent.efficient.y;
+				
+				if (parent != self){
+					tx += parent.contentoffset.x;	
+					ty += parent.contentoffset.y;
+				}
+				
+				matrix = matrix_build(tx, ty, 0, 0, 0, 0, 1, 1, 1);
+				matrix_set(matrix_world, matrix);
+			}
+		});
+	}else{
+		if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
+			mat = matrix_get(matrix_world);
+		
+			var tx = realistic.x + (efficient.width * anchor.x) + parent.efficient.x;
+			var ty = realistic.y + (efficient.height * anchor.y) + parent.efficient.y;
+			
+			if (parent != self){
+				tx += parent.contentoffset.x;	
+				ty += parent.contentoffset.y;
+			}
+			
+			matrix = matrix_build(tx, ty, 0, 0, 0, 0, 1, 1, 1);
+			inmat = matrix_multiply(mat, matrix);
+			matrix_set(matrix_world, inmat);
+		
+			vertex_submit(vbuff, pr_trianglelist, texture);
+		});
+	}
 	if (borderRadius != auto) pipeline_push(shader_reset);	//reset border radius
-	
-	if (overflow != fa_allow) pipeline_push(finish_mask);
-	
-	if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
-		vertex_submit(vbuff, pr_trianglelist, texture);
-	});
 
-	//if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children
+	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children (debug stage atm)
 	
-	if (overflow != fa_allow) pipeline_push(stencil_reset);			//reset overflow
 	
 	pipeline_push(function(){
 		parent.efficient.x += (parent.direction == row) * realistic.width + efficient.margin.left + efficient.margin.right;

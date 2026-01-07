@@ -109,20 +109,6 @@ function container(style, parent = self) constructor{
 		efficient.x = 0;
 		efficient.y = 0;
 		
-		mat = matrix_get(matrix_world);
-		
-		var tx = realistic.x + (efficient.width * anchor.x) + parent.efficient.x;
-		var ty = realistic.y + (efficient.height * anchor.y) + parent.efficient.y;
-		
-		if (parent != self){
-			tx += parent.contentoffset.x;	
-			ty += parent.contentoffset.y;
-		}
-		
-		matrix = matrix_build(tx, ty, 0, 0, 0, 0, 1, 1, 1);
-		inmat = matrix_multiply(mat, matrix);
-		matrix_set(matrix_world, inmat);
-		
 		var i = 0;
 		repeat(pipeline.length){
 			var render = pipeline.content[i++]

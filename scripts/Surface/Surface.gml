@@ -31,10 +31,8 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 			
 			if (persistent) {
 				if (!buffer_exists(buffer)) {
-					buffer_delete(buffer);
-					
 					size = get_format_size(format);
-					buffer = buffer_create(w * h * size, buffer_fixed, 1);
+					buffer = buffer_create(width * height * size, buffer_fixed, 1);
 				}
 				
 				buffer_set_surface(buffer, surface, 0);

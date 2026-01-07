@@ -72,7 +72,7 @@ function container(style, parent = self) constructor{
 				
 				var segment = array_last(segments);
 				if !(segment.add(element)){
-					var segment = new JUI_SEGMENT(segment.width, segment.height, segment.wrap, segment.overflow);
+					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.wrap);
 					if (segment.add(element)) array_push(segment);
 				}
 				

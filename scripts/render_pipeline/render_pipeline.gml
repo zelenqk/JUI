@@ -5,7 +5,7 @@ function render_pipeline(){
 	if (step != auto) pipeline_push(method(self, step));
 	
 	if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
-		vertex_submit(vbuff, pr_trianglelist, -1);
+		vertex_submit(vbuff, pr_trianglelist, texture);
 	});
 	
 	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children (debug stage atm)

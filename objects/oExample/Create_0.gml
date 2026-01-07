@@ -6,20 +6,18 @@ if (surface.target()){
 }
 
 main = new container({
-	width: "40%",
-	height: "20%",
-	padding: "1%",
+	width: 300,
+	height: 300,
+	padding: 10,
+	wrap: true,
 });
 
 test = main.add(new container({
 	width: "100%",
-	height: 64,
+	height: "100%",
 	
-	opacity: 0.1,
-	background: c_blue,
-	margin: {
-		bottom: 4	
-	}
-}), 12);
+	opacity: 1,
+	background: sTest,
+}), 1222);
 
 

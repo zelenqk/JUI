@@ -32,7 +32,7 @@ function render_pipeline(){
 		vertex_submit(vbuff, pr_trianglelist, texture);
 	});
 
-	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children
+	//if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children
 	
 	if (overflow != fa_allow) pipeline_push(stencil_reset);			//reset overflow
 	

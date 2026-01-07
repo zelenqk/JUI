@@ -56,5 +56,5 @@ void main(){
 	rad.w = min(radius.w, min(size.x, size.y));
 	
 	float d = sdRoundBox(p, size, rad);
-	if (d > 0.0) discard;
+	gl_FragColor.a -= smoothstep(0.0, .01, d);
 }

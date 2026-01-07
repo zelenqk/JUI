@@ -1,7 +1,3 @@
-function stencil_get(){
-	
-}
-	
 function stencil_prepare_mask(){
 	draw_clear_stencil(0);
 	
@@ -27,5 +23,4 @@ function finish_mask(){
 
 function stencil_reset(){
 	gpu_set_stencil_enable(false);
-
 }

@@ -32,5 +32,3 @@ test = main.add(new container({
 	}
 }), 100);
 
-
-stencil = new Surface(GUIW, GUIH);

@@ -36,9 +36,17 @@ function container(style, parent = self) constructor{
 		y: 0,
 	}
 	
+	target = {};
+	
+	scale = {
+		x: 0,
+		y: 0,
+		z: 0
+	}
+	
 	vbuff = auto;
 	cache = [];
-	segments = {};
+	segments = []
 	texture = get_default("texture", -1);
 	matrix = identity;
 	inmat = identity;
@@ -47,27 +55,25 @@ function container(style, parent = self) constructor{
 		content: [],
 	};
 	
+	overflow = get_default("overflow", fa_allow);
+	
 	step = get_default("step", auto);
 	
 	root = self;
 	self.parent = parent;
 	if (parent != self) root = parent.root;
 	
-	content = {
-		offet: {
-			x: get_default("contentOffsetX", 0),
-			y: get_default("contentOffsetY", 0),
-		},
-		
-		children: get_default("content", []),
+	contentoffset = {
+		x: get_default("contentOffsetX", 0),
+		y: get_default("contentOffsetY", 0),
 	}
+		
+	content = get_default("content", []);
 	
 	prepare_container();
 	parse_calculations();
 	calculate = method(self, calculate_container);
 	calculate();
-	
-	calculate_content();
 	
 	render_pipeline();
 	
@@ -88,7 +94,7 @@ function container(style, parent = self) constructor{
 					args[2] = true;
 				};
 				
-				array_insert(content.children, args[0]++, element)
+				array_insert(content, args[0]++, element)
 				array_push(args[1], element);
 			}, args);
 		}
@@ -103,8 +109,17 @@ function container(style, parent = self) constructor{
 		efficient.x = 0;
 		efficient.y = 0;
 		
-		var mat = matrix_get(matrix_world);
-		matrix = matrix_build(realistic.x + (efficient.width * anchor.x) + parent.efficient.x, realistic.y + (efficient.height * anchor.y) + parent.efficient.y, 0, 0, 0, 0, 1, 1, 1);
+		mat = matrix_get(matrix_world);
+		
+		var tx = realistic.x + (efficient.width * anchor.x) + parent.efficient.x;
+		var ty = realistic.y + (efficient.height * anchor.y) + parent.efficient.y;
+		
+		if (parent != self){
+			tx += parent.contentoffset.x;	
+			ty += parent.contentoffset.y;
+		}
+		
+		matrix = matrix_build(tx, ty, 0, 0, 0, 0, 1, 1, 1);
 		inmat = matrix_multiply(mat, matrix);
 		matrix_set(matrix_world, inmat);
 		
@@ -124,7 +139,7 @@ function container(style, parent = self) constructor{
 			
 		}
 		
-		if (freeChildren) array_recurse(content.children, function(element){
+		if (freeChildren) array_recurse(content, function(element){
 			element.cleanup();	
 		});
 	}

@@ -96,4 +96,6 @@ function calculate_container(){
 	realistic.y += efficient.margin.top		+ efficient.border;
 	
 	matrix = matrix_build(realistic.x + efficient.width	* anchor.x, realistic.y + efficient.height	* anchor.y, 0, 0, 0, 0, 1, 1, 1);
+
+	calculate_content();
 }

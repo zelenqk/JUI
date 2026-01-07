@@ -1,6 +1,5 @@
 #macro EMPTY_UV {x: 0, y: 0, width: 1, height: 1}
 
-
 function build_quad(vbuff, anchorx, anchory, w, h, color, alpha, uv = EMPTY_UV){
 	var startx = -(w * anchorx);
 	var starty = -(h * anchory);

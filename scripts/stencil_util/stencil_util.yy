@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"stencil_util",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"stencil_util",
+  "parent":{
+    "name":"overflow",
+    "path":"folders/JUI/System/overflow.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

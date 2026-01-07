@@ -10,10 +10,12 @@ main = new container({
 	height: "20%",
 	padding: "1%",
 	background: surface,
-	borderRadius: {
-		"top": 122,
-		"bottom": 122,
+	borderRadius: "50%",
+	step : function(){
+		contentoffset.y -= 0.1;	
 	},
+	
+	overflow: fa_hidden,
 	
 	anchor: 0,
 	
@@ -25,7 +27,6 @@ test = main.add(new container({
 	height: 64,
 	opacity: 0.5,
 	background: c_blue,
-	borderRadius: "200%",
 	margin: {
 		bottom: 4	
 	}

@@ -4,12 +4,15 @@ function render_pipeline(){
 	
 	if (step != auto) pipeline_push(method(self, step));
 	
-	if (background.type == asset_surface) pipeline_push(function(){
+	if (efficient.opacity > 0 and background.type == asset_surface) pipeline_push(function(){
+		//if background is a surface texture make sure the surface exists exists
 		background.value.check()
 		texture = background.value.texture;
 	});	
 	
-	if (borderRadius != auto) pipeline_push(function(){
+	if (overflow != fa_allow) pipeline_push(stencil_prepare_mask);
+	
+	if (borderRadius != auto) pipeline_push(function(){	//apply border radius uniforms
 		shader_set(shBorderRadius);
 		
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), inmat[12] - efficient.width * anchor.x, inmat[13] - efficient.height * anchor.y);
@@ -17,13 +20,21 @@ function render_pipeline(){
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.bottomRight, efficient.borderRadius.topRight, efficient.borderRadius.bottomLeft, efficient.borderRadius.topLeft);
 	});
 	
-	if (efficient.opacity > 0) pipeline_push(function(){
-		vertex_submit(vbuff, pr_trianglelist, texture);
+	if (borderRadius != auto) pipeline_push(function(){	//if opacity is 0 no need to render background
+		vertex_submit(vbuff, pr_trianglelist, -1);
 	});	
 
-	if (borderRadius != auto) pipeline_push(shader_reset);
+	if (borderRadius != auto) pipeline_push(shader_reset);	//reset border radius
 	
-	pipeline_push(draw_content);
+	if (overflow != fa_allow) pipeline_push(finish_mask);
+		
+	if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
+		vertex_submit(vbuff, pr_trianglelist, texture);
+	});
+
+	//if (array_length(segments) > 0) pipeline_push(draw_content);	DEBUGGING //draw children
+	
+	if (overflow != fa_allow) pipeline_push(stencil_reset);			//reset overflow
 	
 	pipeline_push(function(){
 		parent.efficient.x += (parent.direction == row) * realistic.width + efficient.margin.left + efficient.margin.right;

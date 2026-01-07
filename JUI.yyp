@@ -31,7 +31,6 @@
     {"id":{"name":"array_recurse","path":"scripts/array_recurse/array_recurse.yy",},},
     {"id":{"name":"build_quad","path":"scripts/build_quad/build_quad.yy",},},
     {"id":{"name":"calculate_container","path":"scripts/calculate_container/calculate_container.yy",},},
-    {"id":{"name":"calculate_content","path":"scripts/calculate_content/calculate_content.yy",},},
     {"id":{"name":"calculate_layout","path":"scripts/calculate_layout/calculate_layout.yy",},},
     {"id":{"name":"container","path":"scripts/container/container.yy",},},
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},

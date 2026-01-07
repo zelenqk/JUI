@@ -1,11 +1,16 @@
 
 
 function prepare_container(){
+	//
+	efficient = {};
+	realistic = {};
+	
 	//layout
 	position = relative
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
-	
+	overflow = get_default("overflow", fa_allow);
+
 	visible = get_default("visible", true);
 	
 	width = get_default("width", 0);
@@ -22,8 +27,8 @@ function prepare_container(){
 	if (is_struct(bg)) background.type = bg.type;
 	
 	anchor = {
-		x: get_overwrite("anchorx", "anchor", get_overwrite_struct("anchor", "x", 0.5)),
-		y: get_overwrite("anchory", "anchor", get_overwrite_struct("anchor", "y", 0.5)),
+		x: get_overwrite("anchorx", "anchor", get_overwrite_struct("anchor", "x", 0)),
+		y: get_overwrite("anchory", "anchor", get_overwrite_struct("anchor", "y", 0)),
 	}
 	
 	//text

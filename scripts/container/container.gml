@@ -20,29 +20,11 @@
 function container(style, parent = self) constructor{
 	properties = style;
 	
-	efficient = {
-		width: 0,
-		height: 0,
-		
-		x: 0,
-		y: 0,
-	}
+	bake = get_default("bake", false);
+	calculated = parent;
 	
-	realistic = {
-		width: 0,
-		height: 0,
-		
-		x: 0,
-		y: 0,
-	}
-	
-	target = {};
-	
-	scale = {
-		x: 0,
-		y: 0,
-		z: 0
-	}
+	x = 0;
+	y = 0;
 	
 	vbuff = auto;
 	cache = [];
@@ -55,29 +37,21 @@ function container(style, parent = self) constructor{
 		content: [],
 	};
 	
-	overflow = get_default("overflow", fa_hidden);
-	
 	step = get_default("step", auto);
 	
 	root = self;
 	self.parent = parent;
 	if (parent != self) root = parent.root;
 	
-	contentoffset = {
-		x: get_default("contentOffsetX", 0),
-		y: get_default("contentOffsetY", 0),
+	content = {
+		offset: {
+			x: 0,
+			y: 0,
+		},
+		children: get_default("content", []),
 	}
-		
-	content = get_default("content", []);
-	
-	prepare_container();
-	parse_calculations();
-	calculate = method(self, calculate_container);
-	calculate();
-	
-	render_pipeline();
-	
-	add = function(element, amount = 1, index = array_length(content)){
+
+	add = function(element, amount = 1, index = array_length(content.children)){
 		var final = [];
 		var args = [index, final, false]
 		
@@ -89,18 +63,60 @@ function container(style, parent = self) constructor{
 					element.root = root;
 					
 					if (args[2]) element = new container(element.properties, self);
-					else element.calculate();
+					else if (element.calculated != self) element.calculate();
 					
 					args[2] = true;
 				};
 				
-				array_insert(content, args[0]++, element)
+				array_insert(content.children, args[0]++, element);
+				
+				var segment = array_last(segments);
+				if !(segment.add(element)){
+					var segment = new JUI_SEGMENT(segment.width, segment.height, segment.wrap, segment.overflow);
+					if (segment.add(element)) array_push(segment);
+				}
+				
 				array_push(args[1], element);
 			}, args);
 		}
 		
 		if (array_length(final) == 1) return final[0];
 		return final;
+	}
+	
+	render = function(){
+		if (vbuff != auto) vertex_delete_buffer(vbuff);
+		vbuff = vertex_create_buffer();
+		
+		vertex_begin(vbuff, JUI_FORMAT);
+		switch (background.type){
+		case asset_surface:
+			var surface = background.value;
+			texture = surface.texture;
+			
+			build_quad(vbuff, x + anchor.x, y + anchor.y, efficient.width, efficient.height, c_white, efficient.opacity);
+			break;
+		case asset_sprite:
+			var sprite = background.value;
+			var uv = sprite_get_uvs(background.value, 0);
+			
+			build_quad(vbuff, x + anchor.x, y + anchor.y, efficient.width, efficient.height, c_white, efficient.opacity, {
+				x: uv[0],	
+				y: uv[1],
+				width: uv[2] - uv[0],
+				height: uv[3] - uv[1],
+			});
+			
+			texture = sprite_get_texture(sprite, 0);
+			break;
+		default:
+			var color = c_white;
+			if (is_ptr(background.value)) texture = background.value;
+			else color = background.value;
+			
+			build_quad(vbuff, x + anchor.x, y + anchor.y, efficient.width, efficient.height, color, efficient.opacity);
+			break;
+		}	
 	}
 	
 	draw = function(){
@@ -111,24 +127,26 @@ function container(style, parent = self) constructor{
 		
 		var i = 0;
 		repeat(pipeline.length){
-			var render = pipeline.content[i++]
-			render();
+			var pipe = pipeline.content[i++]
+			pipe();
 		}
-		
-		matrix_set(matrix_world, mat);
 	}
 	
 	cleanup = function(freeChildren = true){
 		if (vbuff != auto) vertex_delete_buffer(vbuff);
-			
-		for(var i = 0; i < array_length(cache); i++){
-			
-		}
 		
-		if (freeChildren) array_recurse(content, function(element){
+		if (freeChildren) array_recurse(content.children, function(element){
 			element.cleanup();	
 		});
 	}
+	
+	//render the container
+	prepare_container();
+	parse_calculations();
+	calculate = method(self, calculate_container);
+	calculate();
+	
+	render_pipeline();
 	
 }
 

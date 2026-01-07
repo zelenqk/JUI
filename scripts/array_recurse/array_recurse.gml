@@ -12,15 +12,14 @@ function array_recurse(array, check, args = undefined){
 	}
 }
 
-function draw_content(content){
+function draw_content(content = self.content){
 	if (is_array(content)){
 		for(var i = 0; i < array_length(content); i++){
 			var element = content[i];
 			draw_content(element);
 		}
-		
 		return;
 	}
-	
+
 	content.draw();
 }

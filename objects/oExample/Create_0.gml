@@ -19,9 +19,10 @@ main = new container({
 
 test = main.add(new container({
 	width: "100%",
-	height: 23,
+	height: 64,
 	opacity: 0.5,
 	background: c_blue,
+	borderRadius: "200%",
 	margin: {
 		bottom: 4	
 	}

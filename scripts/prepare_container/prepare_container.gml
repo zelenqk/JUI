@@ -51,10 +51,11 @@ function prepare_container(){
 	
 	//border radius
 	borderRadius = {
-		topLeft:		get_overwrite("borderRadiusTopLeft",		"borderRadiusTop",		"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topLeft",		"top",		"left",		0)),
-		bottomLeft:		get_overwrite("borderRadiusBottomLeft",		"borderRadiusBottom",	"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topRight",	"bottom",	"left",	0)),	
-		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"top",		"right",		0)),	
-		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	0)),	
+		topLeft:		get_overwrite("borderRadiusTopLeft",		"borderRadiusTop",		"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topLeft",		"top",		"left",		auto)),
+		bottomLeft:		get_overwrite("borderRadiusBottomLeft",		"borderRadiusBottom",	"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topRight",	"bottom",	"left",		auto)),	
+		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"top",		"right",	auto)),	
+		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	auto)),	
 	}
 	
+	if (borderRadius.topLeft == auto and borderRadius.bottomLeft == auto and borderRadius.topRight == auto and borderRadius.bottomRight == auto) borderRadius = auto;
 }

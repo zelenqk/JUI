@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"render_pipeline",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"render_pipeline",
+  "parent":{
+    "name":"System",
+    "path":"folders/JUI/System.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

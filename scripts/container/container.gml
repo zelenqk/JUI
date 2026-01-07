@@ -34,6 +34,11 @@ function container(style, parent = self) constructor{
 	cache = [];
 	texture = get_default("texture", -1);
 	matrix = identity;
+	inmat = identity;
+	pipeline = {
+		length: 0,
+		content: [],
+	};
 	
 	root = self;
 	self.parent = parent;
@@ -46,6 +51,8 @@ function container(style, parent = self) constructor{
 	calculate = method(self, calculate_container);
 	
 	calculate();
+	
+	render_pipeline();
 	
 	add = function(element, amount = 1, index = array_length(content)){
 		var final = [];
@@ -79,30 +86,16 @@ function container(style, parent = self) constructor{
 		efficient.x = 0;
 		efficient.y = 0;
 		
-		if (background.type == asset_surface) {
-			background.value.check()
-			texture = background.value.texture;
-		}
-		
 		var mat = matrix_get(matrix_world);
-		matrix = matrix_build(realistic.x + efficient.width	* anchor.x, realistic.y + efficient.height	* anchor.y, 0, 0, 0, 0, 1, 1, 1);
-
-		var inmat = matrix_multiply(mat, matrix);
+		matrix = matrix_build(realistic.x + (efficient.width * anchor.x) + parent.efficient.x, realistic.y + (efficient.height * anchor.y) + parent.efficient.y, 0, 0, 0, 0, 1, 1, 1);
+		inmat = matrix_multiply(mat, matrix);
 		matrix_set(matrix_world, inmat);
-
-		shader_set(shBorderRadius);
 		
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), inmat[12] - efficient.width * anchor.x, inmat[13] - efficient.height * anchor.y);
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.bottomRight, efficient.borderRadius.topRight, efficient.borderRadius.bottomLeft, efficient.borderRadius.topLeft);
-		
-		vertex_submit(vbuff, pr_trianglelist, texture);
-		shader_reset();
-		
-		draw_content(content);
-		
-		parent.efficient.x += (parent.direction == row) * realistic.width + efficient.margin.left + efficient.margin.right;
-		parent.efficient.y += (parent.direction == column) * realistic.height + efficient.margin.top + efficient.margin.bottom;
+		var i = 0;
+		repeat(pipeline.length){
+			var render = pipeline.content[i++]
+			render();
+		}
 		
 		matrix_set(matrix_world, mat);
 	}

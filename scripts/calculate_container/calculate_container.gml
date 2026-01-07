@@ -42,11 +42,13 @@ function calculate_container(){
 	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
 
-	efficient.borderRadius = {
-		topLeft:		calculate_value(calculations.borderRadius.topLeft,		axis),
-		topRight:		calculate_value(calculations.borderRadius.topRight,		axis),
-		bottomLeft:		calculate_value(calculations.borderRadius.bottomLeft,	axis),
-		bottomRight:	calculate_value(calculations.borderRadius.bottomRight,	axis),
+	if (borderRadius != auto){
+		efficient.borderRadius = {
+			topLeft:		calculate_value(calculations.borderRadius.topLeft,		axis),
+			topRight:		calculate_value(calculations.borderRadius.topRight,		axis),
+			bottomLeft:		calculate_value(calculations.borderRadius.bottomLeft,	axis),
+			bottomRight:	calculate_value(calculations.borderRadius.bottomRight,	axis),
+		}
 	}
 	
 	realistic.width		= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;

@@ -16,15 +16,21 @@ function calculate_container(){
 	realistic.width = GUIW;
 	realistic.height = GUIH;
 	
+	//calculate dimensions
 	efficient.width		= calculate_value(calculations.width,	parent.realistic.width	);
 	efficient.height	= calculate_value(calculations.height,	parent.realistic.height	);
 	efficient.opacity	= calculate_value(calculations.opacity, 1);
 	
+	
 	axis	=	(direction == row) ? efficient.width : efficient.height;
 	cross	=	(direction == row) ? efficient.height : efficient.width;
+	
+	efficient.gap		= calculate_value(calculations.gap, axis);
 
+	//calculate border
 	efficient.border = calculate_value(calculations.border, axis);
 	
+	//calculate padding
 	efficient.padding = {
 		left:	calculate_value(calculations.padding.left,		axis),
 		right:	calculate_value(calculations.padding.right,		axis),
@@ -32,6 +38,7 @@ function calculate_container(){
 		bottom:	calculate_value(calculations.padding.bottom,	axis),
 	}
 	
+	//calculate margin
 	efficient.margin = {
 		left:	calculate_value(calculations.margin.left,		parent.realistic.width),
 		right:	calculate_value(calculations.margin.right,		parent.realistic.width),
@@ -39,6 +46,10 @@ function calculate_container(){
 		bottom:	calculate_value(calculations.margin.bottom,		parent.realistic.height),
 	}
 	
+	efficient.margin.inline = efficient.margin.left + efficient.margin.right;
+	efficient.margin.block = efficient.margin.top + efficient.margin.bottom;
+	
+	//get the bigger axis
 	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
 
@@ -51,7 +62,8 @@ function calculate_container(){
 		}
 	}
 	
-	realistic.width	= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;
+	//realistic dimensions
+	realistic.width		= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;
 	realistic.height	= efficient.height	-	efficient.padding.top	-	efficient.padding.bottom	;
 	
 	if (parent != self and parent.overflow == fa_allow){

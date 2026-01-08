@@ -12,6 +12,8 @@ main = new container({
 	
 	direction: row,
 	
+	gap: auto,
+	
 	wrap: true,
 });
 
@@ -20,5 +22,9 @@ test = main.add(new container({
 	height: "10%",
 	
 	opacity: 1,
-	background: surface,
-}), 1000);
+	margin:{
+		right: 1,
+		top: 1,
+	},
+	background: c_blue,
+}), 100);

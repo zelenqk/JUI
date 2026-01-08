@@ -17,7 +17,7 @@
 #macro absolute 2
 #macro sticky 3
 
-enum CACHE { OVERFLOW, BACKDROP };
+enum CACHE { OVERFLOW, BACKDROP, PICKER };
 
 function container(style, parent = self) constructor{
 	properties = style;
@@ -28,6 +28,9 @@ function container(style, parent = self) constructor{
 	x = 0;
 	y = 0;
 	
+	//caching
+	picker = auto;
+
 	vbuff = auto;
 	cache = [];
 	segments = [];
@@ -38,6 +41,8 @@ function container(style, parent = self) constructor{
 		length: 0,
 		content: [],
 	};
+	
+	index = #000000;
 	
 	segment = new JUI_SEGMENT(0, 0, 0, 0, 0, 0, 0, 0);
 	
@@ -90,7 +95,7 @@ function container(style, parent = self) constructor{
 				
 				var segment = array_last(segments);
 				if !(segment.add(element)){
-					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.wrap, segment.x, segment.y);
+					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.gap, segment.wrap, segment.x, segment.y);
 					if (segment.add(element)) array_push(segments, segment);
 				}
 				
@@ -105,7 +110,10 @@ function container(style, parent = self) constructor{
 	draw = function(){
 		if (vbuff == auto){
 			render_background();
-			if (root == self) identity = matrix_build_identity();
+			if (root == self){
+				cache[CACHE.PICKER] = new Surface(efficient.width, efficient.height, true);
+				identity = matrix_build_identity();
+			}
 			
 			draw = render;	
 			return;

@@ -14,6 +14,9 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 
 	size = get_format_size(format);
 	
+	checked = false;
+	output = false;
+	
 	buffer = -1;
 	if (persistent) buffer = buffer_create(w * h * size, buffer_fixed, 1);
 	
@@ -37,6 +40,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 				
 				buffer_set_surface(buffer, surface, 0);
 			}
+			
 			return true;
 		}
 		
@@ -80,7 +84,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	draw = function(tx, ty, w = width, h = height){
 		if (check(persistent) == false) return;
 		
-		draw_surface_stretched(surface, tx, ty, w, h)
+		draw_surface_stretched(surface, tx, ty, w, h);
 	}
 	
 	cleanup = function(){

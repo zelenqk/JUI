@@ -17,6 +17,8 @@ function prepare_container(){
 	width = get_default("width", 0);
 	height = get_default("height", 0);
 	
+	gap = get_default("gap");
+	
 	var bg = get_default("background", c_white);
 	background = {
 		type: asset_get_type(bg),

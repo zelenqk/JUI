@@ -50,7 +50,7 @@ function JUI_SEGMENT(left, top, direction, width, height, wrap, tx = 0, ty = 0) 
 			
 			
 			array_push(content, element);
-			element.render();
+			with (element) render_background();
 			return true;
 		}
 		

@@ -18,6 +18,6 @@ test = main.add(new container({
 	
 	opacity: 1,
 	background: sTest,
-}), 1222);
+}), 100);
 
 

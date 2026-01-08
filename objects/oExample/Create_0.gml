@@ -6,21 +6,23 @@ if (surface.target()){
 }
 
 main = new container({
-	width: 300,
+	width: 500,
 	height: 300,
 	padding: 10,
 	
 	direction: row,
 	
-	gap: auto,
+	borderRadius: 32,
 	
 	wrap: true,
 });
 
 test = main.add(new container({
-	width: "10%",
+	width: "5%",
 	height: "10%",
 	
+	borderRadius: "50%",
+
 	opacity: 1,
 	margin:{
 		right: 1,

@@ -12,14 +12,6 @@ function calculate_layout(){
 		return false;
 	}, segments);
 	
-	if (gap == auto){
-		for(var i = 0; i < array_length(segments); i++){
-			var segment = segments[i];
-			segment.efficient.gap = abs((segment.width - segment.efficient.width) / (array_length(segment.content) - 1));
-			
-			segment.calculate();
-		}
-	}
 }
 
 function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty = 0) constructor{
@@ -51,16 +43,7 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 	maximum = (direction == row) ? width : height;
 	
 	content = [];
-	
-	calculate = function(){
-		efficient.x = 0;
-		efficient.y = 0;
-		
-		for(var i = 0; i < array_length(content); i++){
-			var element = content[i];
-			if (direction == row) element.x = efficient.x
-		}
-	}
+	amount = 0;
 	
 	add = function(element){
 		element.segment = self;
@@ -77,36 +60,42 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 		element.y = efficient.y + element.efficient.margin.top;
 		
 		if (wrap){
-			var check = (direction == row) ? element.x + ewidth : element.y + eheight;
+			var check = (direction == row) ? efficient.width + ewidth : efficient.height + eheight;
 			
 			if (check > maximum){
 				if (direction == row) {
-					efficient.x = 0;
-					efficient.y += efficient.height;
+					x = 0;
+					y += efficient.height;
 					return false;
 				}
 				
-				efficient.x += efficient.width;
-				efficient.y = 0;
-				
+				x += efficient.width;
+				y = 0;
 				return false;
 			}
 			
-			if (direction == row) efficient.x += ewidth;
-			if (direction == column) efficient.y += eheight;
+			if (direction == row){
+				efficient.x += ewidth;
+				efficient.width += ewidth;
+				efficient.height = max(efficient.height, eheight);
+			}
 			
-			efficient.width = max(efficient.width, ewidth);
-			efficient.height = max(efficient.height, eheight);
-			
+			if (direction == column){
+				efficient.y += eheight;
+				efficient.height += eheight;
+				efficient.width = max(efficient.width, ewidth);
+			}
 			
 			array_push(content, element);
+			amount++;
 			return true;
 		}
 		
-		if (direction == row) element.x += efficient.width;
-		if (direction == column) element.y += efficient.height;
+		if (direction == row) element.x = x + efficient.width;
+		if (direction == column) element.y = y + efficient.height;
 		
 		array_push(content, element);
+		amount++;
 		return true;
 	}
 	

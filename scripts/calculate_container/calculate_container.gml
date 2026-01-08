@@ -77,6 +77,6 @@ function calculate_container(){
 	calculate_layout();
 	
 	if (overflow.x != fa_allow or overflow.y != fa_allow){
-		
+		cache[CACHE.OVERFLOW] = new Surface(efficient.width, efficient.height);
 	}
 }

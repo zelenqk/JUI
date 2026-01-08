@@ -5,9 +5,17 @@ function render_pipeline(){
 	if (background.type == asset_surface) pipeline_push(function(){
 		background.value.check();
 		texture = background.value.texture;
-	})
+	});
 	
 	if (step != auto) pipeline_push(method(self, step));
+	
+	if (borderRadius != auto) pipeline_push(function(){
+		shader_set(shBorderRadius);
+		
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), x + offset.x, y + offset.y);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
+	});
 	
 	pipeline_push(function(){
 		matrix[12] = x + offset.x;
@@ -15,6 +23,10 @@ function render_pipeline(){
 		
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
+	});
+	
+	if (borderRadius != auto) pipeline_push(function(){
+		shader_reset();
 	});
 	
 	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children (debug stage atm)

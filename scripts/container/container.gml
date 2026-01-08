@@ -17,7 +17,7 @@
 #macro absolute 2
 #macro sticky 3
 
-enum CACHE { OVERFLOW, BACKDROP, PICKER };
+enum CACHE { OVERFLOW, BACKDROP, PICKER , SIZE};
 
 function container(style, parent = self) constructor{
 	properties = style;
@@ -32,7 +32,7 @@ function container(style, parent = self) constructor{
 	picker = auto;
 
 	vbuff = auto;
-	cache = [];
+	cache = array_create(CACHE.SIZE, auto);
 	segments = [];
 	texture = get_default("texture", -1);
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
@@ -69,6 +69,7 @@ function container(style, parent = self) constructor{
 			x: 0,
 			y: 0,
 		},
+		
 		children: get_default("content", []),
 	}
 
@@ -110,16 +111,17 @@ function container(style, parent = self) constructor{
 	draw = function(){
 		if (vbuff == auto){
 			render_background();
+			
+			calculate_layout();
 			if (root == self){
 				cache[CACHE.PICKER] = new Surface(efficient.width, efficient.height, true);
 				identity = matrix_build_identity();
 			}
 			
-			draw = render;	
-			return;
 		}
 		
 		render();
+		draw = render;	
 	}
 	
 	render = function(){
@@ -137,6 +139,10 @@ function container(style, parent = self) constructor{
 	
 	cleanup = function(freeChildren = true){
 		if (vbuff != auto) vertex_delete_buffer(vbuff);
+		
+		for(var i = 0; i < array_length(cache); i++){
+			if (cache[i] != auto) cache[i].cleanup();
+		}
 		
 		if (freeChildren) array_recurse(content.children, function(element){
 			element.cleanup();	

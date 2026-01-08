@@ -33,9 +33,8 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 
 uniform vec2 position;
-uniform vec2 anchor;
-uniform vec4 radius;
 uniform vec2 size;
+uniform vec4 radius;
 
 float sdRoundBox( in vec2 p, in vec2 b, in vec4 r ) 
 {
@@ -56,5 +55,5 @@ void main(){
 	rad.w = min(radius.w, min(size.x, size.y));
 	
 	float d = sdRoundBox(p, size, rad);
-	gl_FragColor.a -= smoothstep(0.0, .01, d);
+	gl_FragColor.a -= smoothstep(0.0, 1.0, d);
 }

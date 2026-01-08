@@ -30,7 +30,7 @@ function container(style, parent = self) constructor{
 	
 	vbuff = auto;
 	cache = [];
-	segments = []
+	segments = [];
 	texture = get_default("texture", -1);
 	matrix = identity;
 	inmat = identity;
@@ -38,6 +38,13 @@ function container(style, parent = self) constructor{
 		length: 0,
 		content: [],
 	};
+	
+	overflow = {
+		x: get_overwrite_struct("overflow", "x", get_overwrite("overflowx", "overflow", fa_allow)),
+		y: get_overwrite_struct("overflow", "y", get_overwrite("overflowy", "overflow", fa_allow)),
+		
+		top: self,
+	}
 	
 	step = get_default("step", auto);
 	

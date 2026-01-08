@@ -12,9 +12,9 @@
   "Folders":[
     {"$GMFolder":"","%Name":"JUI Example","folderPath":"folders/JUI Example.yy","name":"JUI Example","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"JUI","folderPath":"folders/JUI.yy","name":"JUI","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"pipeline","folderPath":"folders/JUI/System/pipeline.yy","name":"pipeline","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"System","folderPath":"folders/JUI/System.yy","name":"System","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"overflow","folderPath":"folders/JUI/System/overflow.yy","name":"overflow","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"pipeline","folderPath":"folders/JUI/System/pipeline.yy","name":"pipeline","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"shaders","folderPath":"folders/JUI/System/shaders.yy","name":"shaders","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Util","folderPath":"folders/JUI/Util.yy","name":"Util","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],

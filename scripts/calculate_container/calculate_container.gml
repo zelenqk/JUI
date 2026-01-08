@@ -26,7 +26,7 @@ function calculate_container(){
 	cross	=	(direction == row) ? efficient.height : efficient.width;
 	
 	efficient.gap		= calculate_value(calculations.gap, axis);
-
+	
 	//calculate border
 	efficient.border = calculate_value(calculations.border, axis);
 	
@@ -49,9 +49,16 @@ function calculate_container(){
 	efficient.margin.inline = efficient.margin.left + efficient.margin.right;
 	efficient.margin.block = efficient.margin.top + efficient.margin.bottom;
 	
+	efficient.manualOffset = {
+		x: calculate_value(calculations.offset.x, axis	),
+		y: calculate_value(calculations.offset.y, cross	),	
+	}
+	
 	//get the bigger axis
 	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
+
+
 
 	if (borderRadius != auto){
 		efficient.borderRadius = {

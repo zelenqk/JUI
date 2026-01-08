@@ -12,19 +12,25 @@ main = new container({
 	
 	direction: row,
 	wrap: true,
-	borderRadius: 32,
+	borderRadius: 18,
 });
+
+main.add(new container({
+	width: "10%",
+	height: "10%",
+	borderRadius: "50%",
+
+	background: c_red,
+	
+}))
 
 test = main.add(new container({
 	width: "5%",
 	height: "10%",
 	
 	borderRadius: "50%",
+	opacity: 0.75,
 
-	opacity: 1,
-	margin:{
-		right: 1,
-		top: 1,
-	},
 	background: c_blue,
 }), 100);
+

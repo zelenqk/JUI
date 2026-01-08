@@ -27,6 +27,11 @@ function parse_calculations(){
 			bottom:	get_calculation(margin.bottom	),	
 		},
 		
+		offset: {
+			x:		get_calculation(manualOffset.x),
+			y:		get_calculation(manualOffset.y),	
+		},
+		
 		borderRadius: (borderRadius == auto) ? auto : {
 			topLeft:		get_calculation(borderRadius.topLeft		),	
 			topRight:		get_calculation(borderRadius.topRight		),	

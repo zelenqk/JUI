@@ -68,5 +68,10 @@ function prepare_container(){
 		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	auto)),	
 	}
 	
+	manualOffset = {
+		x: get_overwrite("offsetx", "offset", get_overwrite_struct("offset", "x", 0)),
+		y: get_overwrite("offsety", "offset", get_overwrite_struct("offset", "y", 0)),
+	}
+	
 	if (borderRadius.topLeft == auto and borderRadius.bottomLeft == auto and borderRadius.topRight == auto and borderRadius.bottomRight == auto) borderRadius = auto;
 }

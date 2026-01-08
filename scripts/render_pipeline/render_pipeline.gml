@@ -12,14 +12,14 @@ function render_pipeline(){
 	if (borderRadius != auto) pipeline_push(function(){
 		shader_set(shBorderRadius);
 		
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), x + offset.x, y + offset.y);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), x + offset.x + efficient.manualOffset.x, y + offset.y + efficient.manualOffset.y);
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 	});
 	
 	pipeline_push(function(){
-		matrix[12] = x + offset.x;
-		matrix[13] = y + offset.y;
+		matrix[12] = x + offset.x + efficient.manualOffset.x;
+		matrix[13] = y + offset.y + efficient.manualOffset.y;
 		
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);

@@ -73,27 +73,20 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 				y = 0;
 				return false;
 			}
-			
-			if (direction == row){
-				efficient.x += ewidth;
-				efficient.width += ewidth;
-				efficient.height = max(efficient.height, eheight);
-			}
-			
-			if (direction == column){
-				efficient.y += eheight;
-				efficient.height += eheight;
-				efficient.width = max(efficient.width, ewidth);
-			}
-			
-			array_push(content, element);
-			amount++;
-			return true;
 		}
 		
-		if (direction == row) element.x = x + efficient.width;
-		if (direction == column) element.y = y + efficient.height;
+		if (direction == row){
+			efficient.x += ewidth;
+			efficient.width += ewidth;
+			efficient.height = max(efficient.height, eheight);
+		}
 		
+		if (direction == column){
+			efficient.y += eheight;
+			efficient.height += eheight;
+			efficient.width = max(efficient.width, ewidth);
+		}
+			
 		array_push(content, element);
 		amount++;
 		return true;

@@ -11,10 +11,8 @@ main = new container({
 	padding: 10,
 	
 	direction: row,
-	
-	borderRadius: 32,
-	
 	wrap: true,
+	borderRadius: 32,
 });
 
 test = main.add(new container({

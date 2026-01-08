@@ -54,7 +54,7 @@ function calculate_container(){
 	realistic.width	= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;
 	realistic.height	= efficient.height	-	efficient.padding.top	-	efficient.padding.bottom	;
 	
-	if (parent != self){
+	if (parent != self and parent.overflow == fa_allow){
 		offset.x += parent.efficient.padding.left;
 		offset.y += parent.efficient.padding.top;	
 	}

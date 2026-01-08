@@ -24,8 +24,8 @@ function JUI_SEGMENT(left, top, direction, width, height, wrap, tx = 0, ty = 0) 
 	
 	self.wrap = wrap;
 	
-	x = 0;
-	y = 0;
+	x = tx;
+	y = ty;
 	
 	efficient = {
 		width: 0,
@@ -50,13 +50,13 @@ function JUI_SEGMENT(left, top, direction, width, height, wrap, tx = 0, ty = 0) 
 			
 			if (check > maximum){
 				if (direction == row) {
-					y += efficient.height;
 					x = 0;
-					return false;
+					y += efficient.height;
+				}else{
+					x += efficient.width;
+					y = 0;
 				}
 				
-				x += efficient.width;
-				y = 0;
 				return false;
 			}
 			
@@ -67,6 +67,8 @@ function JUI_SEGMENT(left, top, direction, width, height, wrap, tx = 0, ty = 0) 
 			efficient.height = max(efficient.height, element.efficient.height);
 			
 			array_push(content, element);
+			
+
 			return true;
 		}
 		
@@ -74,7 +76,6 @@ function JUI_SEGMENT(left, top, direction, width, height, wrap, tx = 0, ty = 0) 
 		if (direction == column) element.y += efficient.height;
 		
 		array_push(content, element);
-		element.render();
 		return true;
 	}
 	

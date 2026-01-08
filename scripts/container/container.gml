@@ -1,7 +1,5 @@
 #macro GUIW display_get_gui_width()
 #macro GUIH display_get_gui_height()
-globalvar identity;
-identity = matrix_build_identity()
 
 #macro auto -2
 
@@ -34,12 +32,14 @@ function container(style, parent = self) constructor{
 	cache = [];
 	segments = [];
 	texture = get_default("texture", -1);
-	matrix = identity;
-	inmat = identity;
+	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	identity = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	pipeline = {
 		length: 0,
 		content: [],
 	};
+	
+	segment = new JUI_SEGMENT(0, 0, 0, 0, 0, 0, 0, 0);
 	
 	overflow = {
 		x: get_overwrite_struct("overflow", "x", get_overwrite("overflowx", "overflow", fa_allow)),
@@ -90,8 +90,8 @@ function container(style, parent = self) constructor{
 				
 				var segment = array_last(segments);
 				if !(segment.add(element)){
-					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.wrap);
-					if (!segment.add(element)) return false;
+					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.wrap, segment.x, segment.y);
+					if (segment.add(element)) array_push(segments, segment);
 				}
 				
 				array_push(args[1], element);
@@ -105,6 +105,8 @@ function container(style, parent = self) constructor{
 	draw = function(){
 		if (vbuff == auto){
 			render_background();
+			if (root == self) identity = matrix_build_identity();
+			
 			draw = render;	
 			return;
 		}

@@ -19,7 +19,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	
 	type = asset_surface;
 	
-	check = function(resurface = true){
+	check = function(resurface = persistent){
 		if (surface_exists(surface)) return true;
 		
 		if (window_has_focus() and resurface) {	//на майка му путката човек

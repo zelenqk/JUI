@@ -2,6 +2,11 @@ function render_pipeline(){
 	pipeline.length = 0;
 	pipeline.content = [];
 	
+	if (background.type == asset_surface) pipeline_push(function(){
+		background.value.check();
+		texture = background.value.texture;
+	})
+	
 	if (step != auto) pipeline_push(method(self, step));
 	
 	pipeline_push(function(){

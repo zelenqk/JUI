@@ -1,6 +1,8 @@
 #macro GUIW display_get_gui_width()
 #macro GUIH display_get_gui_height()
-#macro identity matrix_build_identity()
+globalvar identity;
+identity = matrix_build_identity()
+
 #macro auto -2
 
 //direction
@@ -46,6 +48,11 @@ function container(style, parent = self) constructor{
 		top: self,
 	}
 	
+	scale = {
+		x: 1,
+		y: 1,
+	}
+	
 	step = get_default("step", auto);
 	
 	root = self;
@@ -72,7 +79,9 @@ function container(style, parent = self) constructor{
 					element.root = root;
 					
 					if (args[2]) element = new container(element.properties, self);
-					else if (element.calculated != self) element.calculate();
+					else if (element.calculated != self){
+						element.calculate();
+					}
 					
 					args[2] = true;
 				};
@@ -82,7 +91,7 @@ function container(style, parent = self) constructor{
 				var segment = array_last(segments);
 				if !(segment.add(element)){
 					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.wrap);
-					if (segment.add(element)) array_push(segment);
+					if (!segment.add(element)) return false;
 				}
 				
 				array_push(args[1], element);
@@ -94,6 +103,16 @@ function container(style, parent = self) constructor{
 	}
 	
 	draw = function(){
+		if (vbuff == auto){
+			render_background();
+			draw = render;	
+			return;
+		}
+		
+		render();
+	}
+	
+	render = function(){
 		if (!visible) return;
 		
 		efficient.x = 0;

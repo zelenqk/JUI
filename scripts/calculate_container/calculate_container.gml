@@ -64,8 +64,6 @@ function calculate_container(){
 	
 	calculate_layout();
 	
-	if (parent == self) render_background();
-	
 	if (overflow.x != fa_allow or overflow.y != fa_allow){
 		
 	}

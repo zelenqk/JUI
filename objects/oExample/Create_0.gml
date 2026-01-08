@@ -13,8 +13,8 @@ main = new container({
 });
 
 test = main.add(new container({
-	width: "100%",
-	height: "100%",
+	width: "10%",
+	height: "10%",
 	
 	opacity: 1,
 	background: sTest,

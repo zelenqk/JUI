@@ -4,11 +4,19 @@ function render_pipeline(){
 	
 	if (step != auto) pipeline_push(method(self, step));
 	
-	if (efficient.opacity > 0) pipeline_push(function(){	//if opacity is 0 no need to render background
+	pipeline_push(function(){
+		matrix[12] = x + offset.x;
+		matrix[13] = y + offset.y;
+		
+		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
 	});
 	
 	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children (debug stage atm)
+
+	if (root == self) pipeline_push(function(){
+		matrix_set(matrix_world, identity);	
+	})
 }
 
 function pipeline_push(render){

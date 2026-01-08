@@ -1,5 +1,5 @@
 function render_background(){
-	if (vbuff != auto) vertex_delete_buffer(vbuff);
+	if (vbuff != auto) return;
 	vbuff = vertex_create_buffer();
 	
 	vertex_begin(vbuff, JUI_FORMAT);

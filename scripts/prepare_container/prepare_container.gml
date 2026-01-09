@@ -3,7 +3,7 @@
 function prepare_container(){
 	//
 	efficient = {};
-	offset = {};
+	coffset = {};
 	realistic = {};
 	previous = {};
 	target = {};
@@ -78,4 +78,13 @@ function prepare_container(){
 	}
 	
 	if (borderRadius.topLeft == auto and borderRadius.bottomLeft == auto and borderRadius.topRight == auto and borderRadius.bottomRight == auto) borderRadius = auto;
+
+	if (arguments != auto){
+		var variables = struct_get_names(arguments);
+		
+		for(var i = 0; i < array_length(variables); i++){
+			var name = variables[i];
+			self[$ name] = arguments[$ name];
+		}
+	}
 }

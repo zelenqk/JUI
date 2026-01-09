@@ -2,6 +2,8 @@ function calculate_layout(){
 	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, realistic.width, realistic.height, efficient.gap, wrap, overflow.x, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow), target.x, target.y)];
 	
 	array_recurse(content.children, function(element, segments){
+		if !is_callable(element[$ "draw"]) element = new container(element, self);
+		
 		var segment = array_last(segments);
 		if (segment.add(element)) return false;
 		
@@ -105,6 +107,13 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, overflow, t
 		for(var i = 0; i < array_length(content); i++){
 			var element = content[i];
 			element.draw();
+		}
+	}
+	
+	cleanup = function(cleanChildren){
+		for(var i = 0; i < array_length(content); i++){
+			var element = content[i];
+			element.cleanup(cleanChildren);
 		}
 	}
 }

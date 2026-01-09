@@ -10,8 +10,8 @@ function calculate_container(){
 	efficient.width = 0;
 	efficient.height = 0;
 	
-	offset.x = - parent.efficient.width * parent.anchor.x;
-	offset.y = - parent.efficient.height * parent.anchor.y;
+	coffset.x = - parent.efficient.width * parent.anchor.x;
+	coffset.y = - parent.efficient.height * parent.anchor.y;
 	
 	realistic.width = GUIW;
 	realistic.height = GUIH;
@@ -49,7 +49,7 @@ function calculate_container(){
 	efficient.margin.inline = efficient.margin.left + efficient.margin.right;
 	efficient.margin.block = efficient.margin.top + efficient.margin.bottom;
 	
-	efficient.manualOffset = {
+	offset = {
 		x: calculate_value(calculations.offset.x, axis	),
 		y: calculate_value(calculations.offset.y, cross	),	
 	}
@@ -93,18 +93,15 @@ function calculate_container(){
 	realistic.height	= efficient.height	-	efficient.padding.top	-	efficient.padding.bottom	;
 	
 	if (parent != self and parent.overflow == fa_allow){
-		offset.x += parent.efficient.padding.left;
-		offset.y += parent.efficient.padding.top;	
+		coffset.x += parent.efficient.padding.left;
+		coffset.y += parent.efficient.padding.top;	
 	}
 	
-	offset.x += efficient.margin.left	+ efficient.border;
-	offset.y += efficient.margin.top	+ efficient.border;
+	coffset.x += efficient.margin.left	+ efficient.border;
+	coffset.y += efficient.margin.top	+ efficient.border;
 	
-	realistic.x = x + efficient.margin.left + efficient.manualOffset.x;
-	realistic.y = y + efficient.margin.top + efficient.manualOffset.y;
-	
-	efficient.x = realistic.x;
-	efficient.y = realistic.y;
+	realistic.x = x + efficient.margin.left + offset.x;
+	realistic.y = y + efficient.margin.top + offset.y;
 	
 	target.x = realistic.x;
 	target.y = realistic.y;

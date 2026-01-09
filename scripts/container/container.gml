@@ -28,7 +28,7 @@ function container(style, parent = self) constructor{
 	x = 0;
 	y = 0;
 	
-	arguments = get_overwrite("arguments", auto);
+	arguments = get_default("arguments", auto);
 	
 	//caching
 	picker = auto;
@@ -79,7 +79,7 @@ function container(style, parent = self) constructor{
 	}
 	
 	hover = function(){
-		return mouse_in_box(target.x, target.y, efficient.width, efficient.height);	
+		return mouse_in_box(target.x + offset.x, target.y + offset.y, efficient.width, efficient.height);	
 	}
 
 	add = function(element, amount = 1, index = array_length(content.children)){
@@ -150,9 +150,12 @@ function container(style, parent = self) constructor{
 			if (cache[i] != auto) cache[i].cleanup();
 		}
 		
-		if (freeChildren) array_recurse(content.children, function(element){
-			element.cleanup();	
-		});
+		if (freeChildren) {
+			for(var i = 0; i < array_length(segments); i++){
+				var segment = segments[i];	
+				segment.cleanup(freeChildren);
+			}
+		}
 	}
 	
 	//render the container

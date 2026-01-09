@@ -27,8 +27,11 @@ function render_pipeline(){
 	}
 	
 	pipeline_push(function(){
-		realistic.x = x + efficient.margin.left + efficient.manualOffset.x + (efficient.width * anchor.x) * scale.x;
-		realistic.y = y + efficient.margin.top + efficient.manualOffset.y + (efficient.height * anchor.y) * scale.y;
+		realistic.x = x + efficient.margin.left + offset.x + (efficient.width * anchor.x) * scale.x;
+		realistic.y = y + efficient.margin.top + offset.y + (efficient.height * anchor.y) * scale.y;
+		
+		efficient.x = target.x + offset.x;
+		efficient.y = target.y + offset.y;
 		
 		matrix_build(realistic.x , realistic.y, 0, 0, 0, 0, scale.x, scale.y, 0, matrix);
 		

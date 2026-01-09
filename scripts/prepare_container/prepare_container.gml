@@ -5,6 +5,7 @@ function prepare_container(){
 	efficient = {};
 	offset = {};
 	realistic = {};
+	previous = {};
 	
 	//layout
 	align = get_default("align", fa_left);

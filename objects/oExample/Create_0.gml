@@ -10,7 +10,7 @@ main = new container({
 	height: 300,
 	padding: 10,
 	
-	opacity: 0.25,
+	opacity: 0.6,
 	
 	direction: row,
 	wrap: true,
@@ -30,7 +30,7 @@ main = new container({
 		shader: shBlurH,
 		pass: shBlurV,
 		size: ["width", "height"],
-		radius: 12,
+		radius: 5,
 	}
 });
 

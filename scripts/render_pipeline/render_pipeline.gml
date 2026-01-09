@@ -12,6 +12,8 @@ function render_pipeline(){
 	if (backdrop.shader != auto) pipeline_push(render_backdrop);
 	
 	if (borderRadius != auto) pipeline_push(function(){
+		previous.shader = shader_current();
+	
 		shader_set(shBorderRadius);
 		
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), realistic.x, realistic.y);

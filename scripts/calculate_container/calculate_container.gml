@@ -58,8 +58,6 @@ function calculate_container(){
 	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
 
-
-
 	if (borderRadius != auto){
 		efficient.borderRadius = {
 			topLeft:		calculate_value(calculations.borderRadius.topLeft,		axis),
@@ -70,6 +68,9 @@ function calculate_container(){
 	}
 	
 	//realistic dimensions
+	if (margin.left == auto) efficient.margin.left = parent.realistic.width - efficient.width;
+	if (margin.top == auto) efficient.margin.top = parent.realistic.height - efficient.height;
+	
 	realistic.width		= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;
 	realistic.height	= efficient.height	-	efficient.padding.top	-	efficient.padding.bottom	;
 	
@@ -89,6 +90,4 @@ function calculate_container(){
 	}
 	
 	calculate_layout();
-	
-
 }

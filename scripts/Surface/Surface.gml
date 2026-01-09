@@ -18,6 +18,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	output = false;
 	
 	buffer = -1;
+	top = -1;
 	if (persistent) buffer = buffer_create(w * h * size, buffer_fixed, 1);
 	
 	type = asset_surface;
@@ -68,9 +69,10 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 		}
 	}
 	
-	target = function(){
-		if (check(true) == false) return false;
-		if (surface_get_target() != -1) surface_reset_target();
+	target = function(resurface = true){
+		if (check(resurface) == false) return false;
+		top = surface_get_target();
+		if (top != -1) surface_reset_target();
 		
 		surface_set_target(surface);
 		return true;
@@ -78,11 +80,13 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	
 	reset = function(){
 		surface_reset_target();
+		if (top != -1) surface_set_target(top);
+		
 		if (persistent and check(false)) buffer_get_surface(buffer, surface, 0);
 	};
 	
-	draw = function(tx, ty, w = width, h = height){
-		if (check(persistent) == false) return;
+	draw = function(tx, ty, w = width, h = height, resurface = false){
+		if (check(persistent or resurface) == false) return;
 		
 		draw_surface_stretched(surface, tx, ty, w, h);
 	}

@@ -15,7 +15,7 @@ main = new container({
 	
 	overflow: fa_hidden,
 	borderRadius: 18,
-	marginLeft: "50%",
+	marginLeft: auto,
 });
 
 
@@ -25,5 +25,14 @@ test = main.add(new container({
 	marginBottom: 10,
 	background: c_red,
 	
-	anchor: 0.5,
+	padding: 3,
+	borderRadius: "50%",
+	overflow: fa_hidden,
 }), 5)
+
+
+test[0].add({
+	width: "50%",
+	borderRadius: "50%",
+	height: "100%",
+})

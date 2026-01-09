@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"render_backdrop",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"render_backdrop",
+  "parent":{
+    "name":"System",
+    "path":"folders/JUI/System.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

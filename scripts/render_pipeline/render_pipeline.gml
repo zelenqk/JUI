@@ -9,6 +9,8 @@ function render_pipeline(){
 	
 	if (step != auto) pipeline_push(method(self, step));
 	
+	if (backdrop.shader != auto) pipeline_push(render_backdrop);
+	
 	if (borderRadius != auto) pipeline_push(function(){
 		shader_set(shBorderRadius);
 		
@@ -16,6 +18,11 @@ function render_pipeline(){
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), (efficient.width / 2) * scale.x, (efficient.height / 2) * scale.y);
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 	});
+	
+	if (backdrop.shader != auto){
+		if (backdrop.pass == auto) pipeline_push(cache[CACHE.BACKDROP].draw);
+		else pipeline_push(cache[CACHE.BACKDROP_PASS].draw);
+	}
 	
 	pipeline_push(function(){
 		realistic.x = x + efficient.margin.left + efficient.manualOffset.x + (efficient.width * anchor.x) * scale.x;

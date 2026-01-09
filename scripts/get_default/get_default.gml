@@ -35,3 +35,33 @@ function get_overwrite_struct(){
 	
 	return fallback;
 }
+
+function get_shader_arguments(struct){
+	var names = struct_get_names(struct);
+	array_delete(names, array_get_index(names, "shader"), 1);
+	
+	var shader = struct.shader;
+	var arguments = [];
+	
+	for(var i = 0; i < array_length(names); i++){
+		var name = names[i];
+		var value = struct[$ name];
+		
+		if (is_array(value)){
+			for(var u = 0; u < array_length(value); u++){
+				var val = value[u];
+				
+				if (is_string(val)) value[u] = efficient[$ val];	
+			}
+		}else value = [value];
+		
+		var arg = {
+			uniform: shader_get_uniform(shader, name),
+			value: value,
+		}
+		
+		array_push(arguments, arg);
+	}
+	
+	return arguments;
+}

@@ -17,7 +17,7 @@
 #macro absolute 2
 #macro sticky 3
 
-enum CACHE { OVERFLOW, BACKDROP, PICKER , SIZE};
+enum CACHE { OVERFLOW, BACKDROP, BACKDROP_PASS, PICKER , SIZE};
 
 function container(style, parent = self) constructor{
 	properties = style;
@@ -135,7 +135,7 @@ function container(style, parent = self) constructor{
 		var i = 0;
 		repeat(pipeline.length){
 			var pipe = pipeline.content[i++]
-			pipe();
+			pipe(realistic.x, realistic.y);
 		}
 	}
 	

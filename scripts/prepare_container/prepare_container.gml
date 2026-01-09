@@ -7,12 +7,15 @@ function prepare_container(){
 	realistic = {};
 	
 	//layout
+	align = get_default("align", fa_left);
+	justify = get_default("justify", fa_top);
+	
 	position = relative
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
 
 	visible = get_default("visible", true);
-	
+
 	width = get_default("width", 0);
 	height = get_default("height", 0);
 	

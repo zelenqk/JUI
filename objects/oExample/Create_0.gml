@@ -10,12 +10,28 @@ main = new container({
 	height: 300,
 	padding: 10,
 	
+	opacity: 0.25,
+	
 	direction: row,
 	wrap: true,
+	
+	align: fa_center,
+	justify: fa_center,
+	
+	position: absolute,
+	
+	background: #121212,
 	
 	overflow: fa_hidden,
 	borderRadius: 18,
 	marginLeft: auto,
+	
+	backdrop: {
+		shader: shBlurH,
+		pass: shBlurV,
+		size: ["width", "height"],
+		radius: 12,
+	}
 });
 
 

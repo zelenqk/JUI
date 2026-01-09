@@ -81,9 +81,14 @@ function calculate_container(){
 	offset.x += efficient.margin.left	+ efficient.border;
 	offset.y += efficient.margin.top	+ efficient.border;
 	
-	calculate_layout();
+	realistic.x = x + efficient.margin.left + efficient.manualOffset.x;
+	realistic.y = y + efficient.margin.top + efficient.manualOffset.y;
 	
 	if (overflow.x != fa_allow or overflow.y != fa_allow){
-		cache[CACHE.OVERFLOW] = new Surface(efficient.width, efficient.height);
+		cache[CACHE.OVERFLOW] = new Surface(realistic.width, realistic.height);
 	}
+	
+	calculate_layout();
+	
+
 }

@@ -12,14 +12,16 @@ function render_pipeline(){
 	if (borderRadius != auto) pipeline_push(function(){
 		shader_set(shBorderRadius);
 		
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), x + offset.x + efficient.manualOffset.x, y + offset.y + efficient.manualOffset.y);
-		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), realistic.x, realistic.y);
+		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), (efficient.width / 2) * scale.x, (efficient.height / 2) * scale.y);
 		shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 	});
 	
 	pipeline_push(function(){
-		matrix[12] = x + offset.x + efficient.manualOffset.x;
-		matrix[13] = y + offset.y + efficient.manualOffset.y;
+		realistic.x = x + efficient.margin.left + efficient.manualOffset.x + (efficient.width * anchor.x) * scale.x;
+		realistic.y = y + efficient.margin.top + efficient.manualOffset.y + (efficient.height * anchor.y) * scale.y;
+		
+		matrix_build(realistic.x , realistic.y, 0, 0, 0, 0, scale.x, scale.y, 0, matrix);
 		
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
@@ -29,8 +31,20 @@ function render_pipeline(){
 		shader_reset();
 	});
 	
-	if (array_length(segments) > 0) pipeline_push(draw_content);	//draw children (debug stage atm)
-
+	if ((overflow.x != fa_allow or overflow.y != fa_allow) and (array_length(segments) > 0)){ pipeline_push(function(){
+			var overflow = cache[CACHE.OVERFLOW];
+			
+			if (overflow.target()){
+				draw_clear_alpha(c_black, 0);
+				draw_content();
+				overflow.reset();
+				
+				matrix_set(matrix_world, identity);	
+				overflow.draw(realistic.x + efficient.padding.left, realistic.y + efficient.padding.top);
+			}
+		});
+	}else pipeline_push(draw_content);	//draw children (debug stage atm)
+	
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, identity);	
 	})

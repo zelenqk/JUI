@@ -12,25 +12,18 @@ main = new container({
 	
 	direction: row,
 	wrap: true,
+	
+	overflow: fa_hidden,
 	borderRadius: 18,
+	marginLeft: "50%",
 });
 
-main.add(new container({
-	width: "10%",
-	height: "10%",
-	borderRadius: "50%",
-
-	background: c_red,
-	
-}))
 
 test = main.add(new container({
-	width: "5%",
+	width: "100%",
 	height: "10%",
+	marginBottom: 10,
+	background: c_red,
 	
-	borderRadius: "50%",
-	opacity: 0.75,
-
-	background: c_blue,
-}), 100);
-
+	anchor: 0.5,
+}), 5)

@@ -36,7 +36,8 @@ function container(style, parent = self) constructor{
 	segments = [];
 	texture = get_default("texture", -1);
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
-	identity = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+	identity = matrix_build_identity();
+	mask = 1;
 	pipeline = {
 		length: 0,
 		content: [],
@@ -54,8 +55,9 @@ function container(style, parent = self) constructor{
 	}
 	
 	scale = {
-		x: 1,
-		y: 1,
+		x: get_overwrite_struct("scale", "x", get_overwrite("scalex", "scale", 1)),
+		y: get_overwrite_struct("scale", "y", get_overwrite("scaley", "scale", 1)),
+		z: 0,
 	}
 	
 	step = get_default("step", auto);
@@ -96,7 +98,7 @@ function container(style, parent = self) constructor{
 				
 				var segment = array_last(segments);
 				if !(segment.add(element)){
-					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.gap, segment.wrap, segment.x, segment.y);
+					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.gap, segment.wrap, segment.efficient.x, segment.efficient.y);
 					if (segment.add(element)) array_push(segments, segment);
 				}
 				

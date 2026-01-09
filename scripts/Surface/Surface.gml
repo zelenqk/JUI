@@ -69,7 +69,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	}
 	
 	target = function(){
-		if (check() == false) return false;
+		if (check(true) == false) return false;
 		if (surface_get_target() != -1) surface_reset_target();
 		
 		surface_set_target(surface);

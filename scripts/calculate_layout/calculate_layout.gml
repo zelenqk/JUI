@@ -1,11 +1,11 @@
 function calculate_layout(){
-	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, realistic.width, realistic.height, efficient.gap, wrap)];
+	segments = [new JUI_SEGMENT(efficient.padding.left * (overflow.x == fa_allow), efficient.padding.top * (overflow.y == fa_allow), direction, realistic.width, realistic.height, efficient.gap, wrap, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow))];
 	
 	array_recurse(content.children, function(element, segments){
 		var segment = array_last(segments);
 		if (segment.add(element)) return false;
 		
-		segment = new JUI_SEGMENT(segment.left, segment.top, segment.direction, segment.width, segment.height, segment.gap, segment.wrap, segment.x, segment.y);
+		segment = new JUI_SEGMENT(segment.left, segment.top, segment.direction, segment.width, segment.height, segment.gap, segment.wrap, segment.efficient.x, segment.efficient.y);
 		array_push(segments, segment);
 		segment.add(element);
 		
@@ -36,8 +36,8 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 		
 		gap: (gap == auto ? 0 : gap),
 		
-		x: tx,
-		y: ty
+		x: tx + left,
+		y: ty + top
 	}
 	
 	maximum = (direction == row) ? width : height;
@@ -64,13 +64,13 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 			
 			if (check > maximum){
 				if (direction == row) {
-					x = 0;
-					y += efficient.height;
+					efficient.x = x;
+					efficient.y += efficient.height;
 					return false;
 				}
 				
-				x += efficient.width;
-				y = 0;
+				efficient.x += efficient.width;
+				efficient.y = y;
 				return false;
 			}
 		}

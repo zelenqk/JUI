@@ -10,7 +10,6 @@ function prepare_container(){
 	position = relative
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
-	overflow = get_default("overflow", fa_allow);
 
 	visible = get_default("visible", true);
 	
@@ -55,9 +54,9 @@ function prepare_container(){
 	//margin
 	margin = {
 		top:	get_overwrite(	"marginTop",	"marginBlock",		"margin", get_overwrite_struct("margin", "top",		"block",	0)),
-		bottom:	get_overwrite(	"marginTop",	"marginBlock",		"margin", get_overwrite_struct("margin", "bottom",	"block",	0)),
+		bottom:	get_overwrite(	"marginBottom",	"marginBlock",		"margin", get_overwrite_struct("margin", "bottom",	"block",	0)),
 		left:	get_overwrite(	"marginLeft",	"marginInline",		"margin", get_overwrite_struct("margin", "left",	"inline",	0)),
-		right:	get_overwrite(	"marginLeft",	"marginInline",		"margin", get_overwrite_struct("margin", "right",	"inline",	0)),
+		right:	get_overwrite(	"marginRight",	"marginInline",		"margin", get_overwrite_struct("margin", "right",	"inline",	0)),
 	}
 	
 	//border radius

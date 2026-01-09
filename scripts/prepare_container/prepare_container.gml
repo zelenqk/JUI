@@ -20,7 +20,7 @@ function prepare_container(){
 
 	width = get_default("width", 0);
 	height = get_default("height", 0);
-	
+	aspect = get_default("aspect", auto);
 	gap = get_default("gap");
 	
 	var bg = get_default("background", c_white);

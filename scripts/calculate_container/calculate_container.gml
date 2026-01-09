@@ -21,7 +21,14 @@ function calculate_container(){
 	efficient.height	= calculate_value(calculations.height,	parent.realistic.height	);
 	efficient.opacity	= calculate_value(calculations.opacity, 1);
 	
+	//get the bigger axis
+	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
+	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
 	
+	if (efficient.width == 0 and aspect != auto) efficient.width = efficient.height * aspect;
+	if (efficient.height == 0 and aspect != auto) efficient.height = efficient.width * aspect;
+	
+	//get the direct axis
 	axis	=	(direction == row) ? efficient.width : efficient.height;
 	cross	=	(direction == row) ? efficient.height : efficient.width;
 	
@@ -54,7 +61,7 @@ function calculate_container(){
 		y: calculate_value(calculations.offset.y, cross	),	
 	}
 	
-	//get the bigger axis
+	//get the smaller axis
 	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
 

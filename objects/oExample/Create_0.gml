@@ -35,14 +35,17 @@ main = new container({
 });
 
 var knob = {
-	width: "50%",
 	borderRadius: "50%",
 	height: "100%",
+	recalculate: true,
+	
+	aspect: 1,
 	
 	arguments: {
 		surface: surface,
 		holding: false,
 		mouse: -1,
+		delta: 0,
 	},
 		
 	step: function(){
@@ -54,6 +57,12 @@ var knob = {
 				holding = true;
 				
 				delta = (target.x + offset.x) - device_mouse_x_to_gui(mouse);
+			}else{
+				mouse = parent.hover();
+				if (mouse != -1 and mouse_check_button_pressed(mb_left)){
+					holding = true;
+					delta = -efficient.width / 2;
+				}
 			}
 		}
 		
@@ -66,12 +75,13 @@ var knob = {
 			surface.check();
 			texture = surface.texture;
 			
-			offset.x = device_mouse_x_to_gui(mouse) - target.x + delta;
+			offset.x = clamp(device_mouse_x_to_gui(mouse) - target.x + delta, 0, parent.realistic.width - efficient.width );
 		}
+		
 	},
 };
 
-test = main.add(new container({
+test = main.add({
 	width: "100%",
 	height: "10%",
 	marginBottom: 10,
@@ -82,4 +92,4 @@ test = main.add(new container({
 	padding: 3,
 	borderRadius: "50%",
 	overflow: fa_hidden,
-}), 5);
+}, 5);

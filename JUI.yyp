@@ -34,6 +34,7 @@
     {"id":{"name":"calculate_layout","path":"scripts/calculate_layout/calculate_layout.yy",},},
     {"id":{"name":"container","path":"scripts/container/container.yy",},},
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
+    {"id":{"name":"mouse_in_box","path":"scripts/mouse_in_box/mouse_in_box.yy",},},
     {"id":{"name":"parse_calculations","path":"scripts/parse_calculations/parse_calculations.yy",},},
     {"id":{"name":"prepare_container","path":"scripts/prepare_container/prepare_container.yy",},},
     {"id":{"name":"render_backdrop","path":"scripts/render_backdrop/render_backdrop.yy",},},

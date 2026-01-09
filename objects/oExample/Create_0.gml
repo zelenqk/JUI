@@ -44,6 +44,8 @@ test = main.add(new container({
 	padding: 3,
 	borderRadius: "50%",
 	overflow: fa_hidden,
+
+	
 }), 5)
 
 
@@ -51,4 +53,11 @@ test[0].add({
 	width: "50%",
 	borderRadius: "50%",
 	height: "100%",
+	
+	arguments: surface,
+		
+	step: function(){
+		var mouse = hover();
+		if (mouse != -1 and mouse_check_button_pressed(mb_left)) show_message("hello")
+	}
 })

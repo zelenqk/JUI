@@ -28,6 +28,8 @@ function container(style, parent = self) constructor{
 	x = 0;
 	y = 0;
 	
+	arguments = get_overwrite("arguments", auto);
+	
 	//caching
 	picker = auto;
 
@@ -61,6 +63,7 @@ function container(style, parent = self) constructor{
 	}
 	
 	step = get_default("step", auto);
+	postStep = get_default("postStep", auto);
 	
 	root = self;
 	self.parent = parent;
@@ -73,6 +76,10 @@ function container(style, parent = self) constructor{
 		},
 		
 		children: get_default("content", []),
+	}
+	
+	hover = function(){
+		return mouse_in_box(target.x, target.y, efficient.width, efficient.height);	
 	}
 
 	add = function(element, amount = 1, index = array_length(content.children)){

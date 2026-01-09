@@ -106,6 +106,9 @@ function calculate_container(){
 	efficient.x = realistic.x;
 	efficient.y = realistic.y;
 	
+	target.x = realistic.x;
+	target.y = realistic.y;
+	
 	//background
 	backdrop = {
 		shader: get_overwrite_struct("backdrop", "shader", get_default("backdrop", auto)),

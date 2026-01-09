@@ -57,6 +57,19 @@ function render_pipeline(){
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, identity);	
 	})
+	
+	if (postStep != auto){
+		postStep = method(self, postStep);
+		
+		pipeline_push(function(){
+			var surface = surface_get_target();
+			if (surface != -1) surface_reset_target();
+			
+			postStep();	
+			
+			surface_set_target(surface);
+		})
+	}
 }
 
 function pipeline_push(render){

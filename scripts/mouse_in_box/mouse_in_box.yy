@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"mouse_in_box",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"mouse_in_box",
+  "parent":{
+    "name":"System",
+    "path":"folders/JUI/System.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

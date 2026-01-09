@@ -1,5 +1,5 @@
 function calculate_layout(){
-	segments = [new JUI_SEGMENT(efficient.padding.left * (overflow.x == fa_allow), efficient.padding.top * (overflow.y == fa_allow), direction, realistic.width, realistic.height, efficient.gap, wrap, overflow.x, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow), realistic.x, realistic.y)];
+	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, realistic.width, realistic.height, efficient.gap, wrap, overflow.x, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow), target.x, target.y)];
 	
 	array_recurse(content.children, function(element, segments){
 		var segment = array_last(segments);
@@ -42,8 +42,8 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, overflow, t
 		
 		gap: (gap == auto ? 0 : gap),
 		
-		x: tx + left,
-		y: ty + top
+		x: tx + ((overflow == fa_allow) ? left : 0),
+		y: ty + ((overflow == fa_allow) ? top : 0)
 	}
 	
 	maximum = (direction == row) ? width : height;
@@ -64,6 +64,9 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, overflow, t
 		
 		element.x = efficient.x + element.efficient.margin.left;
 		element.y = efficient.y + element.efficient.margin.top;
+		
+		element.target.x = efficient.x + realistic.x + left;
+		element.target.y = efficient.y + realistic.y + top;
 		
 		if (wrap){
 			var check = (direction == row) ? efficient.width + ewidth : efficient.height + eheight;

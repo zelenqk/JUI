@@ -25,8 +25,8 @@ function calculate_container(){
 	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
 	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
 	
-	if (efficient.width == 0 and aspect != auto) efficient.width = efficient.height * aspect;
-	if (efficient.height == 0 and aspect != auto) efficient.height = efficient.width * aspect;
+	if (efficient.width == 0 and aspect != auto) efficient.width = efficient.height / aspect;
+	if (efficient.height == 0 and aspect != auto) efficient.height = efficient.width / aspect;
 	
 	//get the direct axis
 	axis	=	(direction == row) ? efficient.width : efficient.height;
@@ -124,7 +124,7 @@ function calculate_container(){
 		cache[CACHE.OVERFLOW] = new Surface(realistic.width, realistic.height);
 	}
 	
-	if (backdrop != auto){
+	if (backdrop.shader != auto){
 		cache[CACHE.BACKDROP] = new Surface(efficient.width, efficient.height);
 		cache[CACHE.BACKDROP_PASS] = new Surface(efficient.width, efficient.height);
 	}

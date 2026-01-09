@@ -37,6 +37,7 @@ function container(style, parent = self) constructor{
 	cache = array_create(CACHE.SIZE, auto);
 	segments = [];
 	texture = get_default("texture", -1);
+	backdrop = get_default("backdrop", auto);
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	identity = matrix_build_identity();
 	mask = 1;

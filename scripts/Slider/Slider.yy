@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Slider",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Slider",
+  "parent":{
+    "name":"Prefabs",
+    "path":"folders/JUI/Prefabs.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

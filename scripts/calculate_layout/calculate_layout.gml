@@ -1,11 +1,11 @@
 function calculate_layout(){
-	segments = [new JUI_SEGMENT(efficient.padding.left * (overflow.x == fa_allow), efficient.padding.top * (overflow.y == fa_allow), direction, realistic.width, realistic.height, efficient.gap, wrap, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow))];
+	segments = [new JUI_SEGMENT(efficient.padding.left * (overflow.x == fa_allow), efficient.padding.top * (overflow.y == fa_allow), direction, realistic.width, realistic.height, efficient.gap, wrap, overflow.x, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow), realistic.x, realistic.y)];
 	
 	array_recurse(content.children, function(element, segments){
 		var segment = array_last(segments);
 		if (segment.add(element)) return false;
 		
-		segment = new JUI_SEGMENT(segment.left, segment.top, segment.direction, segment.width, segment.height, segment.gap, segment.wrap, segment.efficient.x, segment.efficient.y);
+		segment = new JUI_SEGMENT(segment.left, segment.top, segment.direction, segment.width, segment.height, segment.gap, segment.wrap, segment.overflow, segment.efficient.x, segment.efficient.y, segment.realistic.x, segment.realistic.y);
 		array_push(segments, segment);
 		segment.add(element);
 		
@@ -14,10 +14,11 @@ function calculate_layout(){
 	
 }
 
-function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty = 0) constructor{
+function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, overflow, tx, ty, rx, ry) constructor{
 	self.left = left;
 	self.top = top;
-	
+
+	self.overflow = overflow;
 	self.direction = direction;
 	
 	self.width = width;
@@ -29,6 +30,11 @@ function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, tx = 0, ty 
 	
 	x = tx;
 	y = ty;
+	
+	realistic = {
+		x: rx,
+		y: ry,
+	}
 	
 	efficient = {
 		width: 0,

@@ -23,14 +23,14 @@ main = new container({
 	background: #121212,
 	
 	overflow: fa_hidden,
-	borderRadius: 18,
+	borderRadius: 12,
 	marginLeft: auto,
 	
 	backdrop: {
 		shader: shBlurH,
 		pass: shBlurV,
 		size: ["width", "height"],
-		radius: 5,
+		radius: 24,
 	}
 });
 

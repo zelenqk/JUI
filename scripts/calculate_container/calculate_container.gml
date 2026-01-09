@@ -55,8 +55,8 @@ function calculate_container(){
 	}
 	
 	//get the bigger axis
-	axis	=	(efficient.width > efficient.height) ? efficient.width : efficient.height;
-	cross	=	(efficient.width > efficient.height) ? efficient.height : efficient.width;
+	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
+	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
 
 	if (borderRadius != auto){
 		efficient.borderRadius = {

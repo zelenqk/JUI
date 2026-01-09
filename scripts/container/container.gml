@@ -45,7 +45,7 @@ function container(style, parent = self) constructor{
 	
 	index = #000000;
 	
-	segment = new JUI_SEGMENT(0, 0, 0, 0, 0, 0, 0, 0);
+	segment = new JUI_SEGMENT(0, 0, 0, 0, 0, 0, 0, fa_allow, 0, 0);
 	
 	overflow = {
 		x: get_overwrite_struct("overflow", "x", get_overwrite("overflowx", "overflow", fa_allow)),
@@ -98,7 +98,7 @@ function container(style, parent = self) constructor{
 				
 				var segment = array_last(segments);
 				if !(segment.add(element)){
-					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.gap, segment.wrap, segment.efficient.x, segment.efficient.y);
+					var segment = new JUI_SEGMENT(segment.left, segment.top, direction, segment.width, segment.height, segment.gap, segment.wrap, overflow.x, segment.efficient.x, segment.efficient.y, segment.realistic.x, segment.realistic.y);
 					if (segment.add(element)) array_push(segments, segment);
 				}
 				
@@ -128,10 +128,7 @@ function container(style, parent = self) constructor{
 	
 	render = function(){
 		if (!visible) return;
-		
-		efficient.x = 0;
-		efficient.y = 0;
-		
+
 		var i = 0;
 		repeat(pipeline.length){
 			var pipe = pipeline.content[i++]

@@ -1,7 +1,7 @@
 main = new container({
 	width: 600,
 	aspect: 16/9,
-	padding: 10,
+	padding: 6,
 	
 	opacity: 0.6,
 	
@@ -16,7 +16,7 @@ main = new container({
 	background: #121212,
 	
 	overflow: fa_hidden,
-	borderRadius: 12,
+	borderRadius: 8,
 	marginLeft: auto,
 	
 	backdrop: {
@@ -27,4 +27,13 @@ main = new container({
 	}
 });
 
-test = main.add(new Slider());
+sliderWrapper = new container({
+	height: "100%",
+	width: 7,
+	position: fixed,
+	opacity: 0,
+	marginLeft: auto,
+});
+
+sliderWrapper.add(new Slider({width: 7,	overflow: fa_hidden, height: "100%", background: #121212}));
+main.add(sliderWrapper);

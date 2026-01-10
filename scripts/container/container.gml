@@ -80,7 +80,7 @@ function container(style, parent = self) constructor{
 	}
 	
 	hover = function(){
-		return mouse_in_box(target.x + offset.x, target.y + offset.y, efficient.width, efficient.height);	
+		return mouse_in_box(target.x + offset.x, target.y + offset.y, efficient.width * scale.x, efficient.height * scale.y);	
 	}
 
 	add = function(element, amount = 1, index = array_length(content.children)){

@@ -50,6 +50,11 @@ function container(style, parent = self) constructor{
 	
 	segment = new JUI_SEGMENT(0, 0, 0, 0, 0, 0, 0, fa_allow, 0, 0);
 	
+	efficient = {
+		x: 0,
+		y: 0,
+	}
+	
 	overflow = {
 		x: get_overwrite_struct("overflow", "x", get_overwrite("overflowx", "overflow", fa_allow)),
 		y: get_overwrite_struct("overflow", "y", get_overwrite("overflowy", "overflow", fa_allow)),
@@ -80,7 +85,7 @@ function container(style, parent = self) constructor{
 	}
 	
 	hover = function(){
-		return mouse_in_box(target.x + offset.x, target.y + offset.y, efficient.width * scale.x, efficient.height * scale.y);	
+		return mouse_in_box(efficient.x, efficient.y, efficient.width * scale.x, efficient.height * scale.y);	
 	}
 
 	add = function(element, amount = 1, index = array_length(content.children)){

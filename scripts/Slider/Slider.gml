@@ -1,4 +1,4 @@
-function Slider(style = {borderRadius: "50%", height: "100%", width: 7, background: #161616, padding: 1}, knob = {borderRadius: "50%", background: #999999}) : container(style) constructor{
+function Slider(style = {borderRadius: "50%", height: "100%", width: 7, background: #161616, padding: 1}, knob = {borderRadius: "50%", background: #999999}, parent = self, acceessParent) : container(style, parent) constructor{
 	
 	knob.arguments = {
 		holding: false,
@@ -8,8 +8,9 @@ function Slider(style = {borderRadius: "50%", height: "100%", width: 7, backgrou
 		axisSize: "width",
 		crossSize: "height",
 		value: 0,
-		size: 0.01,
-		position: device_mouse_x_to_gui
+		size: 10,
+		position: device_mouse_x_to_gui,
+		acceessParent: acceessParent,
 	}
 	
 	knob.height = "100%";
@@ -27,8 +28,12 @@ function Slider(style = {borderRadius: "50%", height: "100%", width: 7, backgrou
 	}
 	
 	knob.step = function(){
-		scale[$ along] = (size * parent.realistic[$ axisSize]);
-		show_message(scale[$ along])
+		scale[$ along] = size;
+		
+		if (acceessParent and parent.parent.hover() != -1){
+			offset[$ along] += (mouse_wheel_down() - mouse_wheel_up()) * scale[$ along];
+		}
+		
 		if (!holding){
 			mouse = hover();
 			texture = -1;
@@ -49,13 +54,14 @@ function Slider(style = {borderRadius: "50%", height: "100%", width: 7, backgrou
 		if (holding){
 			if (mouse_check_button_released(mb_left)){
 				holding = false;
-				return;
 			}
 			
 			offset[$ along] = clamp(position(mouse) - target[$ along] + delta, 0, parent.realistic[$ axisSize] - (efficient[$ axisSize] * scale[$ along]));
 			value = (offset[$ along] / (parent.realistic[$ axisSize] - efficient[$ axisSize]));
 		}
+		
+		offset[$ along] = clamp(offset[$ along], 0, parent.realistic[$ axisSize] - (efficient[$ axisSize] * scale[$ along]));
 	}
 	
-	add(knob);
+	self.knob = add(knob);
 }

@@ -27,13 +27,6 @@ main = new container({
 	}
 });
 
-sliderWrapper = new container({
-	height: "100%",
-	width: 7,
-	position: fixed,
-	opacity: 0,
-	marginLeft: auto,
-});
 
-sliderWrapper.add(new Slider({width: 7,	overflow: fa_hidden, height: "100%", background: #121212}));
-main.add(sliderWrapper);
+slider = main.add(new Slider({position: fixed, overflow: fa_hidden, width: 7, borderRadius: "50%", padding: 1, height: "100%", background: #121212}, , main));
+slider.knob.size = 50;

@@ -7,14 +7,19 @@ vertex_format_add_color();
 JUI_FORMAT = vertex_format_end();
 
 function calculate_container(){
-	efficient.width = 0;
-	efficient.height = 0;
-	
-	coffset.x = - parent.efficient.width * parent.anchor.x;
-	coffset.y = - parent.efficient.height * parent.anchor.y;
-	
-	realistic.width = GUIW;
-	realistic.height = GUIH;
+	coffset.x = 0;
+	coffset.y = 0;
+
+	if (parent == self){
+		realistic.width = GUIW;
+		realistic.height = GUIH;
+		
+		efficient.width = 0;
+		efficient.height = 0;
+		
+		coffset.x = parent.efficient.width * parent.anchor.x;
+		coffset.y = parent.efficient.height * parent.anchor.y;
+	}
 	
 	//calculate dimensions
 	efficient.width		= calculate_value(calculations.width,	parent.realistic.width	);
@@ -112,6 +117,9 @@ function calculate_container(){
 	
 	target.x = realistic.x;
 	target.y = realistic.y;
+	
+	efficient.x = realistic.x;
+	efficient.y = realistic.y;
 	
 	//background
 	backdrop = {

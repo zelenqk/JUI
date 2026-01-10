@@ -1,4 +1,4 @@
-function Slider(style = {borderRadius: "50%", height: "100%", width: 7, background: #161616, padding: 1}, knob = {borderRadius: "50%", background: #999999}, parent = self, acceessParent) : container(style, parent) constructor{
+function Slider(style = {borderRadius: "50%", height: "100%", width: 7, background: #161616, padding: 1}, knob = { background: #999999}, parent = self, acceessParent = true) : container(style, parent) constructor{
 	
 	knob.arguments = {
 		holding: false,
@@ -31,7 +31,7 @@ function Slider(style = {borderRadius: "50%", height: "100%", width: 7, backgrou
 		scale[$ along] = size;
 		
 		if (acceessParent and parent.parent.hover() != -1){
-			offset[$ along] += (mouse_wheel_down() - mouse_wheel_up()) * scale[$ along];
+			offset[$ along] += (mouse_wheel_down() - mouse_wheel_up()) * 10;
 		}
 		
 		if (!holding){

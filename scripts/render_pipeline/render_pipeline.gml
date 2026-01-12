@@ -8,12 +8,15 @@ function render_pipeline(){
 	});
 	
 	if (opacity > 0) pipeline_push(function(){
+		var cx = (parent == self) ? 0 : parent.contentOffset.x
+		var cy = (parent == self) ? 0 : parent.contentOffset.y
+		
+		matrix[12] = efficient.x + offset.x + cx;
+		matrix[13] = efficient.y + offset.y + cy;
+		
 		matrix[0] = scale.x;
 		matrix[6] = scale.y;
-		
-		matrix[12] = efficient.x + offset.x;
-		matrix[13] = efficient.y + offset.y;
-		
+			
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);
 	});

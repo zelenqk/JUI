@@ -18,6 +18,11 @@ function container(properties = {}, parent = self) constructor{
 	fixedContent = [];
 	absoluteContent = [];
 	
+	contentOffset = {
+		x: 0,
+		y: 0,
+	}
+	
 	segments = [];
 	
 	target = {};

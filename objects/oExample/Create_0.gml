@@ -4,6 +4,10 @@ main = new container({
 	height: "50%",
 	
 	direction: column,
+	
+	step: function(){
+		contentOffset.y += 0.01;	
+	}
 });
 
 

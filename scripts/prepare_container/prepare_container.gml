@@ -67,4 +67,6 @@ function prepare_container(){
 		bottomLeft: get_overwrite_struct("borderRadius", "bottomLeft", "left", "bottom", get_overwrite("borderRadiusBottomLeft", "borderRadiusLeft", "borderRadiusBottom", "borderRadius", 0)),
 		bottomRight: get_overwrite_struct("borderRadius", "bottomLeft", "left", "bottom", get_overwrite("borderRadiusBottomRight", "borderRadiusRight", "borderRadiusBottom", "borderRadius", 0)),
 	}
+	
+	borderRadiusEnabled = (borderRadius.topLeft != 0 or borderRadius.topRight != 0 or borderRadius.bottomLeft != 0 or borderRadius.bottomRight != 0);
 }

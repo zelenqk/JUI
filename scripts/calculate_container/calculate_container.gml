@@ -3,9 +3,14 @@ function calculate_container(recalculate = true){
 		efficient.x = 0;
 		efficient.y = 0;
 		
+		realistic.x = 0;
+		realistic.y = 0;
+		
 		realistic.width = GUIW;
 		realistic.height = GUIH;
 	}
+	
+	opacity = calculate_value(calculations.opacity, 1);
 	
 	efficient.width = calculate_value(calculations.width, parent.realistic.width);
 	efficient.height = calculate_value(calculations.height, parent.realistic.height);
@@ -13,6 +18,24 @@ function calculate_container(recalculate = true){
 	if (aspect != auto){
 		if (efficient.width == 0) efficient.width = efficient.height / aspect;
 		if (efficient.height == 0) efficient.height = efficient.width / aspect;	
+	}
+	
+	switch (align){
+	case fa_center:
+		offset.x += parent.realistic.width / 2 - efficient.width / 2;
+		break;
+	case fa_right:
+		offset.x += parent.realistic.width - efficient.width;
+		break;
+	}
+	
+	switch (justify){
+	case fa_center:
+		offset.y += parent.realistic.height / 2 - efficient.height / 2;
+		break;
+	case fa_right:
+		offset.y += parent.realistic.height - efficient.height;
+		break;
 	}
 	
 //get the bigger axis (in pixels)

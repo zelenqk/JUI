@@ -31,15 +31,24 @@ function JUI_SEGMENT(owner) constructor{
 	
 	// elements belonging to this segment
 	content = [];
+	fixedContent = [];
+	
+	add_fixed = function(element){
+		element.efficient.x = element.efficient.margin.left;
+		element.efficient.y = element.efficient.margin.top;
+		
+		if (element.position == fixed){
+			array_push(fixedContent, element);
+			array_push(parent.fixedContent, element);
+		}
+		
+		if (element.position == absolute) array_push(parent.absoluteContent, element);
+		return self;
+	}
 	
 	add_inline = function(element){
-		// non-relative elements bypass layout
-		if (element.position != relative){
-			element.efficient.x = element.efficient.margin.left;
-			element.efficient.y = element.efficient.margin.top;
-			
-			if (element.position == fixed) array_push(parent.fixedContent, element);
-			if (element.position == absolute) array_push(parent.absoluteContent, element);
+		if (element.position != relative) {
+			add_fixed(element);
 			return self;
 		}
 		
@@ -83,12 +92,8 @@ function JUI_SEGMENT(owner) constructor{
 	
 	add_block = function(element){
 		// non-relative elements bypass layout
-		if (element.position != relative){
-			element.efficient.x = element.efficient.margin.left;
-			element.efficient.y = element.efficient.margin.top;
-			
-			if (element.position == fixed) array_push(parent.fixedContent, element);
-			if (element.position == absolute) array_push(parent.absoluteContent, element);
+		if (element.position != relative) {
+			add_fixed(element);
 			return self;
 		}
 		
@@ -134,11 +139,31 @@ function JUI_SEGMENT(owner) constructor{
 	add = (parent.direction == column) ? add_block : add_inline;
 	
 	// draw all elements in this segment
-	draw = function(){
+	draw_nonOverflow = function(){
+		//parent's true position
+		px = parent.efficient.x + parent.realistic.x + parent.efficient.margin.left + parent.offset.x;
+		py = parent.efficient.y + parent.realistic.y + parent.efficient.margin.top + parent.offset.y;
+		
+		array_foreach(content, function(element){
+			element.realistic.x = px;
+			element.realistic.y = py;
+			
+			element.draw();
+		});
+		
+		array_foreach(fixedContent, function(element){
+			element.realistic.x = px;
+			element.realistic.y = py;
+		});
+	};
+	
+	draw_overflow = function(){
 		array_foreach(content, function(element){
 			element.draw();
 		});
-	};
+	}
+	
+	draw = (parent.overflow == fa_allow) ? draw_nonOverflow : draw_overflow;
 }
 
 /* --- Original ---

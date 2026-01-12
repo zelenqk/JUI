@@ -11,8 +11,8 @@
   "name":"oExample",
   "overriddenProperties":[],
   "parent":{
-    "name":"JUI",
-    "path":"JUI.yyp",
+    "name":"JUI example",
+    "path":"folders/JUI example.yy",
   },
   "parentObjectId":null,
   "persistent":false,

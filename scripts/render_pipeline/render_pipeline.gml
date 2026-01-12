@@ -11,8 +11,8 @@ function render_pipeline(){
 		var cx = (parent == self) ? 0 : parent.contentOffset.x
 		var cy = (parent == self) ? 0 : parent.contentOffset.y
 		
-		matrix[12] = efficient.x + offset.x + cx;
-		matrix[13] = efficient.y + offset.y + cy;
+		matrix[12] = realistic.x + efficient.x + offset.x + cx;
+		matrix[13] = realistic.y + efficient.y + offset.y + cy;
 		
 		matrix[0] = scale.x;
 		matrix[6] = scale.y;
@@ -33,13 +33,10 @@ function render_pipeline(){
 		});
 	});
 	
-	pipeline_push(function(){
-		array_foreach(absoluteContent, function(element){
-			element.draw();
-		});
+	if (overflow == fa_scroll) pipeline_push(function(){
+		scroll.draw();	
 	});
 
-	
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());
 	});

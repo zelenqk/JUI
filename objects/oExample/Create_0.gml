@@ -4,10 +4,10 @@ main = new container({
 	height: "50%",
 	
 	direction: column,
+	opacity: "50%",
 	
-	step: function(){
-		contentOffset.y += 0.01;	
-	}
+	align: fa_center,
+	justify: fa_center,
 });
 
 

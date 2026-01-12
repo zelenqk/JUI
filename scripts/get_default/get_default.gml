@@ -19,6 +19,13 @@ function get_overwrite(){
 	return fallback;
 }
 
+function get_default_struct(structName, name, fallback = auto){
+	var struct = properties[$ structName];
+	if (!is_struct(struct) or struct[$ name] == undefined) return fallback;
+	
+	return struct[$ name];
+}
+
 function get_overwrite_struct(){
 	var struct = argument[0];
 	var fallback = argument[argument_count - 1];

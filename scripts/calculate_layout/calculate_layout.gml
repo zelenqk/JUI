@@ -1,14 +1,19 @@
 //cleaned and commented by gpt
 
-function calculate_layout(){
+function calculate_layout(recalculate = false){
 	// start with a single root segment
 	segments = [new JUI_SEGMENT(self)];
 	
 	// push each element into the active segment
 	for (var i = 0; i < array_length(content); i++){
 		var element = content[i];
-		var segment = array_last(segments);
 		
+		if (is_callable(element[$ "draw"])) {
+			element = new container(element);
+			content[i] = element;
+		}else if (recalculate or element.calculated != root) element.calculate();	
+		
+		var segment = array_last(segments);
 		segment.add(element);
 	}
 }
@@ -41,7 +46,7 @@ function JUI_SEGMENT(owner) constructor{
 		// wrapping behavior
 		if (parent.wrap){
 			// fits in current segment
-			if (efficient.width + w < parent.realistic.width){
+			if (efficient.width + w <= parent.realistic.width){
 				element.efficient.x = efficient.width + element.efficient.margin.left;
 				element.efficient.y = efficient.y + element.efficient.margin.top;
 				
@@ -86,7 +91,7 @@ function JUI_SEGMENT(owner) constructor{
 		// wrapping behavior
 		if (parent.wrap){
 			// fits in current segment
-			if (efficient.height + h < parent.realistic.height){
+			if (efficient.height + h <= parent.realistic.height){
 				element.efficient.x = efficient.x + element.efficient.margin.left;
 				element.efficient.y = efficient.height + element.efficient.margin.top;
 				

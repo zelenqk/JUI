@@ -1,4 +1,6 @@
 function render_pipeline(){
+	if (step != auto) pipeline_push(method(self, step));
+	
 	if (backgroundIsMySurface) pipeline_push(function(){
 		background.check();
 		
@@ -6,8 +8,11 @@ function render_pipeline(){
 	});
 	
 	if (opacity > 0) pipeline_push(function(){
-		matrix[12] = efficient.x;
-		matrix[13] = efficient.y;
+		matrix[0] = scale.x;
+		matrix[6] = scale.y;
+		
+		matrix[12] = efficient.x + offset.x;
+		matrix[13] = efficient.y + offset.y;
 		
 		matrix_set(matrix_world, matrix);
 		vertex_submit(vbuff, pr_trianglelist, texture);

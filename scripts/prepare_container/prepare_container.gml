@@ -1,13 +1,27 @@
 function prepare_container(){
-	position = get_default("position", relative);
+	//matrix applicable (real only)
+	offset = {
+		x: get_default_struct("offset", "x", get_overwrite("offsetx", "offset", 0)),
+		y: get_default_struct("offset", "y", get_overwrite("offsety", "offset", 0)),
+	}
+	
+	scale = {
+		x: get_default_struct("scale", "x", get_overwrite("scalex", "scale", 1)),
+		y: get_default_struct("scale", "y", get_overwrite("scaley", "scale", 1)),
+	}
+	
+	//more methods
+	step = get_default("step", auto)
 	
 	//dimensions
 	width = get_default("width", "100%");
-	height = get_default("width", 0);
+	height = get_default("height", 0);
 	
-	aspect = get_default("aspcet", auto);
+	aspect = get_default("aspect", auto);
 	
 	//layout
+	position = get_default("position", relative);
+	
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
 	

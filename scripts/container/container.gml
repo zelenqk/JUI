@@ -81,8 +81,5 @@ function container(properties = {}, parent = self) constructor{
 	parse_calculations();
 	
 	calculate = method(self, calculate_container);
-	calculate();
-	
-	calculate_layout();
-	render_pipeline();
+	calculate(false);
 }

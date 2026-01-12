@@ -1,4 +1,4 @@
-function calculate_container(){
+function calculate_container(recalculate = true){
 	if (root == self){
 		efficient.x = 0;
 		efficient.y = 0;
@@ -100,7 +100,9 @@ function calculate_container(){
 	);
 	
 	
-	
 //finalize
 	calculated = root;
+	
+	calculate_layout(recalculate);
+	render_pipeline();
 }

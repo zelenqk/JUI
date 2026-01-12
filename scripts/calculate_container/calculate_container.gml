@@ -2,6 +2,8 @@ function calculate_container(recalculate = true){
 	if (root == self){
 		efficient.x = 0;
 		efficient.y = 0;
+		efficient.width = 0;
+		efficient.height = 0;
 		
 		realistic.x = 0;
 		realistic.y = 0;
@@ -11,7 +13,7 @@ function calculate_container(recalculate = true){
 	}
 	
 	opacity = calculate_value(calculations.opacity, 1);
-	
+
 	efficient.width = calculate_value(calculations.width, parent.realistic.width);
 	efficient.height = calculate_value(calculations.height, parent.realistic.height);
 	
@@ -64,8 +66,8 @@ function calculate_container(recalculate = true){
 		right:	calculate_value(calculations.margin.right, efficient.width),
 	}
 	
-	if (efficient.margin.left == auto) efficient.margin.left = parent.efficient.width - efficient.width;
-	if (efficient.margin.top == auto) efficient.margin.top = parent.efficient.height - efficient.height;
+	if (efficient.margin.left == auto) efficient.margin.left = parent.realistic.width - efficient.width;
+	if (efficient.margin.top == auto) efficient.margin.top = parent.realistic.height - efficient.height;
 	
 	efficient.margin.inline = (efficient.margin.left + efficient.margin.right);
 	efficient.margin.block = (efficient.margin.top + efficient.margin.bottom);
@@ -81,7 +83,7 @@ function calculate_container(recalculate = true){
 	//realistic stuff
 	realistic.width = efficient.width - efficient.padding.inline;
 	realistic.height = efficient.height - efficient.padding.block;
-	
+
 	//render background
 	if (vbuff != auto && vertex_buffer_exists(vbuff)) vertex_delete_buffer(vbuff);
 	
@@ -128,7 +130,6 @@ function calculate_container(recalculate = true){
 	
 //finalize
 	calculated = root;
-	
 	calculate_layout(recalculate);
 	render_pipeline();
 }

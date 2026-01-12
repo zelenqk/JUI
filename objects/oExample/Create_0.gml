@@ -6,20 +6,14 @@ main = new container({
 	direction: column,
 	opacity: "50%",
 	
-	align: fa_center,
 	justify: fa_center,
+	
+	wrap: true,
+	padding: 12,
 });
 
 
-	
-child = main.add({height: "10%", aspect: 1, background: #0000FF, step: function(){
-		
-	
-	}
-}, 10);
+child = main.add({height: "32%", aspect: 1, margin: 12, marginRight: "2%", background: #0000FF}, 10);
 
-child = main.add({position: fixed, margin: auto, height: "10%", aspect: 1, background: #FF0000});
 
-previous_window_width = window_get_width();
-previous_window_height = window_get_height();
-previous_window_fullscreen = window_get_fullscreen();
+

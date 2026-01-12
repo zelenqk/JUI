@@ -8,8 +8,8 @@ function render_pipeline(){
 	});
 	
 	if (opacity > 0) pipeline_push(function(){
-		var cx = (parent == self) ? 0 : parent.contentOffset.x
-		var cy = (parent == self) ? 0 : parent.contentOffset.y
+		var cx = (parent == self) ? 0 : parent.contentOffset.x;
+		var cy = (parent == self) ? 0 : parent.contentOffset.y;
 		
 		matrix[12] = realistic.x + efficient.x + offset.x + cx;
 		matrix[13] = realistic.y + efficient.y + offset.y + cy;

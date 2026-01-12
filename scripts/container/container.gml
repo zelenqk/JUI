@@ -2,8 +2,7 @@ function container(properties = {}, parent = self) constructor{
 	self.properties = properties;
 	self.parent = parent;
 	root = parent;
-	
-	if (root != self) root = parent.root;
+	root = parent.root;
 	
 	calculated = parent;
 
@@ -27,11 +26,16 @@ function container(properties = {}, parent = self) constructor{
 	
 	target = {};
 	efficient = {};
-	realistic = {};
+	realistic = {
+		x: 0,
+		y: 0,
+		width: 0,
+		height: 0,
+	};
 	
 	//methods
 	append = function(element){
-		if (!is_callable(element[$ "draw"])) element = new container(element);
+		if (!is_callable(element[$ "draw"])) element = new container(element, self);
 		
 		if (element.calculated != root){
 			element.parent = self;

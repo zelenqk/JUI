@@ -1,4 +1,7 @@
-//cleaned and commented by gpt
+//cleaned and commented by gpt 
+//refined by me 
+
+//and the original is at the bottom (fully made by me)
 
 function calculate_layout(recalculate = false){
 	// start with a single root segment
@@ -7,9 +10,11 @@ function calculate_layout(recalculate = false){
 	// push each element into the active segment
 	for (var i = 0; i < array_length(content); i++){
 		var element = content[i];
+		element.parent = self;
+		element.root = root;
 		
 		if (is_callable(element[$ "draw"])) {
-			element = new container(element);
+			element = new container(element, self);
 			content[i] = element;
 		}else if (recalculate or element.calculated != root) element.calculate();	
 		
@@ -58,8 +63,8 @@ function JUI_SEGMENT(owner) constructor{
 		
 		// wrapping behavior
 		if (parent.wrap){
-			// fits in current segment
-			if (efficient.width + w <= parent.realistic.width){
+			// fits in current segment (or segment is empty - css rule of thumb)
+			if (efficient.width + w <= parent.realistic.width or array_length(content) <= 0){
 				element.efficient.x = efficient.width + element.efficient.margin.left;
 				element.efficient.y = efficient.y + element.efficient.margin.top;
 				
@@ -104,11 +109,11 @@ function JUI_SEGMENT(owner) constructor{
 		// wrapping behavior
 		if (parent.wrap){
 			// fits in current segment
-			if (efficient.height + h <= parent.realistic.height){
+			if (efficient.height + h <= parent.realistic.height or array_length(content) <= 0){
 				element.efficient.x = efficient.x + element.efficient.margin.left;
 				element.efficient.y = efficient.height + element.efficient.margin.top;
 				
-				efficient.width = max(efficient.width, w);
+				efficient.width = max(efficient.width, w - element.efficient.margin.left);
 				efficient.height += h + element.efficient.margin.bottom;
 				
 				array_push(content, element);
@@ -141,8 +146,8 @@ function JUI_SEGMENT(owner) constructor{
 	// draw all elements in this segment
 	draw_nonOverflow = function(){
 		//parent's true position
-		px = parent.efficient.x + parent.realistic.x + parent.efficient.margin.left + parent.offset.x;
-		py = parent.efficient.y + parent.realistic.y + parent.efficient.margin.top + parent.offset.y;
+		px = parent.efficient.x + parent.realistic.x + parent.efficient.margin.left + parent.offset.x + parent.efficient.padding.left;
+		py = parent.efficient.y + parent.realistic.y + parent.efficient.margin.top + parent.offset.y + parent.efficient.padding.top;
 		
 		array_foreach(content, function(element){
 			element.realistic.x = px;

@@ -84,6 +84,5 @@ function container(properties = {}, parent = self) constructor{
 	calculate();
 	
 	calculate_layout();
-	
 	render_pipeline();
 }

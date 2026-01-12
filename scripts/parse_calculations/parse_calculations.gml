@@ -5,13 +5,7 @@ function parse_calculations(){
 		width:		get_calculation(width),
 		height:		get_calculation(height),
 		
-		gap:		get_calculation(gap),
-		
 		opacity:	get_calculation(opacity),
-		
-		fontSize:	get_calculation(fontSize),
-		
-		border:		get_calculation(border),
 		
 		padding: {
 			left:	get_calculation(padding.left	),	
@@ -25,11 +19,6 @@ function parse_calculations(){
 			right:	get_calculation(margin.right	),	
 			top:	get_calculation(margin.top		),	
 			bottom:	get_calculation(margin.bottom	),	
-		},
-		
-		offset: {
-			x:		get_calculation(manualOffset.x),
-			y:		get_calculation(manualOffset.y),	
 		},
 		
 		borderRadius: (borderRadius == auto) ? auto : {
@@ -49,11 +38,15 @@ function get_calculation(value){
 	var i = 1;
 	var input = "";
 	var calculator = "";
+	
+	var dot = ord(".");
+	var minus = ord("-");
+	
 	repeat (string_length(value)){
 		var char = string_char_at(value, i++);
 		var ordinal = ord(char);
 
-		if (ordinal > 47 and ordinal < 58) input += char;
+		if ((ordinal > 47 and ordinal < 58) or (ordinal == minus or ordinal == dot)) input += char;
 		else calculator += char;
 	}
 	

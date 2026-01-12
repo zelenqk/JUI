@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"render_backdrop",
+  "%Name":"jui_system_macros",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"render_backdrop",
+  "name":"jui_system_macros",
   "parent":{
-    "name":"System",
-    "path":"folders/JUI/System.yy",
+    "name":"system",
+    "path":"folders/JUI/system.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"Surface",
   "parent":{
-    "name":"Util",
-    "path":"folders/JUI/Util.yy",
+    "name":"wrappers",
+    "path":"folders/JUI/util/wrappers.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

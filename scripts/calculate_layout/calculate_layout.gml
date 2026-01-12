@@ -1,119 +1,110 @@
 function calculate_layout(){
-	segments = [new JUI_SEGMENT(efficient.padding.left, efficient.padding.top, direction, realistic.width, realistic.height, efficient.gap, wrap, overflow.x, realistic.x * (overflow.x == fa_allow), realistic.y * (overflow.y == fa_allow), target.x, target.y)];
+	segments = [new JUI_SEGMENT(self)];
 	
-	array_recurse(content.children, function(element, segments){
-		if !is_callable(element[$ "draw"]) element = new container(element, self);
-		
+	for(var i = 0; i < array_length(content); i++){
+		var element = content[i];
 		var segment = array_last(segments);
-		if (segment.add(element)) return false;
 		
-		segment = new JUI_SEGMENT(segment.left, segment.top, segment.direction, segment.width, segment.height, segment.gap, segment.wrap, segment.overflow, segment.efficient.x, segment.efficient.y, segment.realistic.x, segment.realistic.y);
-		array_push(segments, segment);
 		segment.add(element);
-		
-		return false;
-	}, segments);
-	
+	}
 }
 
-function JUI_SEGMENT(left, top, direction, width, height, gap, wrap, overflow, tx, ty, rx, ry) constructor{
-	self.left = left;
-	self.top = top;
-
-	self.overflow = overflow;
-	self.direction = direction;
-	
-	self.width = width;
-	self.height = height;
-	
-	self.gap = gap;
-	
-	self.wrap = wrap;
-	
-	x = tx;
-	y = ty;
-	
-	realistic = {
-		x: rx,
-		y: ry,
-	}
+function JUI_SEGMENT(owner) constructor{
+	parent = owner;
 	
 	efficient = {
+		x: 0,
+		y: 0,
 		width: 0,
 		height: 0,
-		
-		gap: (gap == auto ? 0 : gap),
-		
-		x: tx + ((overflow == fa_allow) ? left : 0),
-		y: ty + ((overflow == fa_allow) ? top : 0)
 	}
 	
-	maximum = (direction == row) ? width : height;
-	
 	content = [];
-	amount = 0;
 	
-	add = function(element){
-		element.segment = self;
-
-		if (element.position == fixed or element.position == absolute){
-			array_push(content, element);	//do not progress x and y if element is fixed/absolute
+	add_inline = function(element){
+		if (element.position != relative){
+			array_push(content, element);
 			return;
 		}
 		
-		var ewidth = element.efficient.width + element.efficient.margin.inline;
-		var eheight = element.efficient.height + element.efficient.margin.block;
+		var w = element.efficient.width + element.efficient.margin.left;
+		var h = element.efficient.height + element.efficient.margin.block;
 		
-		element.x = efficient.x + element.efficient.margin.left;
-		element.y = efficient.y + element.efficient.margin.top;
-		
-		element.target.x = efficient.x + realistic.x + left;
-		element.target.y = efficient.y + realistic.y + top;
-		
-		if (wrap){
-			var check = (direction == row) ? efficient.width + ewidth : efficient.height + eheight;
-			
-			if (check > maximum){
-				if (direction == row) {
-					efficient.x = x;
-					efficient.y += efficient.height;
-					return false;
-				}
+		if (parent.wrap){
+			if (efficient.width + w < parent.realistic.width){
+				element.efficient.x = efficient.width + element.efficient.margin.left;
+				element.efficient.y = efficient.y + element.efficient.margin.top;
 				
-				efficient.x += efficient.width;
-				efficient.y = y;
-				return false;
+				efficient.width += w + element.efficient.margin.right;
+				efficient.height = max(efficient.height, h);
+				
+				array_push(content, element);
+				return self;
 			}
-		}
-		
-		if (direction == row){
-			efficient.x += ewidth;
-			efficient.width += ewidth;
-			efficient.height = max(efficient.height, eheight);
-		}
-		
-		if (direction == column){
-			efficient.y += eheight;
-			efficient.height += eheight;
-			efficient.width = max(efficient.width, ewidth);
-		}
 			
+			var segment = new JUI_SEGMENT(parent);
+			segment.efficient.y = efficient.y + efficient.height;
+			segment.add(element);
+			
+			array_push(parent.segments, segment);
+			
+			return segment;
+		}
+		
+		element.efficient.x = efficient.width + element.efficient.margin.left;
+		element.efficient.y = element.efficient.margin.top;
+		
+		efficient.width += w + element.efficient.margin.right;
+		efficient.height = max(efficient.height, h + element.efficient.margin.top);
+
 		array_push(content, element);
-		amount++;
+	}
+	
+	add_block = function(element){
+		if (element.position != relative){
+			array_push(content, element);
+			return;
+		}
+		
+		var w = element.efficient.width + element.efficient.margin.inline;
+		var h = element.efficient.height + element.efficient.margin.top;
+		
+		if (parent.wrap){
+			if (efficient.height + h < parent.realistic.height){
+				element.efficient.x = efficient.x + element.efficient.margin.left;
+				element.efficient.y = efficient.height + element.efficient.margin.top;
+				
+				efficient.width = max(efficient.width, w);
+				efficient.height += h + element.efficient.margin.bottom;
+				
+				array_push(content, element);
+				return self;
+			}
+			
+			var segment = new JUI_SEGMENT(parent);
+			segment.efficient.x = efficient.x + efficient.width + element.efficient.margin.left;
+			segment.add(element);
+			
+			array_push(parent.segments, segment);
+			
+			return segment;
+		}
+		
+		element.efficient.x = element.efficient.margin.left;
+		element.efficient.y = efficient.height + element.efficient.margin.top;
+		
+		efficient.width = max(efficient.width, w + element.efficient.margin.left);
+		efficient.height += h + element.efficient.margin.bottom;
+		array_push(content, element);
+		
 		return true;
 	}
 	
-	draw = function(){
-		for(var i = 0; i < array_length(content); i++){
-			var element = content[i];
-			element.draw();
-		}
-	}
+	add = (parent.direction == column) ? add_block : add_inline;
 	
-	cleanup = function(cleanChildren){
-		for(var i = 0; i < array_length(content); i++){
-			var element = content[i];
-			element.cleanup(cleanChildren);
-		}
+	draw = function(){
+		array_foreach(content, function(element){
+			element.draw();
+		});
 	}
 }

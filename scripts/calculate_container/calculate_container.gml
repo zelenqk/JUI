@@ -1,141 +1,98 @@
-globalvar JUI_FORMAT;
-vertex_format_begin();
-vertex_format_add_position();
-vertex_format_add_texcoord();
-vertex_format_add_color();
-
-JUI_FORMAT = vertex_format_end();
-
 function calculate_container(){
-	coffset.x = 0;
-	coffset.y = 0;
-
-	if (parent == self){
+	if (root == self){
+		efficient.x = 0;
+		efficient.y = 0;
+		
 		realistic.width = GUIW;
 		realistic.height = GUIH;
-		
-		efficient.width = 0;
-		efficient.height = 0;
-		
-		coffset.x = parent.efficient.width * parent.anchor.x;
-		coffset.y = parent.efficient.height * parent.anchor.y;
 	}
 	
-	//calculate dimensions
-	efficient.width		= calculate_value(calculations.width,	parent.realistic.width	);
-	efficient.height	= calculate_value(calculations.height,	parent.realistic.height	);
-	efficient.opacity	= calculate_value(calculations.opacity, 1);
+	efficient.width = calculate_value(calculations.width, parent.realistic.width);
+	efficient.height = calculate_value(calculations.height, parent.realistic.height);
 	
-	//get the bigger axis
-	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
-	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
-	
-	if (efficient.width == 0 and aspect != auto) efficient.width = efficient.height / aspect;
-	if (efficient.height == 0 and aspect != auto) efficient.height = efficient.width / aspect;
-	
-	//get the direct axis
-	axis	=	(direction == row) ? efficient.width : efficient.height;
-	cross	=	(direction == row) ? efficient.height : efficient.width;
-	
-	efficient.gap		= calculate_value(calculations.gap, axis);
-	
-	//calculate border
-	efficient.border = calculate_value(calculations.border, axis);
-	
-	//calculate padding
-	efficient.padding = {
-		left:	calculate_value(calculations.padding.left,		axis),
-		right:	calculate_value(calculations.padding.right,		axis),
-		top:	calculate_value(calculations.padding.top,		axis),
-		bottom:	calculate_value(calculations.padding.bottom,	axis),
+	if (aspect != auto){
+		if (efficient.width == 0) efficient.width = efficient.height / aspect;	
+		if (efficient.height == 0) efficient.height = efficient.width / aspect;	
 	}
 	
-	//calculate margin
-	efficient.margin = {
-		left:	calculate_value(calculations.margin.left,		parent.realistic.width),
-		right:	calculate_value(calculations.margin.right,		parent.realistic.width),
-		top:	calculate_value(calculations.margin.top,		parent.realistic.height),
-		bottom:	calculate_value(calculations.margin.bottom,		parent.realistic.height),
-	}
+//get the bigger axis (in pixels)
+	var inlineAxis = (efficient.width > efficient.height);
+	axis	= inlineAxis ? efficient.height	: efficient.width;
+	cross	= inlineAxis ? efficient.width	: efficient.height;
 	
-	efficient.margin.inline = efficient.margin.left + efficient.margin.right;
-	efficient.margin.block = efficient.margin.top + efficient.margin.bottom;
-	
-	offset = {
-		x: calculate_value(calculations.offset.x, axis	),
-		y: calculate_value(calculations.offset.y, cross	),	
-	}
-	
-	//get the smaller axis
-	axis	=	(efficient.width < efficient.height) ? efficient.width : efficient.height;
-	cross	=	(efficient.width < efficient.height) ? efficient.height : efficient.width;
+//core box model properties
 
-	if (borderRadius != auto){
-		efficient.borderRadius = {
-			topLeft:		calculate_value(calculations.borderRadius.topLeft,		axis),
-			topRight:		calculate_value(calculations.borderRadius.topRight,		axis),
-			bottomLeft:		calculate_value(calculations.borderRadius.bottomLeft,	axis),
-			bottomRight:	calculate_value(calculations.borderRadius.bottomRight,	axis),
-		}
+	//padding
+	efficient.padding = {
+		top:	calculate_value(calculations.padding.top, efficient.height),
+		left:	calculate_value(calculations.padding.left, efficient.width),
+		bottom: calculate_value(calculations.padding.bottom, efficient.height),
+		right:	calculate_value(calculations.padding.right, efficient.width),
 	}
 	
-	//realistic dimensions
-	if (margin.left == auto) efficient.margin.left = parent.realistic.width - efficient.width;
-	if (margin.top == auto) efficient.margin.top = parent.realistic.height - efficient.height;
+	efficient.padding.inline = (efficient.padding.left + efficient.padding.right);
+	efficient.padding.block = (efficient.padding.top + efficient.padding.bottom);
 	
-	switch (align){
-	case fa_center:
-		efficient.margin.left = (parent.realistic.width / 2) - efficient.width / 2;
+	//margin
+	efficient.margin = {
+		top:	calculate_value(calculations.margin.top, efficient.height),
+		left:	calculate_value(calculations.margin.left, efficient.width),
+		bottom:	calculate_value(calculations.margin.bottom, efficient.height),
+		right:	calculate_value(calculations.margin.right, efficient.width),
+	}
+	
+	efficient.margin.inline = (efficient.margin.left + efficient.margin.right);
+	efficient.margin.block = (efficient.margin.top + efficient.margin.bottom);
+	
+	//border radius
+	efficient.borderRadius = {
+		topLeft:		calculate_value(calculations.borderRadius.topLeft, axis),
+		bottomLeft:		calculate_value(calculations.borderRadius.bottomLeft, axis),
+		topRight:		calculate_value(calculations.borderRadius.topRight, axis),
+		bottomRight:	calculate_value(calculations.borderRadius.bottomRight, axis),
+	}
+	
+	//realistic stuff
+	realistic.width = efficient.width - efficient.padding.inline;
+	realistic.height = efficient.height - efficient.padding.block;
+	
+//render the background
+	// TODO: fix this shit
+	if (vbuff != auto) vertex_delete_buffer(vbuff);
+	vbuff = vertex_create_buffer();
+	vertex_begin(vbuff, JUI_FORMAT);
+	
+	var color = background;
+	var uv = EMPTY_UV;
+	
+	var bg = asset_get_type(background);
+	switch (bg){
+	case asset_sprite:
+		color = c_white;
+		texture = sprite_get_texture(background, image);
+		
+		var suv = sprite_get_uvs(background, image);
+		uv.x = suv[0];
+		uv.y = suv[1];
+		
+		uv.w = suv[2] - uv.x;
+		uv.h = suv[3] - uv.y;
 		break;
-	case fa_right:
-		efficient.margin.left = (parent.realistic.width) - efficient.width;
+	case -1:
+		if (!is_struct(bg)) break;
+		
+		backgroundIsSurface = true;
+		texture = background.texture;
 		break;
 	}
 	
-	switch (justify){
-	case fa_center:
-		efficient.margin.top = (parent.realistic.height / 2) - efficient.height / 2;
-		break;
-	case fa_bottom:
-		efficient.margin.top = (parent.realistic.height) - efficient.height;
-		break;
-	}
+	build_quad(vbuff, 0, 0, efficient.width, efficient.height, color, opacity, uv);
 	
-	realistic.width		= efficient.width	-	efficient.padding.left	-	efficient.padding.right		;
-	realistic.height	= efficient.height	-	efficient.padding.top	-	efficient.padding.bottom	;
+//something idk what to name
+
 	
-	if (parent != self and parent.overflow == fa_allow){
-		coffset.x += parent.efficient.padding.left;
-		coffset.y += parent.efficient.padding.top;	
-	}
 	
-	coffset.x += efficient.margin.left	+ efficient.border;
-	coffset.y += efficient.margin.top	+ efficient.border;
 	
-	realistic.x = x + efficient.margin.left + offset.x;
-	realistic.y = y + efficient.margin.top + offset.y;
-	
-	target.x = realistic.x;
-	target.y = realistic.y;
-	
-	efficient.x = realistic.x;
-	efficient.y = realistic.y;
-	
-	//background
-	backdrop = {
-		shader: get_overwrite_struct("backdrop", "shader", get_default("backdrop", auto)),
-		arguments: is_struct(properties[$ "backdrop"]) ? get_shader_arguments(properties.backdrop) : [],
-		pass: get_overwrite_struct("backdrop", "pass", get_default("pass", auto)),
-	}
-	
-	if (overflow.x != fa_allow or overflow.y != fa_allow){
-		cache[CACHE.OVERFLOW] = new Surface(realistic.width, realistic.height);
-	}
-	
-	if (backdrop.shader != auto){
-		cache[CACHE.BACKDROP] = new Surface(efficient.width, efficient.height);
-		cache[CACHE.BACKDROP_PASS] = new Surface(efficient.width, efficient.height);
-	}
-	
-	calculate_layout();
+//finalize
+	calculated = root;
 }

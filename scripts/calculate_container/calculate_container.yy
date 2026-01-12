@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"calculate_container",
   "parent":{
-    "name":"pipeline",
-    "path":"folders/JUI/System/pipeline.yy",
+    "name":"system",
+    "path":"folders/JUI/system.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

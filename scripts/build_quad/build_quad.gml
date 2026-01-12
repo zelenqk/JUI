@@ -1,3 +1,12 @@
+globalvar JUI_FORMAT;
+vertex_format_begin();
+vertex_format_add_position();
+vertex_format_add_texcoord();
+vertex_format_add_color();
+
+JUI_FORMAT = vertex_format_end();
+
+
 #macro EMPTY_UV {x: 0, y: 0, width: 1, height: 1}
 
 function build_quad(vbuff, anchorx, anchory, w, h, color, alpha, uv = EMPTY_UV){

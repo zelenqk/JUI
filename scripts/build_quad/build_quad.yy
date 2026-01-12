@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"build_quad",
   "parent":{
-    "name":"Util",
-    "path":"folders/JUI/Util.yy",
+    "name":"util",
+    "path":"folders/JUI/util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

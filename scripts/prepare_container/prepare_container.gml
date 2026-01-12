@@ -1,90 +1,55 @@
-
-
 function prepare_container(){
-	//
-	efficient = {};
-	coffset = {};
-	realistic = {};
-	previous = {};
-	target = {};
+	position = get_default("position", relative);
+	
+	//dimensions
+	width = get_default("width", "100%");
+	height = get_default("width", 0);
+	
+	aspect = get_default("aspcet", auto);
 	
 	//layout
-	align = get_default("align", fa_left);
-	justify = get_default("justify", fa_top);
-	
-	position = relative
 	direction = get_default("direction", column);
 	wrap = get_default("wrap", false);
-
-	visible = get_default("visible", true);
-
-	width = get_default("width", 0);
-	height = get_default("height", 0);
-	aspect = get_default("aspect", auto);
-	gap = get_default("gap");
 	
-	var bg = get_default("background", c_white);
-	background = {
-		type: asset_get_type(bg),
-		value: bg,
-	}
+	overflow = get_default("overflow", fa_allow);
+	
+	align = get_default("align", fa_left);	//self
+	justify = get_default("justify", fa_top);
+
+	alignContent = get_default("alignContent", fa_left);	//segments
+	justifyContent = get_default("justifyContent", fa_top);
+	
+	alignItems = get_default("alignItems", fa_left);		//elements in segments
+	justifyItems = get_default("justifyItems", fa_top);
+
+	//render properties
+	background = get_default("background", c_white);
+	image = get_default("image", 0);
+	backgroundIsSurface = false;
 	
 	opacity = get_default("opacity", 1);
 	
-	if (is_struct(bg)) background.type = bg.type;
-	
-	anchor = {
-		x: get_overwrite("anchorx", "anchor", get_overwrite_struct("anchor", "x", 0)),
-		y: get_overwrite("anchory", "anchor", get_overwrite_struct("anchor", "y", 0)),
-	}
-	
-	//text
-	font = get_default("font", -1);
-	fontSize = get_default("fontSize", 24);
-	color = get_default("color", c_black);
-	alpha = get_default("alpha", 1);
-	
-	//border
-	border = get_default("border", 0);
-	borderColor = get_overwrite("borderColor", "borderColour", c_white);
-	
 	//padding
 	padding = {
-		top:	get_overwrite(	"paddingTop",	"paddingBlock",		"padding", get_overwrite_struct("padding", "top",		"block",	0)),
-		bottom:	get_overwrite(	"paddingTop",	"paddingBlock",		"padding", get_overwrite_struct("padding", "bottom",	"block",	0)),
-		left:	get_overwrite(	"paddingLeft",	"paddingInline",	"padding", get_overwrite_struct("padding", "left",		"inline",	0)),
-		right:	get_overwrite(	"paddingLeft",	"paddingInline",	"padding", get_overwrite_struct("padding", "right",		"inline",	0)),
+		left: get_overwrite_struct("padding", "left", "inline", get_overwrite("paddingLeft", "paddingInline", "padding", 0)),
+		right: get_overwrite_struct("padding", "right", "inline", get_overwrite("paddingRight", "paddingInline", "padding", 0)),
+		top: get_overwrite_struct("padding", "top", "inline", get_overwrite("paddingTop", "paddingBlock", "padding", 0)),
+		bottom: get_overwrite_struct("padding", "bottom", "inline", get_overwrite("paddingBottom", "paddingBlock", "padding", 0)),
 	}
 	
 	//margin
 	margin = {
-		top:	get_overwrite(	"marginTop",	"marginBlock",		"margin", get_overwrite_struct("margin", "top",		"block",	0)),
-		bottom:	get_overwrite(	"marginBottom",	"marginBlock",		"margin", get_overwrite_struct("margin", "bottom",	"block",	0)),
-		left:	get_overwrite(	"marginLeft",	"marginInline",		"margin", get_overwrite_struct("margin", "left",	"inline",	0)),
-		right:	get_overwrite(	"marginRight",	"marginInline",		"margin", get_overwrite_struct("margin", "right",	"inline",	0)),
+		left: get_overwrite_struct("margin", "left", "inline", get_overwrite("marginLeft", "marginInline", "margin", 0)),
+		right: get_overwrite_struct("margin", "right", "inline", get_overwrite("marginRight", "marginInline", "margin", 0)),
+		top: get_overwrite_struct("margin", "top", "inline", get_overwrite("marginTop", "marginBlock", "margin", 0)),
+		bottom: get_overwrite_struct("margin", "bottom", "inline", get_overwrite("marginBottom", "marginBlock", "margin", 0)),
 	}
-	
+
 	//border radius
 	borderRadius = {
-		topLeft:		get_overwrite("borderRadiusTopLeft",		"borderRadiusTop",		"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topLeft",		"top",		"left",		auto)),
-		bottomLeft:		get_overwrite("borderRadiusBottomLeft",		"borderRadiusBottom",	"borderRadiusLeft",		"borderRadius", get_overwrite_struct("borderRadius", "topRight",	"bottom",	"left",		auto)),	
-		topRight:		get_overwrite("borderRadiusTopRight",		"borderRadiusTop",		"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomLeft",	"top",		"right",	auto)),	
-		bottomRight:	get_overwrite("borderRadiusBottomRight",	"borderRadiusBottom",	"borderRadiusRight",	"borderRadius", get_overwrite_struct("borderRadius", "bottomRight",	"bottom",	"right",	auto)),	
-	}
-	
-	manualOffset = {
-		x: get_overwrite("offsetx", "offset", get_overwrite_struct("offset", "x", 0)),
-		y: get_overwrite("offsety", "offset", get_overwrite_struct("offset", "y", 0)),
-	}
-	
-	if (borderRadius.topLeft == auto and borderRadius.bottomLeft == auto and borderRadius.topRight == auto and borderRadius.bottomRight == auto) borderRadius = auto;
-
-	if (arguments != auto){
-		var variables = struct_get_names(arguments);
-		
-		for(var i = 0; i < array_length(variables); i++){
-			var name = variables[i];
-			self[$ name] = arguments[$ name];
-		}
+		topLeft: get_overwrite_struct("borderRadius", "topLeft", "left", "top", get_overwrite("borderRadiusTopLeft", "borderRadiusLeft", "borderRadiusTop", "borderRadius", 0)),
+		topRight: get_overwrite_struct("borderRadius", "topLeft", "left", "top", get_overwrite("borderRadiusTopRight", "borderRadiusRight", "borderRadiusTop", "borderRadius", 0)),
+		bottomLeft: get_overwrite_struct("borderRadius", "bottomLeft", "left", "bottom", get_overwrite("borderRadiusBottomLeft", "borderRadiusLeft", "borderRadiusBottom", "borderRadius", 0)),
+		bottomRight: get_overwrite_struct("borderRadius", "bottomLeft", "left", "bottom", get_overwrite("borderRadiusBottomRight", "borderRadiusRight", "borderRadiusBottom", "borderRadius", 0)),
 	}
 }

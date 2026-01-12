@@ -6,14 +6,17 @@ main = new container({
 	direction: column,
 	opacity: "50%",
 	
+	align: fa_center,
 	justify: fa_center,
 	
+	borderRadius: "5%",
+	
 	wrap: true,
-	padding: 12,
+	padding: "10%",
 });
 
 
-child = main.add({height: "32%", aspect: 1, margin: 12, marginRight: "2%", background: #0000FF}, 10);
+child = main.add({height: "32%", marginTop: auto, borderRadius: "50%", marginRight: 1, aspect: 1, background: #0000FF}, 10);
 
 
 

@@ -40,19 +40,17 @@ function calculate_container(recalculate = true){
 		break;
 	}
 	
-//get the bigger axis (in pixels)
-	var inlineAxis = (efficient.width > efficient.height);
-	axis	= inlineAxis ? efficient.height	: efficient.width;
-	cross	= inlineAxis ? efficient.width	: efficient.height;
+	//get the direction axis (in pixels)
+	axis	= (direction == row) ? efficient.width	: efficient.height;
+	cross	= (direction == column) ? efficient.height	: efficient.width;
 	
 //core box model properties
-
 	//padding
 	efficient.padding = {
-		top:	calculate_value(calculations.padding.top, efficient.height),
-		left:	calculate_value(calculations.padding.left, efficient.width),
-		bottom: calculate_value(calculations.padding.bottom, efficient.height),
-		right:	calculate_value(calculations.padding.right, efficient.width),
+		top:	calculate_value(calculations.padding.top, axis),
+		left:	calculate_value(calculations.padding.left, axis),
+		bottom: calculate_value(calculations.padding.bottom, axis),
+		right:	calculate_value(calculations.padding.right, axis),
 	}
 	
 	efficient.padding.inline = (efficient.padding.left + efficient.padding.right);
@@ -71,6 +69,11 @@ function calculate_container(recalculate = true){
 	
 	efficient.margin.inline = (efficient.margin.left + efficient.margin.right);
 	efficient.margin.block = (efficient.margin.top + efficient.margin.bottom);
+	
+	//get the bigger axis (in pixels)
+	var inlineAxis = (efficient.width > efficient.height);
+	axis	= inlineAxis ? efficient.height	: efficient.width;
+	cross	= inlineAxis ? efficient.width	: efficient.height;
 	
 	//border radius
 	efficient.borderRadius = {

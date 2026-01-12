@@ -26,6 +26,7 @@ function container(properties = {}, parent = self) constructor{
 	
 	target = {};
 	efficient = {};
+	scissor = {x: 0, y: 0, width: GUIW, height: GUIH};
 	realistic = {
 		x: 0,
 		y: 0,

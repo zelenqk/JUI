@@ -1,4 +1,6 @@
 function prepare_container(){
+	visible = get_default("visible", true)
+	
 	//matrix applicable (real only)
 	offset = {
 		x: get_default_struct("offset", "x", get_overwrite("offsetx", "offset", 0)),

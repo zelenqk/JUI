@@ -1,10 +1,9 @@
 function render_pipeline(){
+	pipeline = [];
+	
 	pipeline_push(function(){
-		var cx = (parent == self) ? 0 : parent.contentOffset.x;
-		var cy = (parent == self) ? 0 : parent.contentOffset.y;
-		
-		target.x = realistic.x + efficient.x + offset.x + cx;	
-		target.y = realistic.y + efficient.y + offset.y + cy;
+		target.x = realistic.x + efficient.x + offset.x;	
+		target.y = realistic.y + efficient.y + offset.y;
 	})
 	
 	if (step != auto) pipeline_push(method(self, step));
@@ -38,8 +37,8 @@ function render_pipeline(){
 		});
 	}
 	
-	if (overflow != fa_allow) pipeline_push(function(){
-		camera_set_view_pos(camera, contentOffset.x, contentOffset.y);
+	if (overflow != fa_allow) pipeline_push(function(index){
+		camera_set_view_pos(camera, -contentOffset.x, -contentOffset.y);
 		
 		cache[JUI_CACHE.OVERFLOW].target();
 		draw_clear_alpha(c_black, 0);

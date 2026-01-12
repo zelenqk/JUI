@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"stencil",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"stencil",
+  "parent":{
+    "name":"stencil",
+    "path":"folders/JUI/stencil.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

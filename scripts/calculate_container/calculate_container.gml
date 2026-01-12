@@ -1,4 +1,6 @@
 function calculate_container(recalculate = true){
+	if (recalculate) cleanup();
+	
 	if (root == self){
 		efficient.x = 0;
 		efficient.y = 0;

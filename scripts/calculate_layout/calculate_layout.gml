@@ -146,8 +146,8 @@ function JUI_SEGMENT(owner) constructor{
 	// draw all elements in this segment
 	draw_nonOverflow = function(){
 		//parent's true position
-		px = parent.efficient.x + parent.realistic.x + parent.efficient.margin.left + parent.offset.x + parent.efficient.padding.left;
-		py = parent.efficient.y + parent.realistic.y + parent.efficient.margin.top + parent.offset.y + parent.efficient.padding.top;
+		px = parent.efficient.x + parent.realistic.x + parent.offset.x + parent.efficient.padding.left;
+		py = parent.efficient.y + parent.realistic.y + parent.offset.y + parent.efficient.padding.top;
 		
 		array_foreach(content, function(element){
 			element.realistic.x = px;

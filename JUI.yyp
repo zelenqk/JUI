@@ -12,6 +12,7 @@
   "Folders":[
     {"$GMFolder":"","%Name":"JUI example","folderPath":"folders/JUI example.yy","name":"JUI example","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"JUI","folderPath":"folders/JUI.yy","name":"JUI","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"stencil","folderPath":"folders/JUI/stencil.yy","name":"stencil","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"shaders","folderPath":"folders/JUI/shaders.yy","name":"shaders","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"system","folderPath":"folders/JUI/system.yy","name":"system","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"util","folderPath":"folders/JUI/util.yy","name":"util","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -37,6 +38,7 @@
     {"id":{"name":"parse_calculations","path":"scripts/parse_calculations/parse_calculations.yy",},},
     {"id":{"name":"prepare_container","path":"scripts/prepare_container/prepare_container.yy",},},
     {"id":{"name":"render_pipeline","path":"scripts/render_pipeline/render_pipeline.yy",},},
+    {"id":{"name":"stencil","path":"scripts/stencil/stencil.yy",},},
     {"id":{"name":"Surface","path":"scripts/Surface/Surface.yy",},},
     {"id":{"name":"shBlurH","path":"shaders/shBlurH/shBlurH.yy",},},
     {"id":{"name":"shBlurV","path":"shaders/shBlurV/shBlurV.yy",},},

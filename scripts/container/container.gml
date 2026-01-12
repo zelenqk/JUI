@@ -5,7 +5,8 @@ function container(properties = {}, parent = self) constructor{
 	root = parent.root;
 	
 	calculated = parent;
-
+	
+	
 	texture = -1;
 	vbuff = vertex_create_buffer();
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
@@ -27,7 +28,8 @@ function container(properties = {}, parent = self) constructor{
 	
 	target = {};
 	efficient = {};
-	scissor = {x: 0, y: 0, width: GUIW, height: GUIH};
+	mask = 1;
+	topMask = 0;
 	realistic = {
 		x: 0,
 		y: 0,
@@ -50,6 +52,7 @@ function container(properties = {}, parent = self) constructor{
 		
 		var segment = array_last(segments);
 		segment.add(element);
+		return element;
 	}
 	
 	add = function(element, amount = 1){
@@ -73,12 +76,13 @@ function container(properties = {}, parent = self) constructor{
 	}
 	
 	draw = function(){
+		if (!visible) return;
 		var length = array_length(pipeline);
 		
 		var i = 0;
 		repeat(length){
 			var render = pipeline[i++];
-			render();
+			render(i - 1);
 		}
 	}
 	

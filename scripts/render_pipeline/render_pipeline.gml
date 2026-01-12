@@ -1,4 +1,10 @@
 function render_pipeline(){
+	if (backgroundIsMySurface) pipeline_push(function(){
+		background.check();
+		
+		texture = background.texture;
+	});
+	
 	if (opacity > 0) pipeline_push(function(){
 		matrix[12] = efficient.x;
 		matrix[13] = efficient.y;

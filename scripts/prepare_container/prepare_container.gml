@@ -25,7 +25,8 @@ function prepare_container(){
 	//render properties
 	background = get_default("background", c_white);
 	image = get_default("image", 0);
-	backgroundIsSurface = false;
+	backgroundIsMySurface = false;
+	backgroundIsSurface = get_default("surface", false);
 	
 	opacity = get_default("opacity", 1);
 	

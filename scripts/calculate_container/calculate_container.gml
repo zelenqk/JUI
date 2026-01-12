@@ -56,40 +56,48 @@ function calculate_container(){
 	realistic.width = efficient.width - efficient.padding.inline;
 	realistic.height = efficient.height - efficient.padding.block;
 	
-//render the background
-	// TODO: fix this shit
-	if (vbuff != auto) vertex_delete_buffer(vbuff);
+	//render background
+	if (vbuff != auto && vertex_buffer_exists(vbuff)) vertex_delete_buffer(vbuff);
+	
 	vbuff = vertex_create_buffer();
 	vertex_begin(vbuff, JUI_FORMAT);
 	
-	var color = background;
+	// Defaults
+	var bg_color = background;
+	var tex = -1;
 	var uv = EMPTY_UV;
+	backgroundIsSurface = false;
 	
-	var bg = asset_get_type(background);
-	switch (bg){
-	case asset_sprite:
-		color = c_white;
-		texture = sprite_get_texture(background, image);
-		
-		var suv = sprite_get_uvs(background, image);
-		uv.x = suv[0];
-		uv.y = suv[1];
-		
-		uv.w = suv[2] - uv.x;
-		uv.h = suv[3] - uv.y;
-		break;
-	case -1:
-		if (!is_struct(bg)) break;
-		
-		backgroundIsSurface = true;
-		texture = background.texture;
-		break;
+	// Resolve background type
+	var bg_type = asset_get_type(background);
+	
+	switch (bg_type) {
+		case asset_sprite: {
+			bg_color = c_white;
+			tex = sprite_get_texture(background, image);
+	
+			var suv = sprite_get_uvs(background, image);
+			uv.x = suv[0];
+			uv.y = suv[1];
+			uv.w = suv[2] - suv[0];
+			uv.h = suv[3] - suv[1];
+		} break;
+	
+		case -1: {
+			// Struct-based background (e.g. surface wrapper)
+			if (is_struct(background)) {
+				backgroundIsMySurface = true;
+				tex = background.texture;
+			}
+		} break;
 	}
 	
-	build_quad(vbuff, 0, 0, efficient.width, efficient.height, color, opacity, uv);
-	
-//something idk what to name
-
+	// Build background quad
+	build_quad(	vbuff, 0, 0,
+				efficient.width, efficient.height,
+				bg_color, opacity,
+				uv
+	);
 	
 	
 	

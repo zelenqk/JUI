@@ -11,7 +11,7 @@ main = new container({
 	overflow: fa_hidden,
 	
 	borderRadius: "5%",
-	
+	padding: 32,
 	wrap: true,
 });
 

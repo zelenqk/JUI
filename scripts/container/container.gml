@@ -6,6 +6,8 @@ function container(properties = {}, parent = self) constructor{
 	
 	calculated = parent;
 	
+	boundaries = {x: 0, y: 0, width: 0, height: 0};
+	inOverflow = false;
 	
 	texture = -1;
 	vbuff = vertex_create_buffer();
@@ -26,7 +28,7 @@ function container(properties = {}, parent = self) constructor{
 	
 	segments = [];
 	
-	target = {};
+	target = {x: 0, y: 0};
 	efficient = {};
 	mask = 1;
 	topMask = 0;
@@ -95,6 +97,27 @@ function container(properties = {}, parent = self) constructor{
 			if (cache != auto) cache.cleanup();
 		});
 	}
+	
+	//utils
+	hover_overflow = function(){
+		boundaries.x = max(parent.target.x, target.x);
+		boundaries.y = max(parent.target.x, target.y);
+		
+		var x2 = max(parent.target.x + parent.realistic.width, target.x + efficient.width);
+		var y2 = max(parent.target.y + parent.realistic.height, target.y + efficient.height);
+		
+		boundaries.width = x2 - boundaries.x;
+		boundaries.height = x2 - boundaries.y;
+		
+		mouse = mouse_in_box(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
+		return (mouse != -1);
+	}
+	
+	hover_default = function(){
+		mouse = mouse_in_box(target.x, target.y, efficient.width, efficient.height);
+	}
+	
+	hover = auto;
 	
 	//realize
 	prepare_container();

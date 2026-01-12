@@ -12,8 +12,8 @@
   "Folders":[
     {"$GMFolder":"","%Name":"JUI example","folderPath":"folders/JUI example.yy","name":"JUI example","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"JUI","folderPath":"folders/JUI.yy","name":"JUI","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"stencil","folderPath":"folders/JUI/stencil.yy","name":"stencil","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"shaders","folderPath":"folders/JUI/shaders.yy","name":"shaders","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"stencil","folderPath":"folders/JUI/stencil.yy","name":"stencil","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"system","folderPath":"folders/JUI/system.yy","name":"system","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"util","folderPath":"folders/JUI/util.yy","name":"util","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"wrappers","folderPath":"folders/JUI/util/wrappers.yy","name":"wrappers","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -35,6 +35,7 @@
     {"id":{"name":"container","path":"scripts/container/container.yy",},},
     {"id":{"name":"get_default","path":"scripts/get_default/get_default.yy",},},
     {"id":{"name":"jui_system_macros","path":"scripts/jui_system_macros/jui_system_macros.yy",},},
+    {"id":{"name":"mouse_in_box","path":"scripts/mouse_in_box/mouse_in_box.yy",},},
     {"id":{"name":"parse_calculations","path":"scripts/parse_calculations/parse_calculations.yy",},},
     {"id":{"name":"prepare_container","path":"scripts/prepare_container/prepare_container.yy",},},
     {"id":{"name":"render_pipeline","path":"scripts/render_pipeline/render_pipeline.yy",},},

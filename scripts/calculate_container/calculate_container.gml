@@ -149,10 +149,18 @@ function calculate_container(recalculate = true){
 		cache[JUI_CACHE.BORDER_RADIUS] = br;
 	}
 	
+	if (parent.inOverflow or (parent.overflow != fa_allow and parent != self and position != absolute)) hover = hover_overflow;	
+	else hover = hover_default;
+	
 	if (overflow != fa_allow){
 		camera = camera_create();
 		cache[JUI_CACHE.OVERFLOW] = new Surface(realistic.width, realistic.height);
 		camera_set_view_size(camera, realistic.width, realistic.height);
+		
+		boundaries.x = target.x;
+		boundaries.y = target.y;
+		boundaries.width = realistic.width;
+		boundaries.height = realistic.height;
 	}
 	
 	

@@ -11,6 +11,7 @@ function container(properties = {}, parent = self) constructor{
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	
 	cache = [];
+	camera = auto;
 	pipeline = [];
 	
 	content = [];
@@ -83,6 +84,8 @@ function container(properties = {}, parent = self) constructor{
 	
 	cleanup = function(){
 		vertex_delete_buffer(vbuff);
+		
+		if (camera != auto) camera_destroy(camera);
 		
 		array_foreach(cache, function(cache){
 			if (cache != auto) cache.cleanup();

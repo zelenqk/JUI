@@ -3,6 +3,7 @@ main = new container({
 	width: "50%",
 	height: "50%",
 	
+	overflow: fa_hidden,
 	direction: column,
 	opacity: "50%",
 	
@@ -13,6 +14,10 @@ main = new container({
 	
 	wrap: true,
 	padding: "10%",
+	
+	step: function(){
+		contentOffset.x += 1;
+	}
 });
 
 

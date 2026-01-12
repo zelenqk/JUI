@@ -147,6 +147,12 @@ function calculate_container(recalculate = true){
 		cache[JUI_CACHE.BORDER_RADIUS] = br;
 	}
 	
+	if (overflow != fa_allow){
+		camera = camera_create();
+		cache[JUI_CACHE.OVERFLOW] = new Surface(realistic.width, realistic.height);
+		camera_set_view_size(camera, realistic.width, realistic.height);
+	}
+	
 	
 //finalize
 	calculated = root;

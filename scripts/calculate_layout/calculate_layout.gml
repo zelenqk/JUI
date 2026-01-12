@@ -35,7 +35,11 @@ function JUI_SEGMENT(owner) constructor{
 	add_inline = function(element){
 		// non-relative elements bypass layout
 		if (element.position != relative){
-			array_push(content, element);
+			element.efficient.x = element.efficient.margin.left;
+			element.efficient.y = element.efficient.margin.top;
+			
+			if (element.position == fixed) array_push(parent.fixedContent, element);
+			if (element.position == absolute) array_push(parent.absoluteContent, element);
 			return self;
 		}
 		
@@ -80,7 +84,11 @@ function JUI_SEGMENT(owner) constructor{
 	add_block = function(element){
 		// non-relative elements bypass layout
 		if (element.position != relative){
-			array_push(content, element);
+			element.efficient.x = element.efficient.margin.left;
+			element.efficient.y = element.efficient.margin.top;
+			
+			if (element.position == fixed) array_push(parent.fixedContent, element);
+			if (element.position == absolute) array_push(parent.absoluteContent, element);
 			return self;
 		}
 		

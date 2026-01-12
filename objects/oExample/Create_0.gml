@@ -3,17 +3,18 @@ main = new container({
 	width: "50%",
 	height: "50%",
 	
-	direction: row,
-	
-	wrap: true,
+	direction: column,
 });
 
 
-child = main.add({width: "10%", aspect: 1, background: #0000FF, step: function(){
+	
+child = main.add({height: "10%", aspect: 1, background: #0000FF, step: function(){
 		
 	
 	}
 }, 10);
+
+child = main.add({position: fixed, margin: auto, height: "10%", aspect: 1, background: #FF0000});
 
 previous_window_width = window_get_width();
 previous_window_height = window_get_height();

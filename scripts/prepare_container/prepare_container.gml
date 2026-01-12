@@ -14,7 +14,7 @@ function prepare_container(){
 	step = get_default("step", auto)
 	
 	//dimensions
-	width = get_default("width", "100%");
+	width = get_default("width", 0);
 	height = get_default("height", 0);
 	
 	aspect = get_default("aspect", auto);

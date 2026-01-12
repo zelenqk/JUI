@@ -15,6 +15,9 @@ function container(properties = {}, parent = self) constructor{
 	pipeline = [];
 	
 	content = [];
+	fixedContent = [];
+	absoluteContent = [];
+	
 	segments = [];
 	
 	target = {};

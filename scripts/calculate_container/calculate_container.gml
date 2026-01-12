@@ -11,7 +11,7 @@ function calculate_container(recalculate = true){
 	efficient.height = calculate_value(calculations.height, parent.realistic.height);
 	
 	if (aspect != auto){
-		if (efficient.width == 0) efficient.width = efficient.height / aspect;	
+		if (efficient.width == 0) efficient.width = efficient.height / aspect;
 		if (efficient.height == 0) efficient.height = efficient.width / aspect;	
 	}
 	
@@ -40,6 +40,9 @@ function calculate_container(recalculate = true){
 		bottom:	calculate_value(calculations.margin.bottom, efficient.height),
 		right:	calculate_value(calculations.margin.right, efficient.width),
 	}
+	
+	if (efficient.margin.left == auto) efficient.margin.left = parent.efficient.width - efficient.width;
+	if (efficient.margin.top == auto) efficient.margin.top = parent.efficient.height - efficient.height;
 	
 	efficient.margin.inline = (efficient.margin.left + efficient.margin.right);
 	efficient.margin.block = (efficient.margin.top + efficient.margin.bottom);

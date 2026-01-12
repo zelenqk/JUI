@@ -24,6 +24,19 @@ function render_pipeline(){
 		});
 	});
 	
+	pipeline_push(function(){
+		array_foreach(fixedContent, function(element){
+			element.draw();
+		});
+	});
+	
+	pipeline_push(function(){
+		array_foreach(absoluteContent, function(element){
+			element.draw();
+		});
+	});
+
+	
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());
 	});

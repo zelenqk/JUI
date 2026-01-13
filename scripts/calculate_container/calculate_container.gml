@@ -155,14 +155,11 @@ function calculate_container(recalculate = true){
 		surface.camera = camera;
 		
 		cache[JUI_CACHE.OVERFLOW] = surface;
-		
-		boundaries.x = target.x;
-		boundaries.y = target.y;
-		boundaries.width = realistic.width;
-		boundaries.height = realistic.height;
+
 		break;
 	}
-	
+		
+
 	
 //finalize
 	calculated = root;

@@ -7,6 +7,12 @@ function render_pipeline(){
 					  
 		target.x = realistic.x + efficient.x + offset.x;	
 		target.y = realistic.y + efficient.y + offset.y;
+		
+				
+		boundaries.x = target.x;
+		boundaries.y = target.y;
+		boundaries.width = efficient.width;
+		boundaries.height = efficient.height;
 	})
 	
 	if (parent != self and position == fixed) pipeline_push(function(){
@@ -15,11 +21,23 @@ function render_pipeline(){
 					  
 		target.x = realistic.x + efficient.x + offset.x;	
 		target.y = realistic.y + efficient.y + offset.y;
+		
+				
+		boundaries.x = target.x;
+		boundaries.y = target.y;
+		boundaries.width = efficient.width;
+		boundaries.height = efficient.height;
 	})
 	
 	if (parent == self) pipeline_push(function(){
 		target.x = efficient.x + offset.x;	
 		target.y = efficient.y + offset.y;
+				
+		boundaries.x = target.x;
+		boundaries.y = target.y;
+		boundaries.width = efficient.width;
+		boundaries.height = efficient.height;
+
 	})
 	
 	if (create != auto) method(self, create)();

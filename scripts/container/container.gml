@@ -100,10 +100,16 @@ function container(properties = {}, parent = self) constructor{
 	
 	//utils
 	hover_overflow = function(){
-	    boundaries.x = target.x;
-	    boundaries.y = target.y;
+	    boundaries.x = max(parent.boundaries.x + parent.efficient.padding.left, target.x);
+	    boundaries.y = max(parent.boundaries.y + parent.efficient.padding.top, target.y);
 		
-	    mouse = mouse_in_box(boundaries.x, boundaries.y, efficient.width, efficient.height);
+		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, boundaries.x + efficient.width);
+		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, boundaries.y + efficient.height);
+		
+		boundaries.width = x2 - boundaries.x;
+		boundaries.height = y2 - boundaries.y;
+		
+	    mouse = mouse_in_box(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
 	
 	    if (mouse != -1 and (root.hovering == -1 or depth > root.hovering.depth)) root.hovering = self;
 		else if (mouse == -1 and root.hovering == self) root.hovering = -1;

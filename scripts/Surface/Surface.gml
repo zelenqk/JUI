@@ -1,5 +1,6 @@
-globalvar SURFACE_LIST;
+globalvar SURFACE_LIST, SURFACE_ENTRIES;
 SURFACE_LIST = [];
+SURFACE_ENTRIES = {};
 
 #macro asset_surface 14
 
@@ -71,6 +72,7 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	
 	target = function(resurface = true){
 		if (check(resurface) == false) return false;
+		
 		top = surface_get_target();
 		if (top != -1) surface_reset_target();
 		
@@ -79,8 +81,10 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 	}
 	
 	reset = function(){
-		surface_reset_target();
+		if (surface_get_target() == surface) surface_reset_target();
+		
 		if (top != -1) surface_set_target(top);
+		top = -1;
 		
 		if (persistent and check(false)) buffer_get_surface(buffer, surface, 0);
 	};

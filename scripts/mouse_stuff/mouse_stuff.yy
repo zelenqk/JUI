@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"mouse_in_box",
+  "%Name":"mouse_stuff",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"mouse_in_box",
+  "name":"mouse_stuff",
   "parent":{
     "name":"util",
     "path":"folders/JUI/util.yy",

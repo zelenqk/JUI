@@ -40,6 +40,9 @@ function prepare_container(){
 
 	//render properties
 	background = get_default("background", c_white);
+	color = get_default("color", c_white);
+	alpha = get_default("alpha", 1);
+	
 	image = get_default("image", 0);
 	backgroundIsMySurface = false;
 	backgroundIsSurface = get_default("surface", false);

@@ -13,7 +13,7 @@ function container(properties = {}, parent = self) constructor{
 	vbuff = vertex_create_buffer();
 	matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
 	
-	cache = [];
+	cache = array_create(JUI_CACHE.LENGTH, auto);
 	camera = auto;
 	pipeline = [];
 	
@@ -93,8 +93,8 @@ function container(properties = {}, parent = self) constructor{
 		
 		if (camera != auto) camera_destroy(camera);
 		
-		array_foreach(cache, function(cache){
-			if (cache != auto) cache.cleanup();
+		array_foreach(cache, function(element){
+			if (element != auto) element.cleanup();
 		});
 	}
 	
@@ -103,18 +103,23 @@ function container(properties = {}, parent = self) constructor{
 		boundaries.x = max(parent.target.x, target.x);
 		boundaries.y = max(parent.target.x, target.y);
 		
-		var x2 = max(parent.target.x + parent.realistic.width, target.x + efficient.width);
-		var y2 = max(parent.target.y + parent.realistic.height, target.y + efficient.height);
+		var x2 = min(parent.target.x + parent.realistic.width, target.x + efficient.width);
+		var y2 = min(parent.target.y + parent.realistic.height, target.y + efficient.height);
 		
 		boundaries.width = x2 - boundaries.x;
-		boundaries.height = x2 - boundaries.y;
+		boundaries.height = y2 - boundaries.y;
 		
 		mouse = mouse_in_box(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
+		
 		return (mouse != -1);
 	}
 	
 	hover_default = function(){
+		boundaries.x = target.x;
+		boundaries.y = target.y;
+		
 		mouse = mouse_in_box(target.x, target.y, efficient.width, efficient.height);
+		return (mouse != -1);
 	}
 	
 	hover = auto;

@@ -1,9 +1,17 @@
 function render_pipeline(){
 	pipeline = [];
 	
-	pipeline_push(function(){
-		target.x = realistic.x + efficient.x + offset.x;	
-		target.y = realistic.y + efficient.y + offset.y;
+	if (parent != self) pipeline_push(function(){
+		realistic.x = parent.target.x + parent.efficient.padding.left;
+		realistic.y = parent.target.y + parent.efficient.padding.top;
+					  
+		target.x = realistic.x + efficient.x;	
+		target.y = realistic.y + efficient.y;
+	})
+	
+	if (parent == self) pipeline_push(function(){
+		target.x = efficient.x + offset.x;	
+		target.y = efficient.y + offset.y;
 	})
 	
 	if (step != auto) pipeline_push(method(self, step));
@@ -29,16 +37,23 @@ function render_pipeline(){
 	if (borderRadiusEnabled){
 		pipeline_push(function(){
 			var br = cache[JUI_CACHE.BORDER_RADIUS];
-			br.draw(0, 0);
+			
+			shader_set(shOverride);
+			shader_set_uniform_f(shader_get_uniform(shOverride, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
+			br.draw(0, 0, efficient.width * scale.x, efficient.height * scale.y);
+			shader_reset();
 		});
 	}else{
 		pipeline_push(function(){
-			vertex_submit(vbuff, pr_trianglelist, texture);	
+			shader_set(shOverride);
+			shader_set_uniform_f(shader_get_uniform(shOverride, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
+			vertex_submit(vbuff, pr_trianglelist, texture);
+			shader_reset();
 		});
 	}
 	
 	if (overflow != fa_allow) pipeline_push(function(index){
-		camera_set_view_pos(camera, -contentOffset.x, -contentOffset.y);
+		camera_set_view_pos(camera, target.x - contentOffset.x, target.y - contentOffset.y);
 		
 		cache[JUI_CACHE.OVERFLOW].target();
 		draw_clear_alpha(c_black, 0);
@@ -57,21 +72,20 @@ function render_pipeline(){
 		});
 	});
 	
-	if (root == self) pipeline_push(function(){
-		matrix_set(matrix_world, matrix_build_identity());
-	});
-	
 	if (overflow != fa_allow) pipeline_push(function(){
 		var overflow = cache[JUI_CACHE.OVERFLOW];
 		overflow.reset();
 		
-		overflow.draw(target.x + efficient.padding.left, target.y + efficient.padding.top);
+		matrix_set(matrix_world, matrix);
+		overflow.draw(0, 0);
 	});
 	
-	if (overflow == fa_scroll) pipeline_push(function(){
-		scroll.draw();	
+	if (overflow == fa_scroll) pipeline_push(scroll.draw);
+	
+	if (root == self) pipeline_push(function(){
+		matrix_set(matrix_world, matrix_build_identity());
 	});
-
+		
 
 }
 

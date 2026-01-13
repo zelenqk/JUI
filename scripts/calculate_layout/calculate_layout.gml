@@ -143,32 +143,11 @@ function JUI_SEGMENT(owner) constructor{
 	// select layout mode based on parent direction
 	add = (parent.direction == column) ? add_block : add_inline;
 	
-	// draw all elements in this segment
-	draw_nonOverflow = function(){
-		//parent's true position
-		px = parent.efficient.x + parent.realistic.x + parent.offset.x + parent.efficient.padding.left;
-		py = parent.efficient.y + parent.realistic.y + parent.offset.y + parent.efficient.padding.top;
-		
-		array_foreach(content, function(element){
-			element.realistic.x = px;
-			element.realistic.y = py;
-			
-			element.draw();
-		});
-		
-		array_foreach(fixedContent, function(element){
-			element.realistic.x = px;
-			element.realistic.y = py;
-		});
-	};
-	
-	draw_overflow = function(){
+	draw = function(){
 		array_foreach(content, function(element){
 			element.draw();
-		});
+		});	
 	}
-	
-	draw = (parent.overflow == fa_allow) ? draw_nonOverflow : draw_overflow;
 }
 
 /* --- Original ---

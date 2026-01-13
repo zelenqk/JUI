@@ -2,8 +2,8 @@ function render_pipeline(){
 	pipeline = [];
 	
 	if (parent != self) pipeline_push(function(){
-		realistic.x = parent.target.x + parent.efficient.padding.left;
-		realistic.y = parent.target.y + parent.efficient.padding.top;
+		realistic.x = parent.target.x  + parent.contentOffset.x + parent.efficient.padding.left;
+		realistic.y = parent.target.y  + parent.contentOffset.y + parent.efficient.padding.top;
 					  
 		target.x = realistic.x + efficient.x;	
 		target.y = realistic.y + efficient.y;
@@ -23,16 +23,27 @@ function render_pipeline(){
 	});
 	
 	//cookie
-	pipeline_push(function(){
-		matrix[12] = target.x;
-		matrix[13] = target.y;
-		
-		matrix[0] = scale.x;
-		matrix[6] = scale.y;
+	if (root == self){
+		pipeline_push(function(){
+			matrix[12] = target.x;
+			matrix[13] = target.y;
 			
-		matrix_set(matrix_world, matrix);
-	});
-	
+			matrix[0] = scale.x;
+			matrix[6] = scale.y;
+				
+			matrix_set(matrix_world, matrix);
+		});
+	}else{
+		pipeline_push(function(){
+			matrix[12] = target.x;
+			matrix[13] = target.y;
+			
+			matrix[0] = scale.x;
+			matrix[6] = scale.y;
+				
+			matrix_set(matrix_world, matrix);
+		});
+	}
 	//cookie cutter
 	if (borderRadiusEnabled){
 		pipeline_push(function(){
@@ -53,7 +64,7 @@ function render_pipeline(){
 	}
 	
 	if (self.overflow != fa_allow) pipeline_push(function(index){
-		camera_set_view_pos(camera, target.x - contentOffset.x, target.y - contentOffset.y);
+		camera_set_view_pos(camera, target.x, target.y);
 		var overflow = cache[JUI_CACHE.OVERFLOW];
 		
 		if (overflow.target()){

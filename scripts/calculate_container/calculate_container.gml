@@ -12,6 +12,8 @@ function calculate_container(recalculate = true){
 		
 		realistic.width = GUIW;
 		realistic.height = GUIH;
+	}else{
+		inOverflow = (parent.inOverflow or parent.overflow != fa_allow);
 	}
 	
 	opacity = calculate_value(calculations.opacity, 1);
@@ -149,15 +151,21 @@ function calculate_container(recalculate = true){
 		cache[JUI_CACHE.BORDER_RADIUS] = br;
 	}
 	
-	hover = hover_default;
+	if (inOverflow) hover = hover_overflow;
+	else hover = hover_default;
 	
 	target.x = efficient.margin.left;
 	target.y = efficient.margin.top;
 	
 	if (overflow != fa_allow){
 		camera = camera_create();
-		cache[JUI_CACHE.OVERFLOW] = new Surface(efficient.width, efficient.height);
 		camera_set_view_size(camera, efficient.width, efficient.height);
+
+		var surface = new Surface(efficient.width, efficient.height);
+		surface.camera = camera;
+		
+		cache[JUI_CACHE.OVERFLOW] = surface;
+		
 		
 		boundaries.x = target.x;
 		boundaries.y = target.y;

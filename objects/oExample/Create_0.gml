@@ -12,6 +12,10 @@ main = new container({
 	borderRadius: 32,
 	padding: 32,
 	wrap: true,
+	
+	step: function(){
+		contentOffset.x += 0.001;	
+	}
 });
 
 

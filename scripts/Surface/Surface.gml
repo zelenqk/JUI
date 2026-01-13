@@ -84,9 +84,11 @@ function Surface(w, h, persist = false, format = surface_rgba8unorm) constructor
 		if (surface_get_target() == surface) surface_reset_target();
 		
 		if (top != -1) surface_set_target(top);
+		if (surface_get_target() != top) return false
 		top = -1;
 		
 		if (persistent and check(false)) buffer_get_surface(buffer, surface, 0);
+		return true;
 	};
 	
 	draw = function(tx, ty, w = width, h = height, resurface = false){

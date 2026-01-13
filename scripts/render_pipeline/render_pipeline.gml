@@ -52,12 +52,14 @@ function render_pipeline(){
 		});
 	}
 	
-	if (overflow != fa_allow) pipeline_push(function(index){
+	if (self.overflow != fa_allow) pipeline_push(function(index){
 		camera_set_view_pos(camera, target.x - contentOffset.x, target.y - contentOffset.y);
+		var overflow = cache[JUI_CACHE.OVERFLOW];
 		
-		cache[JUI_CACHE.OVERFLOW].target();
-		draw_clear_alpha(c_black, 0);
-		camera_apply(camera);
+		if (overflow.target()){
+			draw_clear_alpha(c_black, 0);
+			camera_apply(camera);
+		}
 	});
 	
 	pipeline_push(function(){
@@ -72,19 +74,19 @@ function render_pipeline(){
 		});
 	});
 	
-	if (overflow != fa_allow) pipeline_push(function(){
+	if (self.overflow != fa_allow) pipeline_push(function(){
 		var overflow = cache[JUI_CACHE.OVERFLOW];
-		overflow.reset();
 		
-		matrix_set(matrix_world, matrix);
-		overflow.draw(0, 0);
+		if (overflow.reset()){
+			matrix_set(matrix_world, matrix);
+			overflow.draw(0, 0);
+		}
 	});
 	
 	if (overflow == fa_scroll) pipeline_push(scroll.draw);
 	
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());
-		
 	});
 		
 

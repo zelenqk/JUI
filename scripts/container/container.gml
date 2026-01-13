@@ -125,6 +125,11 @@ function container(properties = {}, parent = self) constructor{
 		
 	hover = auto;
 	
+	click = function(){
+		return (hover() and device_mouse_check_button_pressed(mouse, mb_any));
+		
+	}
+	
 	//realize
 	prepare_container();
 	parse_calculations();

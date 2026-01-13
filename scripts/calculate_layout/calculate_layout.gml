@@ -124,7 +124,7 @@ function JUI_SEGMENT(owner) constructor{
 				efficient.height += h + element.efficient.margin.bottom;
 				
 				parent.flex.width = max(efficient.width, parent.flex.width);
-				parent.flex.height += h + element.efficient.margin.bottom;
+				parent.flex.height = max(efficient.height, parent.flex.height);
 				
 				array_push(content, element);
 				return self;

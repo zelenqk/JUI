@@ -8,7 +8,6 @@ function render_pipeline(){
 		target.x = realistic.x + efficient.x + offset.x;	
 		target.y = realistic.y + efficient.y + offset.y;
 		
-				
 		boundaries.x = target.x;
 		boundaries.y = target.y;
 		boundaries.width = efficient.width;
@@ -21,7 +20,6 @@ function render_pipeline(){
 					  
 		target.x = realistic.x + efficient.x + offset.x;	
 		target.y = realistic.y + efficient.y + offset.y;
-		
 				
 		boundaries.x = target.x;
 		boundaries.y = target.y;

@@ -103,8 +103,8 @@ function container(properties = {}, parent = self) constructor{
 	    boundaries.x = max(parent.boundaries.x + parent.efficient.padding.left, target.x);
 	    boundaries.y = max(parent.boundaries.y + parent.efficient.padding.top, target.y);
 		
-		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, boundaries.x + efficient.width);
-		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, boundaries.y + efficient.height);
+		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, target.x + efficient.width);
+		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, target.y + efficient.height);
 		
 		boundaries.width = x2 - boundaries.x;
 		boundaries.height = y2 - boundaries.y;

@@ -155,7 +155,6 @@ function calculate_container(recalculate = true){
 		surface.camera = camera;
 		
 		cache[JUI_CACHE.OVERFLOW] = surface;
-
 		break;
 	}
 		

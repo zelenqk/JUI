@@ -71,6 +71,9 @@ function JUI_SEGMENT(owner) constructor{
 				efficient.width += w + element.efficient.margin.right;
 				efficient.height = max(efficient.height, h);
 				
+				parent.flex.width += w + element.efficient.margin.right;
+				parent.flex.height = max(efficient.height, parent.flex.height);
+				
 				array_push(content, element);
 				return self;
 			}
@@ -91,6 +94,9 @@ function JUI_SEGMENT(owner) constructor{
 		efficient.width += w + element.efficient.margin.right;
 		efficient.height = max(efficient.height, h + element.efficient.margin.top);
 		
+		parent.flex.height = max(efficient.height, parent.flex.height);
+		parent.flex.width += w + element.efficient.margin.right;
+
 		array_push(content, element);
 		return self;
 	};
@@ -116,6 +122,9 @@ function JUI_SEGMENT(owner) constructor{
 				efficient.width = max(efficient.width, w - element.efficient.margin.left);
 				efficient.height += h + element.efficient.margin.bottom;
 				
+				parent.flex.width = max(efficient.width, parent.flex.width);
+				parent.flex.height += h + element.efficient.margin.bottom;
+				
 				array_push(content, element);
 				return self;
 			}
@@ -135,6 +144,9 @@ function JUI_SEGMENT(owner) constructor{
 		
 		efficient.width = max(efficient.width, w + element.efficient.margin.left);
 		efficient.height += h + element.efficient.margin.bottom;
+		
+		parent.flex.width = max(efficient.width, parent.flex.width);
+		parent.flex.height += h + element.efficient.margin.bottom;
 		
 		array_push(content, element);
 		return self;

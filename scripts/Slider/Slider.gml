@@ -30,17 +30,28 @@ function Slider(properties = {}, knobStyle = {}, parent = undefined) constructor
 		
 		self[$ "scale" + parent.axis] = 0;
 		
+		sensitivity = get_default("sensitivity", 10);
+		
 		create = function(){
 			delta = {
 				x: 0,
 				y: 0,
 			};
 			
+			sensitivity = properties.sensitivity;
+			
 			holding = false;
 		}
 		
 		step = function(){
-			scale[$ parent.axis] = (parent.parent.realistic[$ parent.axisSize] / parent.parent.flex[$ parent.axisSize]);
+			scale[$ parent.axis] = clamp((parent.parent.realistic[$ parent.axisSize] / parent.parent.flex[$ parent.axisSize]) * 10, 0, 1);
+			
+			if (parent.parent.hovering(false)){
+				var size = efficient[$ parent.axisSize] * scale[$ parent.axis];
+				offset[$ parent.axis] += (mouse_wheel_down() - mouse_wheel_up()) * sensitivity;
+				offset[$ parent.axis] = clamp(offset[$ parent.axis], 0, parent.realistic[$ parent.axisSize] - size);
+				parent.parent.contentOffset[$ parent.axis] = -(offset[$ parent.axis] / (parent.realistic[$ parent.axisSize] - size)) * parent.parent.realistic[$ parent.axisSize];
+			}
 			
 			if (holding == false){
 				if (hover()){
@@ -66,9 +77,10 @@ function Slider(properties = {}, knobStyle = {}, parent = undefined) constructor
 				offset[$ parent.axis] += device_mouse_y_to_gui(mouse) - delta[$ parent.axis];
 				delta[$ parent.axis] = device_mouse_y_to_gui(mouse);
 				
-				offset[$ parent.axis] = clamp(offset[$ parent.axis], 0, parent.realistic[$ parent.axisSize] - efficient[$ parent.axisSize] * scale[$ parent.axis]);
+				var size = efficient[$ parent.axisSize] * scale[$ parent.axis];
+				offset[$ parent.axis] = clamp(offset[$ parent.axis], 0, parent.realistic[$ parent.axisSize] - size);
 			
-				parent.parent.contentOffset[$ parent.axis] = -offset[$ parent.axis] / (parent.parent.realistic[$ parent.axisSize] / parent.parent.flex[$ parent.axisSize]);
+				parent.parent.contentOffset[$ parent.axis] = -(offset[$ parent.axis] / (parent.realistic[$ parent.axisSize] - size)) * parent.parent.realistic[$ parent.axisSize];
 			}else if (mouse == -1) alpha = 1;
 			
 		}

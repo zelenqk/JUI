@@ -17,7 +17,7 @@ main = new container({
 	}	
 });
 
-child = main.add({height: "200%", width: 32, borderRadius: 12, marginRight: 1, background: #0000FF, step: function(){
+child = main.add({height: "200%", width: 32, marginRight: 1, background: #0000FF, step: function(){
 		if (hover()) alpha = lerp(alpha, 0.5, 0.01)
 		else alpha = lerp(alpha, 1, 0.01);
 	}}, 10);
@@ -25,7 +25,6 @@ child = main.add({height: "200%", width: 32, borderRadius: 12, marginRight: 1, b
 child[0].add({
 	width: "50%",
 	height: "50%",
-	borderRadius: "50%",
 	
 	step: function(){
 		if (hover()) alpha = lerp(alpha, 0.5, 0.01)

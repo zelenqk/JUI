@@ -138,6 +138,9 @@ function calculate_container(recalculate = true){
 	if (inOverflow) hover = hover_overflow;
 	else hover = hover_default;
 	
+	if (inOverflow) hovering = hovering_overflow;
+	else hovering = hovering_default;
+	
 	target.x = efficient.margin.left + offset.x + realistic.x;
 	target.y = efficient.margin.top + offset.y + realistic.y;
 	

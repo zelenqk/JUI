@@ -8,7 +8,7 @@ function container(properties = {}, parent = self) constructor{
 	
 	boundaries = {x: 0, y: 0, width: 0, height: 0};
 	inOverflow = false;
-	hovering = -1;
+	hoverer = -1;
 	
 	texture = -1;
 	vbuff = vertex_create_buffer();
@@ -99,7 +99,7 @@ function container(properties = {}, parent = self) constructor{
 	}
 	
 	//utils
-	hover_overflow = function(){
+	hover_overflow = function(giveAshit = true){
 	    boundaries.x = max(parent.boundaries.x + parent.efficient.padding.left, target.x);
 	    boundaries.y = max(parent.boundaries.y + parent.efficient.padding.top, target.y);
 		
@@ -111,26 +111,50 @@ function container(properties = {}, parent = self) constructor{
 		
 	    mouse = mouse_in_box(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
 	
-	    if (mouse != -1 and (root.hovering == -1 or depth > root.hovering.depth)) root.hovering = self;
-		else if (mouse == -1 and root.hovering == self) root.hovering = -1;
+	    if (mouse != -1 and((root.hoverer == -1 or depth > root.hoverer.depth) or !giveAshit)) root.hoverer = self;
+		else if (mouse == -1 and root.hoverer == self) root.hoverer = -1;
 		
-	    return (root.hovering == self);
+	    return (root.hoverer == self);
 	}
 	
-	hover_default = function()
+	hover_default = function(giveAshit = true)
 	{
 	    boundaries.x = target.x;
 	    boundaries.y = target.y;
 	
 	    mouse = mouse_in_box(target.x, target.y, efficient.width * scale.x, efficient.height * scale.y);
 	
-	    if (mouse != -1 and (root.hovering == -1 or depth > root.hovering.depth)) root.hovering = self;
-		else if (mouse == -1 and root.hovering == self) root.hovering = -1;
+	    if (mouse != -1 and ((root.hoverer == -1 or depth > root.hoverer.depth) or !giveAshit)) root.hoverer = self;
+		else if (mouse == -1 and root.hoverer == self) root.hoverer = -1;
 		
-	    return (root.hovering == self);
+	    return (root.hoverer == self);
+	}
+	
+	hovering_overflow = function(giveAshit = true){
+	    boundaries.x = max(parent.boundaries.x + parent.efficient.padding.left, target.x);
+	    boundaries.y = max(parent.boundaries.y + parent.efficient.padding.top, target.y);
+		
+		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, target.x + efficient.width * scale.x);
+		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, target.y + efficient.height * scale.y);
+		
+		boundaries.width = x2 - boundaries.x;
+		boundaries.height = y2 - boundaries.y;
+		
+	    mouse = mouse_in_box(boundaries.x, boundaries.y, boundaries.width, boundaries.height);
+		return (mouse != -1);
+	}
+	
+	hovering_default = function(giveAshit = true)
+	{
+	    boundaries.x = target.x;
+	    boundaries.y = target.y;
+	
+	    mouse = mouse_in_box(target.x, target.y, efficient.width * scale.x, efficient.height * scale.y);
+		return (mouse != -1);
 	}
 		
 	hover = auto;
+	hovering = auto;
 	
 	click = function(){
 		return (hover() and device_mouse_check_button_pressed(mouse, mb_any));

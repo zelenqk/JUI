@@ -57,7 +57,7 @@ function render_pipeline(){
 		matrix_set(matrix_world, matrix);
 	});
 	
-	if (borderRadiusEnabled and inOverflow == false){
+	if (borderRadiusEnabled and (inOverflow == false or parent.overflow == fa_allow)){
 		pipeline_push(function(){
 			shader_set(shBorderRadius);
 		
@@ -69,7 +69,7 @@ function render_pipeline(){
 			vertex_submit(vbuff, pr_trianglelist, texture);
 			shader_reset();
 		});
-	}else if (borderRadiusEnabled and inOverflow){
+	}else if (borderRadiusEnabled and parent.overflow != fa_allow){
 		pipeline_push(function(){
 			shader_set(shBorderRadius);
 		

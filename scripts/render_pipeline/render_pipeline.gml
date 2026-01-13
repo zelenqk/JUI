@@ -1,12 +1,20 @@
 function render_pipeline(){
 	pipeline = [];
 	
-	if (parent != self) pipeline_push(function(){
+	if (parent != self and position == relative) pipeline_push(function(){
 		realistic.x = parent.target.x  + parent.contentOffset.x + parent.efficient.padding.left;
 		realistic.y = parent.target.y  + parent.contentOffset.y + parent.efficient.padding.top;
 					  
-		target.x = realistic.x + efficient.x;	
-		target.y = realistic.y + efficient.y;
+		target.x = realistic.x + efficient.x + offset.x;	
+		target.y = realistic.y + efficient.y + offset.y;
+	})
+	
+	if (parent != self and position == fixed) pipeline_push(function(){
+		realistic.x = parent.target.x + parent.efficient.padding.left;
+		realistic.y = parent.target.y + parent.efficient.padding.top;
+					  
+		target.x = realistic.x + efficient.x + offset.x;	
+		target.y = realistic.y + efficient.y + offset.y;
 	})
 	
 	if (parent == self) pipeline_push(function(){

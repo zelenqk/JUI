@@ -33,15 +33,10 @@ function container(properties = {}, parent = self) constructor{
 	segments = [];
 	
 	target = {x: 0, y: 0};
-	efficient = {};
+	efficient = {x: 0, y: 0};
 	mask = 1;
 	topMask = 0;
-	realistic = {
-		x: 0,
-		y: 0,
-		width: 0,
-		height: 0,
-	};
+	realistic = {x: 0, y: 0, width: 0, height: 0};
 	
 	//methods
 	append = function(element){

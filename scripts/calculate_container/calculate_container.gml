@@ -158,22 +158,24 @@ function calculate_container(recalculate = true){
 	target.y = efficient.margin.top;
 	
 	switch (overflow){
-	case fa_allow:
+	case fa_scroll:
+		var knob = (scroll[$ "knob"] == undefined) ? {} : scroll.knob;
+		scroll = new Slider(scroll, knob, self);
+		scroll = scroll.holder;
+	case fa_hidden:
 		camera = camera_create();
-		camera_set_view_size(camera, efficient.width, efficient.height);
+		camera_set_view_size(camera, realistic.width, realistic.height);
 
-		var surface = new Surface(efficient.width, efficient.height);
+		var surface = new Surface(realistic.width, realistic.height);
 		surface.camera = camera;
 		
 		cache[JUI_CACHE.OVERFLOW] = surface;
 		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
-		boundaries.width = efficient.width;
-		boundaries.height = efficient.height;
-	case fa_scroll:
-		scroll = new Slider(scroll);
-		break
+		boundaries.width = realistic.width;
+		boundaries.height = realistic.height;
+		break;
 	}
 	
 	

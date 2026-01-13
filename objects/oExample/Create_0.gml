@@ -14,7 +14,7 @@ main = new container({
 	wrap: true,
 	
 	step: function(){
-		contentOffset.x += 0.001;	
+		contentOffset.x += 0.01;	
 	}
 });
 
@@ -36,7 +36,4 @@ child[0].add({
 		else alpha = lerp(alpha, 1, 0.01);
 	}
 });
-
-
-test = Slider();
 

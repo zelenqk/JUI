@@ -32,6 +32,7 @@ function container(properties = {}, parent = self) constructor{
 	
 	segments = [];
 	
+	flex = {width: 0, height: 0};
 	target = {x: 0, y: 0};
 	efficient = {x: 0, y: 0};
 	mask = 1;

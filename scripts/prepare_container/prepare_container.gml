@@ -1,6 +1,8 @@
 function prepare_container(){
 	visible = get_default("visible", true)
 	
+	create = get_default("create", auto);
+	
 	//matrix applicable (real only)
 	offset = {
 		x: get_default_struct("offset", "x", get_overwrite("offsetx", "offset", 0)),
@@ -14,6 +16,7 @@ function prepare_container(){
 	
 	//more methods
 	step = get_default("step", auto)
+	scroll = get_default("scroll", {});
 	
 	//dimensions
 	width = get_default("width", 0);

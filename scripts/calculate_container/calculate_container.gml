@@ -157,7 +157,8 @@ function calculate_container(recalculate = true){
 	target.x = efficient.margin.left;
 	target.y = efficient.margin.top;
 	
-	if (overflow != fa_allow){
+	switch (overflow){
+	case fa_allow:
 		camera = camera_create();
 		camera_set_view_size(camera, efficient.width, efficient.height);
 
@@ -166,11 +167,13 @@ function calculate_container(recalculate = true){
 		
 		cache[JUI_CACHE.OVERFLOW] = surface;
 		
-		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
 		boundaries.width = efficient.width;
 		boundaries.height = efficient.height;
+	case fa_scroll:
+		scroll = new Slider(scroll);
+		break
 	}
 	
 	

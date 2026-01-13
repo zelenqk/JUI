@@ -6,7 +6,7 @@
   "name":"stencil",
   "parent":{
     "name":"stencil",
-    "path":"folders/JUI/stencil.yy",
+    "path":"folders/JUI/system/stencil.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

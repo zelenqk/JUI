@@ -4,7 +4,7 @@
   "name":"shBorderRadius",
   "parent":{
     "name":"shaders",
-    "path":"folders/JUI/shaders.yy",
+    "path":"folders/JUI/system/shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

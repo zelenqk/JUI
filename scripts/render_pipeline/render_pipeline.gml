@@ -14,6 +14,7 @@ function render_pipeline(){
 		target.y = efficient.y + offset.y;
 	})
 	
+	if (create != auto) method(self, create)();
 	if (step != auto) pipeline_push(method(self, step));
 	
 	if (backgroundIsMySurface) pipeline_push(function(){

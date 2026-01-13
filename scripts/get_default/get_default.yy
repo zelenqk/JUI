@@ -6,7 +6,7 @@
   "name":"get_default",
   "parent":{
     "name":"util",
-    "path":"folders/JUI/util.yy",
+    "path":"folders/JUI/system/util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

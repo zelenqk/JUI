@@ -7,7 +7,7 @@ main = new container({
 	
 	align: fa_center,
 	justify: fa_center,
-	overflow: fa_hidden,
+	overflow: fa_scroll,
 	
 	borderRadius: 32,
 	padding: 32,
@@ -36,4 +36,7 @@ child[0].add({
 		else alpha = lerp(alpha, 1, 0.01);
 	}
 });
+
+
+test = Slider();
 

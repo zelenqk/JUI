@@ -6,7 +6,7 @@
   "name":"mouse_stuff",
   "parent":{
     "name":"util",
-    "path":"folders/JUI/util.yy",
+    "path":"folders/JUI/system/util.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

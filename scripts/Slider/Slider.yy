@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"Surface",
+  "%Name":"Slider",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"Surface",
+  "name":"Slider",
   "parent":{
-    "name":"wrappers",
-    "path":"folders/JUI/system/util/wrappers.yy",
+    "name":"prefabs",
+    "path":"folders/JUI/prefabs.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

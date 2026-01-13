@@ -8,6 +8,7 @@ function container(properties = {}, parent = self) constructor{
 	
 	boundaries = {x: 0, y: 0, width: 0, height: 0};
 	inOverflow = false;
+	hovering = -1;
 	
 	texture = -1;
 	vbuff = vertex_create_buffer();
@@ -20,6 +21,9 @@ function container(properties = {}, parent = self) constructor{
 	content = [];
 	fixedContent = [];
 	absoluteContent = [];
+	
+	depth = 0;
+	depth = parent.depth + 1;
 	
 	contentOffset = {
 		x: 0,
@@ -49,7 +53,7 @@ function container(properties = {}, parent = self) constructor{
 			
 			element.calculate();
 		}
-		
+
 		array_push(content, element);
 		
 		var segment = array_last(segments);
@@ -114,14 +118,19 @@ function container(properties = {}, parent = self) constructor{
 		return (mouse != -1);
 	}
 	
-	hover_default = function(){
-		boundaries.x = target.x;
-		boundaries.y = target.y;
-		
-		mouse = mouse_in_box(target.x, target.y, efficient.width, efficient.height);
-		return (mouse != -1);
-	}
+	hover_default = function()
+	{
+	    boundaries.x = target.x;
+	    boundaries.y = target.y;
 	
+	    mouse = mouse_in_box(target.x, target.y, efficient.width, efficient.height);
+	
+	    if (mouse != -1 and (root.hovering == -1 or depth > root.hovering.depth)) root.hovering = self;
+		else if (mouse == -1 and root.hovering == self) root.hovering = -1;
+		
+	    return (root.hovering == self);
+	}
+		
 	hover = auto;
 	
 	//realize

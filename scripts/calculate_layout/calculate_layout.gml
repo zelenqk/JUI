@@ -13,7 +13,7 @@ function calculate_layout(recalculate = false){
 		element.parent = self;
 		element.root = root;
 		
-		if (is_callable(element[$ "draw"])) {
+		if (!is_callable(element[$ "draw"])) {
 			element = new container(element, self);
 			content[i] = element;
 		}else if (recalculate or element.calculated != root) element.calculate();	

@@ -15,23 +15,20 @@ main = new container({
 });
 
 
-child = main.add({height: "32%", overflow: fa_hidden, marginTop: auto, marginRight: 1, aspect: 1, background: #0000FF}, 10);
+child = main.add({height: "32%", marginTop: auto, marginRight: 1, aspect: 1, background: #0000FF, step: function(){
+		if (hover()) alpha = lerp(alpha, 0.5, 0.01)
+		else alpha = lerp(alpha, 1, 0.01);
+	}}, 10);
 
-child[0].step = function(){
-	if (hover()){
-		alpha = 0.1;
-	}else{
-		alpha = 1;	
-	}
-}
-
-child[0].calculate();
 child[0].add({
 	width: "50%",
 	height: "50%",
 	background: c_red,
 	borderRadius: "50%",
+	
+	step: function(){
+		if (hover()) alpha = lerp(alpha, 0.5, 0.01)
+		else alpha = lerp(alpha, 1, 0.01);
+	}
 });
-
-
 

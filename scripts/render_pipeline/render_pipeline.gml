@@ -84,6 +84,7 @@ function render_pipeline(){
 	
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());
+		
 	});
 		
 

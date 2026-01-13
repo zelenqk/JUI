@@ -1,7 +1,7 @@
-function Slider(properties = {}, knob = {}, parent) constructor{
+function Slider(properties = {}, knob = {}, parent = undefined) constructor{
 	self.properties = properties;
 	
-	background = get_default("background", #323232);
+	background = get_default("background", #FFFFFF);
 	
 	width = get_default("width", 7);
 	height = get_default("height", "100%");
@@ -10,8 +10,6 @@ function Slider(properties = {}, knob = {}, parent) constructor{
 	borderRadius = get_default("borderRadius", "50%");
 	align = get_default("align", fa_right);
 	
-	padding = get_default("padding", 1);
-	
 	create = function(){
 		var inline = (efficient.width < efficient.height);
 		axis = (inline) ? "x" : "y";
@@ -19,7 +17,6 @@ function Slider(properties = {}, knob = {}, parent) constructor{
 		
 		axisSize = (inline) ? "width" : "height"
 		crossSize = (inline) ? "height" : "width";
-		
 	}
 	
 	step = function(){

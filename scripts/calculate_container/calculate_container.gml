@@ -13,7 +13,7 @@ function calculate_container(recalculate = true){
 		realistic.width = GUIW;
 		realistic.height = GUIH;
 	}else{
-		inOverflow = (parent.inOverflow or parent.overflow != fa_allow);
+		inOverflow = (parent.overflow != fa_allow);
 	}
 	
 	opacity = calculate_value(calculations.opacity, 1);
@@ -139,9 +139,6 @@ function calculate_container(recalculate = true){
 	if (inOverflow) hover = hover_overflow;
 	else hover = hover_default;
 	
-	target.x = efficient.margin.left;
-	target.y = efficient.margin.top;
-	
 	switch (overflow){
 	case fa_scroll:
 		var knob = (scroll[$ "knob"] == undefined) ? {} : scroll.knob;
@@ -157,8 +154,6 @@ function calculate_container(recalculate = true){
 		cache[JUI_CACHE.OVERFLOW] = surface;
 		break;
 	}
-		
-
 	
 //finalize
 	calculated = root;

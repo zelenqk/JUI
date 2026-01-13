@@ -18,9 +18,9 @@ function render_pipeline(){
 		realistic.x = parent.target.x + parent.efficient.padding.left;
 		realistic.y = parent.target.y + parent.efficient.padding.top;
 					  
-		target.x = realistic.x + efficient.x + offset.x;	
-		target.y = realistic.y + efficient.y + offset.y;
-				
+		target.x = realistic.x + offset.x;	
+		target.y = realistic.y + offset.y;
+		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
 		boundaries.width = efficient.width;
@@ -30,7 +30,7 @@ function render_pipeline(){
 	if (parent == self) pipeline_push(function(){
 		target.x = efficient.x + offset.x;	
 		target.y = efficient.y + offset.y;
-				
+		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
 		boundaries.width = efficient.width;
@@ -125,6 +125,8 @@ function render_pipeline(){
 		});
 	});
 	
+	if (overflow == fa_scroll) pipeline_push(scroll.draw);
+	
 	if (self.overflow != fa_allow) pipeline_push(function(){
 		var overflow = cache[JUI_CACHE.OVERFLOW];
 		
@@ -134,8 +136,7 @@ function render_pipeline(){
 		}
 	});
 	
-	if (overflow == fa_scroll) pipeline_push(scroll.draw);
-	
+
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());
 	});

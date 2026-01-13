@@ -103,8 +103,8 @@ function container(properties = {}, parent = self) constructor{
 	    boundaries.x = max(parent.boundaries.x + parent.efficient.padding.left, target.x);
 	    boundaries.y = max(parent.boundaries.y + parent.efficient.padding.top, target.y);
 		
-		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, target.x + efficient.width);
-		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, target.y + efficient.height);
+		var x2 = min(parent.boundaries.x + parent.boundaries.width - parent.efficient.padding.right, target.x + efficient.width * scale.x);
+		var y2 = min(parent.boundaries.y + parent.boundaries.height - parent.efficient.padding.bottom, target.y + efficient.height * scale.y);
 		
 		boundaries.width = x2 - boundaries.x;
 		boundaries.height = y2 - boundaries.y;
@@ -122,7 +122,7 @@ function container(properties = {}, parent = self) constructor{
 	    boundaries.x = target.x;
 	    boundaries.y = target.y;
 	
-	    mouse = mouse_in_box(target.x, target.y, efficient.width, efficient.height);
+	    mouse = mouse_in_box(target.x, target.y, efficient.width * scale.x, efficient.height * scale.y);
 	
 	    if (mouse != -1 and (root.hovering == -1 or depth > root.hovering.depth)) root.hovering = self;
 		else if (mouse == -1 and root.hovering == self) root.hovering = -1;

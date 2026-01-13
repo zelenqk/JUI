@@ -3,7 +3,7 @@ function render_pipeline(){
 	
 	if (parent != self and position == relative) pipeline_push(function(){
 		realistic.x = parent.target.x + parent.efficient.padding.left;
-		realistic.y = parent.target.y + parent.efficient.padding.top;
+		realistic.y = parent.target.y + parent.efficient.padding.top ;
 					  
 		target.x = realistic.x + efficient.x + offset.x + parent.contentOffset.x;	
 		target.y = realistic.y + efficient.y + offset.y + parent.contentOffset.y;
@@ -63,7 +63,7 @@ function render_pipeline(){
 		
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), target.x, target.y);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), round(efficient.width / 2) * scale.x, round(efficient.height / 2) * scale.y);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), (efficient.width / 2) * scale.x, (efficient.height / 2) * scale.y);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 			
 			vertex_submit(vbuff, pr_trianglelist, texture);
@@ -75,7 +75,7 @@ function render_pipeline(){
 		
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), target.x - realistic.x, target.y - realistic.y);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), round(efficient.width / 2) * scale.x, round(efficient.height / 2) * scale.y);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), (efficient.width / 2) * scale.x, (efficient.height / 2) * scale.y);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 			
 			vertex_submit(vbuff, pr_trianglelist, texture);

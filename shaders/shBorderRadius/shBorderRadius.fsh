@@ -35,6 +35,7 @@ varying vec4 v_vColour;
 uniform vec2 position;
 uniform vec2 size;
 uniform vec4 radius;
+uniform vec4 color;
 
 float sdRoundBox( in vec2 p, in vec2 b, in vec4 r ) 
 {
@@ -56,4 +57,6 @@ void main(){
 	
 	float d = sdRoundBox(p, size, rad);
 	gl_FragColor.a -= smoothstep(0.0, 1.0, d);
+	
+	gl_FragColor *= color;
 }

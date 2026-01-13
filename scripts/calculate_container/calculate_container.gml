@@ -135,21 +135,6 @@ function calculate_container(recalculate = true){
 	);
 	
 	//cache render masks
-	if (borderRadiusEnabled){
-		var br = new Surface(efficient.width, efficient.height, true);
-		if (br.target()){
-			shader_set(shBorderRadius);
-		
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
-			
-			vertex_submit(vbuff, pr_trianglelist, -1);
-			shader_reset();
-			br.reset();
-		}
-		
-		cache[JUI_CACHE.BORDER_RADIUS] = br;
-	}
 	
 	if (inOverflow) hover = hover_overflow;
 	else hover = hover_default;

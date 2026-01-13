@@ -1,6 +1,8 @@
 function Slider(properties = {}, knob = {}, parent) constructor{
 	self.properties = properties;
 	
+	background = get_default("background", #323232);
+	
 	width = get_default("width", 7);
 	height = get_default("height", "100%");
 	position = get_default("position", fixed);
@@ -17,7 +19,13 @@ function Slider(properties = {}, knob = {}, parent) constructor{
 		
 		axisSize = (inline) ? "width" : "height"
 		crossSize = (inline) ? "height" : "width";
-
+		
+	}
+	
+	step = function(){
+		if (hover()){
+				
+		}
 	}
 	
 	knob = function(knob, parent) constructor{

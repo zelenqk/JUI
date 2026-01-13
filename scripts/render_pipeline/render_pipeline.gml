@@ -2,8 +2,8 @@ function render_pipeline(){
 	pipeline = [];
 	
 	if (parent != self and position == relative) pipeline_push(function(){
-		realistic.x = parent.target.x  + parent.contentOffset.x + parent.efficient.padding.left;
-		realistic.y = parent.target.y  + parent.contentOffset.y + parent.efficient.padding.top;
+		realistic.x = parent.target.x + parent.efficient.padding.left + parent.contentOffset.x;
+		realistic.y = parent.target.y + parent.efficient.padding.top + parent.contentOffset.y;
 					  
 		target.x = realistic.x + efficient.x + offset.x;	
 		target.y = realistic.y + efficient.y + offset.y;
@@ -54,13 +54,28 @@ function render_pipeline(){
 		});
 	}
 	//cookie cutter
-	if (borderRadiusEnabled){
+	if (borderRadiusEnabled and inOverflow == false){
 		pipeline_push(function(){
-			var br = cache[JUI_CACHE.BORDER_RADIUS];
+			shader_set(shBorderRadius);
+		
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), target.x, target.y);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 			
-			shader_set(shOverride);
-			shader_set_uniform_f(shader_get_uniform(shOverride, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
-			br.draw(0, 0, efficient.width * scale.x, efficient.height * scale.y);
+			vertex_submit(vbuff, pr_trianglelist, texture);
+			shader_reset();
+		});
+	}else if (borderRadiusEnabled and inOverflow){
+		pipeline_push(function(){
+			shader_set(shBorderRadius);
+		
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), efficient.x + parent.contentOffset.x, efficient.y + parent.contentOffset.y);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
+			
+			vertex_submit(vbuff, pr_trianglelist, texture);
 			shader_reset();
 		});
 	}else{
@@ -73,7 +88,7 @@ function render_pipeline(){
 	}
 	
 	if (self.overflow != fa_allow) pipeline_push(function(index){
-		camera_set_view_pos(camera, target.x, target.y);
+		camera_set_view_pos(camera, target.x + efficient.padding.left, target.y + efficient.padding.top);
 		var overflow = cache[JUI_CACHE.OVERFLOW];
 		
 		if (overflow.target()){
@@ -99,7 +114,7 @@ function render_pipeline(){
 		
 		if (overflow.reset()){
 			matrix_set(matrix_world, matrix);
-			overflow.draw(0, 0);
+			overflow.draw(efficient.padding.left, efficient.padding.top);
 		}
 	});
 	

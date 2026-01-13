@@ -18,15 +18,14 @@ function Slider(properties = {}, knobStyle = {}, parent = undefined) constructor
 		
 		axisSize = (inline) ? "width" : "height"
 		crossSize = (inline) ? "height" : "width";
-		
 	}
 	
 	knob = function(knobStyle, parent) constructor{
 		self.properties = knobStyle;
 		self.background = #f0f0f0;
 		
-		self[$ parent.axisSize] = get_default(parent.axisSize, "100%");
-		self[$ parent.crossSize] = get_default(parent.crossSize, "100%");
+		self[$ parent.axisSize] = "100%";
+		self[$ parent.crossSize] = "100%";
 		
 		self[$ "scale" + parent.axis] = 0;
 		

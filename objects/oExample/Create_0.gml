@@ -20,7 +20,7 @@ main = new container({
 child = main.add({height: "200%", width: 32, marginRight: 1, background: #0000FF, step: function(){
 		if (hover()) alpha = lerp(alpha, 0.5, 0.01)
 		else alpha = lerp(alpha, 1, 0.01);
-	}}, 10);
+	}}, 11);
 
 child[0].add({
 	width: "50%",

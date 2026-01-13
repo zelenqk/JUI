@@ -39,6 +39,7 @@ function JUI_SEGMENT(owner) constructor{
 	fixedContent = [];
 	
 	add_fixed = function(element){
+		element.depth++;
 		element.efficient.x = element.efficient.margin.left;
 		element.efficient.y = element.efficient.margin.top;
 		

@@ -2,11 +2,11 @@ function render_pipeline(){
 	pipeline = [];
 	
 	if (parent != self and position == relative) pipeline_push(function(){
-		realistic.x = parent.target.x + parent.efficient.padding.left + parent.contentOffset.x;
-		realistic.y = parent.target.y + parent.efficient.padding.top + parent.contentOffset.y;
+		realistic.x = parent.target.x + parent.efficient.padding.left;
+		realistic.y = parent.target.y + parent.efficient.padding.top;
 					  
-		target.x = realistic.x + efficient.x + offset.x;	
-		target.y = realistic.y + efficient.y + offset.y;
+		target.x = realistic.x + efficient.x + offset.x + parent.contentOffset.x;	
+		target.y = realistic.y + efficient.y + offset.y + parent.contentOffset.y;
 		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
@@ -17,9 +17,9 @@ function render_pipeline(){
 	if (parent != self and position == fixed) pipeline_push(function(){
 		realistic.x = parent.target.x + parent.efficient.padding.left;
 		realistic.y = parent.target.y + parent.efficient.padding.top;
-					  
-		target.x = realistic.x + offset.x;	
-		target.y = realistic.y + offset.y;
+		
+		target.x = realistic.x + efficient.x + offset.x;	
+		target.y = realistic.y + efficient.y + offset.y;
 		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
@@ -28,8 +28,8 @@ function render_pipeline(){
 	})
 	
 	if (parent == self) pipeline_push(function(){
-		target.x = efficient.x + offset.x;	
-		target.y = efficient.y + offset.y;
+		target.x = efficient.x + efficient.margin.left + offset.x;	
+		target.y = efficient.y + efficient.margin.top + offset.y;
 		
 		boundaries.x = target.x;
 		boundaries.y = target.y;
@@ -47,36 +47,23 @@ function render_pipeline(){
 		texture = background.texture;
 	});
 	
-	//cookie
-	if (root == self){
-		pipeline_push(function(){
-			matrix[12] = target.x;
-			matrix[13] = target.y;
-			
-			matrix[0] = scale.x;
-			matrix[6] = scale.y;
-				
-			matrix_set(matrix_world, matrix);
-		});
-	}else{
-		pipeline_push(function(){
-			matrix[12] = target.x;
-			matrix[13] = target.y;
-			
-			matrix[0] = scale.x;
-			matrix[6] = scale.y;
-				
-			matrix_set(matrix_world, matrix);
-		});
-	}
-	//cookie cutter
+	pipeline_push(function(){
+		matrix[12] = target.x;
+		matrix[13] = target.y;
+		
+		matrix[0] = scale.x;
+		matrix[5] = scale.y;
+		
+		matrix_set(matrix_world, matrix);
+	});
+	
 	if (borderRadiusEnabled and inOverflow == false){
 		pipeline_push(function(){
 			shader_set(shBorderRadius);
 		
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), target.x, target.y);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), round(efficient.width / 2) * scale.x, round(efficient.height / 2) * scale.y);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 			
 			vertex_submit(vbuff, pr_trianglelist, texture);
@@ -87,8 +74,8 @@ function render_pipeline(){
 			shader_set(shBorderRadius);
 		
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "color"), colour_get_red(color) / 256, colour_get_green(color) / 256, colour_get_blue(color) / 256, alpha);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), efficient.x + parent.contentOffset.x, efficient.y + parent.contentOffset.y);
-			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), efficient.width / 2, efficient.height / 2);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "position"), target.x - realistic.x, target.y - realistic.y);
+			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "size"), round(efficient.width / 2) * scale.x, round(efficient.height / 2) * scale.y);
 			shader_set_uniform_f(shader_get_uniform(shBorderRadius, "radius"), efficient.borderRadius.topRight, efficient.borderRadius.bottomRight, efficient.borderRadius.topLeft, efficient.borderRadius.bottomLeft);
 			
 			vertex_submit(vbuff, pr_trianglelist, texture);
@@ -118,13 +105,13 @@ function render_pipeline(){
 			segment.draw();
 		});
 	});
-	
+		
 	pipeline_push(function(){
 		array_foreach(fixedContent, function(element){
 			element.draw();
 		});
 	});
-	
+
 	if (overflow == fa_scroll) pipeline_push(scroll.draw);
 	
 	if (self.overflow != fa_allow) pipeline_push(function(){
@@ -135,7 +122,6 @@ function render_pipeline(){
 			overflow.draw(efficient.padding.left, efficient.padding.top);
 		}
 	});
-	
 
 	if (root == self) pipeline_push(function(){
 		matrix_set(matrix_world, matrix_build_identity());

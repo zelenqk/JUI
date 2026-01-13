@@ -13,7 +13,7 @@ function calculate_container(recalculate = true){
 		realistic.width = GUIW;
 		realistic.height = GUIH;
 	}else{
-		inOverflow = (parent.overflow != fa_allow);
+		inOverflow = (parent.inOverflow or parent.overflow != fa_allow);
 	}
 	
 	opacity = calculate_value(calculations.opacity, 1);
@@ -28,10 +28,10 @@ function calculate_container(recalculate = true){
 	
 	switch (align){
 	case fa_center:
-		offset.x += parent.realistic.width / 2 - efficient.width / 2;
+		offset.x = parent.realistic.width / 2 - efficient.width / 2;
 		break;
 	case fa_right:
-		offset.x += parent.realistic.width - efficient.width;
+		offset.x = parent.realistic.width - efficient.width;
 		break;
 	}
 	
@@ -135,9 +135,11 @@ function calculate_container(recalculate = true){
 	);
 	
 	//cache render masks
-	
 	if (inOverflow) hover = hover_overflow;
 	else hover = hover_default;
+	
+	target.x = efficient.margin.left + offset.x + realistic.x;
+	target.y = efficient.margin.top + offset.y + realistic.y;
 	
 	switch (overflow){
 	case fa_scroll:

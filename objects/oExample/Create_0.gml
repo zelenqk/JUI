@@ -12,6 +12,10 @@ main = new container({
 	borderRadius: 32,
 	padding: 32,
 	wrap: true,
+	
+	step: function(){
+		contentOffset.x += 0.01;
+	}	
 });
 
 child = main.add({height: "32%", marginTop: auto, borderRadius: 12, marginRight: 1, aspect: 1, background: #0000FF, step: function(){
@@ -28,4 +32,3 @@ child[0].add({
 		else alpha = lerp(alpha, 1, 0.01);
 	}
 });
-
